@@ -1,0 +1,2 @@
+Selenioum grid deployed
+see  https://github.com/kubernetes/examples/tree/master/staging/selenium
