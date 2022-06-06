@@ -31,7 +31,7 @@ public class Main {
 	// dialog for notification
 	// top page add is not ok
 	public static void main(String[] args) throws SQLException, InterruptedException, IOException {
-		startHealthCheckServer();
+		//startHealthCheckServer();
 		String gridAddress = System.getenv(GRID_ENV);
 		if (gridAddress == null || gridAddress.trim().isEmpty()) {
 			gridAddress = GRID_DEF;
@@ -42,9 +42,12 @@ public class Main {
 		SiteService siteService = new SiteService();
 		ReportService reportService = new ReportService();
 		Site site = null;
+		WebDriver driver = null;
 		while (true) {
 			try {
-				WebDriver driver = new RemoteWebDriver(new URL(gridAddress), capabilities);
+				logger.debug("Getting driver from grid {}", gridAddress);
+				driver = new RemoteWebDriver(new URL(gridAddress), capabilities);
+				logger.debug("Got driver from grid {}", gridAddress);
 				driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 				site = siteService.getNextAndUpdateFreeSite();
 				if (site != null) {
@@ -64,10 +67,17 @@ public class Main {
 					logger.debug("No available site sleeping for 1 min");
 					TimeUnit.MINUTES.sleep(1);
 				}
-				driver.close();
 			} catch (Exception e) {
 				logger.error("Exception sleeping for 1 min", e);
 				TimeUnit.MINUTES.sleep(1);
+			}
+			finally {
+				if(driver!=null) {
+					try {
+						driver.close();
+					}catch (Exception e) {
+					}
+				}
 			}
 		}
 	}
