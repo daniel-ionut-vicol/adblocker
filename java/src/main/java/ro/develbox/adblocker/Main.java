@@ -1,8 +1,14 @@
 package ro.develbox.adblocker;
 
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.net.MalformedURLException;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.PersistentCapabilities;
@@ -22,10 +28,11 @@ public class Main {
 	private static String GRID_ENV = "GRID_ADDRESS";
 	private static String GRID_DEF = "http://192.168.69.230:4444";
 
-	//ISSUES :
-	// dialog for notification 
-	// top page add is not ok 
-	public static void main(String[] args) throws MalformedURLException, SQLException, InterruptedException {
+	// ISSUES :
+	// dialog for notification
+	// top page add is not ok
+	public static void main(String[] args) throws SQLException, InterruptedException, IOException {
+		startHealthCheckServer();
 		String gridAddress = System.getenv(GRID_ENV);
 		if (gridAddress == null || gridAddress.trim().isEmpty()) {
 			gridAddress = GRID_DEF;
@@ -64,5 +71,39 @@ public class Main {
 				TimeUnit.MINUTES.sleep(1);
 			}
 		}
+	}
+
+	private static void startHealthCheckServer() throws IOException {
+		final ServerSocket serverSocket = new ServerSocket(9999);
+		Runtime.getRuntime().addShutdownHook(new Thread() {
+			public void run() {
+				try {
+					if (serverSocket != null) {
+						serverSocket.close();
+					}
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			};
+		});
+		new Thread() {
+			public void run() {
+				try {
+					while (true) {
+						Socket socket = serverSocket.accept();
+						OutputStream output = socket.getOutputStream();
+						PrintWriter writer = new PrintWriter(output, true);
+
+						writer.println(new Date().toString());
+						socket.close();
+					}
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+			};
+		}.start();
 	}
 }
