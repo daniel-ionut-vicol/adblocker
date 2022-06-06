@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: scrapper
+  labels:
+    app: scrapper
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: scrapper
+  template:
+    metadata:
+      labels:
+        app: scrapper
+    spec:
+      containers:
+      - name: selenium-hub
+        image: localhost:32000/scrapper:latest
+        env:
+        - name: GRID_ADDRESS
+          value: "selenium-hub.selenium:4444"
+        - name: DB_URL
+          value: "mysql-mariadb.mysql:3306/scrapper"
+        - name: DB_USER
+          value: "root"
+        - name: DB_PASS
+          valueFrom:
+            secretKeyRef:
+                name: mysql-mariadb
+                key: mariadb-root-password
+        - name: DB_MIN_CONN
+          value: 0
+        - name: DB_MAX_CONN
+          value: 2
+        - name: DB_MAX_STS
+          value: 100
+        ports:
+          - containerPort: 9999
+        resources:
+          limits:
+            memory: "100Mi"
+            cpu: ".2"
+        livenessProbe:
+          tcpSocket:
+            port: 9999
+          initialDelaySeconds: 30
+          timeoutSeconds: 5
+        readinessProbe:
+          tcpSocket:
+            port: 9999
+          initialDelaySeconds: 30
+          timeoutSeconds: 5
