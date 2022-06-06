@@ -15,11 +15,11 @@ spec:
         app: scrapper
     spec:
       containers:
-      - name: selenium-hub
+      - name: scrapper
         image: localhost:32000/scrapper:latest
         env:
         - name: GRID_ADDRESS
-          value: "selenium-hub.selenium:4444"
+          value: "http://192.168.69.230:4444"
         - name: DB_URL
           value: "mysql-mariadb.mysql:3306/scrapper"
         - name: DB_USER
@@ -30,11 +30,11 @@ spec:
                 name: mysql-mariadb
                 key: mariadb-root-password
         - name: DB_MIN_CONN
-          value: 0
+          value: "0"
         - name: DB_MAX_CONN
-          value: 2
+          value: "2"
         - name: DB_MAX_STS
-          value: 100
+          value: "10"
         ports:
           - containerPort: 9999
         resources:
@@ -51,3 +51,12 @@ spec:
             port: 9999
           initialDelaySeconds: 30
           timeoutSeconds: 5
+        imagePullPolicy: IfNotPresent
+        volumeMounts:
+          - mountPath: ./ads/
+            name: ads-volume
+      volumes:
+      - name: ads-volume
+        hostPath:
+          path: /home/user/ads
+          type: Directory       
