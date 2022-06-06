@@ -1,5 +1,7 @@
 package ro.develbox.adblocker.db.model;
 
+import java.util.List;
+
 public class Site {
 	public static final int FREE = 0;
 	public static final int PROCESSING = 1;
@@ -7,8 +9,7 @@ public class Site {
 
 	private int id;
 	private String url;
-	private String cookieConfirm;
-	private String closeFullPageAdd;
+	private List<String> annoyingPageElements ;
 	private int status;
 	private int maxPages;
 	private int maxDepth;
@@ -17,13 +18,12 @@ public class Site {
 
 	}
 
-	public Site(int id, String url, String cookieConfirm, String closeFullPageAdd, int status, int maxPages,
+	public Site(int id, String url, List<String> annoyingPageElements, int status, int maxPages,
 			int maxDepth) {
 		super();
 		this.id = id;
 		this.url = url;
-		this.cookieConfirm = cookieConfirm;
-		this.closeFullPageAdd = closeFullPageAdd;
+		this.annoyingPageElements = annoyingPageElements;
 		this.status = status;
 		this.maxPages = maxPages;
 		this.maxDepth = maxDepth;
@@ -45,20 +45,12 @@ public class Site {
 		this.url = url;
 	}
 
-	public String getCookieConfirm() {
-		return cookieConfirm;
+	public List<String> getAnnoyingPageElements() {
+		return this.annoyingPageElements;
 	}
 
-	public void setCookieConfirm(String cookieConfirm) {
-		this.cookieConfirm = cookieConfirm;
-	}
-
-	public String getCloseFullPageAdd() {
-		return closeFullPageAdd;
-	}
-
-	public void setCloseFullPageAdd(String closeFullPageAdd) {
-		this.closeFullPageAdd = closeFullPageAdd;
+	public void setAnnoyingPageElements(List<String> annoyingPageElements) {
+		this.annoyingPageElements = annoyingPageElements;
 	}
 
 	public int getStatus() {

@@ -2,6 +2,8 @@ package ro.develbox.adblocker;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.PersistentCapabilities;
@@ -19,7 +21,11 @@ public class SiteProcessorTest {
 		SiteProcessor processor = new  SiteProcessor();
 		Site site = new Site();
 		site.setUrl("https://www.sport.ro/");
-		site.setCookieConfirm("//*[@id=\"onetrust-accept-btn-handler\"]");
+		List<String> annoyingPageElements = new ArrayList<>();
+		annoyingPageElements.add("//*[@id=\"onetrust-accept-btn-handler\"]");
+		annoyingPageElements.add("//*[@id=\"onesignal-slidedown-cancel-button\"]");
+		annoyingPageElements.add("//*[@id=\"byebyevideo\"]");
+		site.setAnnoyingPageElements(annoyingPageElements);
 		site.setMaxDepth(4);
 		site.setMaxPages(50);
 		SiteProcessorReport report = processor.processSite(driver, site);

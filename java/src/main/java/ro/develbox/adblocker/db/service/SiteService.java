@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import ro.develbox.adblocker.db.DbDataSouce;
@@ -20,8 +22,9 @@ public class SiteService {
 				ps.setTimestamp(2, new Timestamp(System.currentTimeMillis() - TimeUnit.HOURS.toMillis(1)));
 				try (ResultSet rs = ps.executeQuery()) {
 					if (rs.next()) {
-						Site site = new Site(rs.getInt("id"), rs.getString("url"), rs.getString("cookie_confirm"),
-								rs.getString("close_page_ad"), rs.getInt("status"), rs.getInt("max_pages"),
+						int siteId= rs.getInt("id");
+						List<String> annoyingPageElements = this.getSiteAnnoyingPageElements(conn, siteId);
+						Site site = new Site(siteId, rs.getString("url"), annoyingPageElements , rs.getInt("status"), rs.getInt("max_pages"),
 								rs.getInt("max_depth"));
 						updateSiteStatus(conn, site.getId(), Site.PROCESSING);
 						return site;
@@ -32,6 +35,20 @@ public class SiteService {
 		return null;
 	}
 
+	private List<String> getSiteAnnoyingPageElements(Connection conn, int siteId) throws SQLException{
+		List<String> result = new ArrayList<>();
+		try (PreparedStatement ps = conn
+				.prepareStatement("SELECT * from site_annoying_elements where site_id = ?")) {
+			ps.setInt(1, siteId);
+			try (ResultSet rs = ps.executeQuery()) {
+				while (rs.next()) {
+					result.add(rs.getString("element"));
+				}
+			}
+		}
+		return result;
+	}
+	
 	public void updateSiteStatus(int siteId, int status) throws SQLException {
 		try (Connection conn = DbDataSouce.getConnection()) {
 			updateSiteStatus(conn, siteId, status);
