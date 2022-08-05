@@ -20,20 +20,22 @@ spec:
           medium: Memory
       containers:
       - name: selenium-node-chrome
-        image: selenium/node-chrome:4.0
+        image: selenium/node-chrome:4.3.0
         ports:
           - containerPort: 5555
         volumeMounts:
           - mountPath: /dev/shm
             name: dshm
         env:
+          - name: SE_OPTS
+            value: "--log-level ALL"
           - name: SE_EVENT_BUS_HOST
             value: "selenium-hub"
           - name: SE_EVENT_BUS_SUBSCRIBE_PORT
             value: "4443"
           - name: SE_EVENT_BUS_PUBLISH_PORT
             value: "4442"
-        resources:
-          limits:
-            memory: "1000Mi"
-            cpu: ".5"
+          - name: SE_NODE_MAX_SESSIONS
+            value: "1"
+          - name: SE_NODE_MAX_SESSIONS
+            value: "1"
