@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: selenium-hub
-        image: selenium/hub:4.3.0
+        image: selenium/hub:4.0
         env:
           - name: SE_OPTS
             value: "--log-level ALL"

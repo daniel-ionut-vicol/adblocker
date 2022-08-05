@@ -20,7 +20,7 @@ spec:
           medium: Memory
       containers:
       - name: selenium-node-chrome
-        image: selenium/node-chrome:4.3.0
+        image: selenium/node-chrome:4.0
         ports:
           - containerPort: 5555
         volumeMounts:
