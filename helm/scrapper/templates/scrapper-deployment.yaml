@@ -21,7 +21,7 @@ spec:
         - name: GRID_ADDRESS
           value: "http://192.168.69.230:4444"
         - name: DB_URL
-          value: "mysql-mariadb.mysql:3306/scrapper"
+          value: "jdbc:mysql://mysql-mariadb.mysql:3306/scrapper"
         - name: DB_USER
           value: "root"
         - name: DB_PASS
@@ -37,21 +37,7 @@ spec:
           value: "10"
         ports:
           - containerPort: 9999
-        resources:
-          limits:
-            memory: "100Mi"
-            cpu: ".2"
-        livenessProbe:
-          tcpSocket:
-            port: 9999
-          initialDelaySeconds: 30
-          timeoutSeconds: 5
-        readinessProbe:
-          tcpSocket:
-            port: 9999
-          initialDelaySeconds: 30
-          timeoutSeconds: 5
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         volumeMounts:
           - mountPath: ./ads/
             name: ads-volume
