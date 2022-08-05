@@ -30,18 +30,23 @@ public class SeleniumUtils {
 		// close any annoying think on the page
 		if (site.getAnnoyingPageElements() != null) {
 			for (String element : site.getAnnoyingPageElements()) {
+				logger.debug("Trying to close annoying element {}" , element);
 				try {
 					if (waitElements) {
-						WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(10),
+						WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(30),
 								Duration.ofSeconds(1));
 						wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(element)));
 					}
 					WebElement closeFullPageAddElement = webDriver.findElement(By.xpath(element));
 					SeleniumUtils.scrollToElement(webDriver, closeFullPageAddElement);
 					closeFullPageAddElement.click();
+					logger.debug("Annoying element {} closed from page {}" , element, webDriver.getCurrentUrl());
 				} catch (Exception e) {
+					logger.debug("Annoying element {} not found on page" , element);
 				}
 			}
+		}else {
+			logger.debug("No annoying elements config for site {}", site.getUrl());
 		}
 	}
 

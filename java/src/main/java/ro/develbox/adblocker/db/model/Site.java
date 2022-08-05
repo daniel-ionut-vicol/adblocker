@@ -77,4 +77,10 @@ public class Site {
 		this.maxDepth = maxDepth;
 	}
 
+	@Override
+	public String toString() {
+		return "Site [id=" + id + ", url=" + url + ", annoyingPageElements=" + annoyingPageElements + ", status="
+				+ status + ", maxPages=" + maxPages + ", maxDepth=" + maxDepth + "]";
+	}
+
 }

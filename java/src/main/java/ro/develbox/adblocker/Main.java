@@ -50,12 +50,13 @@ public class Main {
 				logger.debug("Got driver from grid {}", gridAddress);
 				driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 				site = siteService.getNextAndUpdateFreeSite();
+				logger.debug("Selected site {}", site);
 				if (site != null) {
 					try {
 						logger.debug("Start processing site {}", site.getUrl());
 						SiteProcessorReport report = processor.processSite(driver, site);
 						siteService.updateSiteStatus(site.getId(), Site.FREE);
-						reportService.updateResport(site.getId(), report);
+						reportService.updateReport(site.getId(), report);
 						logger.debug("Finished processing site {}, pages : {}, ads : {}", site.getUrl(),
 								report.getPages(), report.getAds());
 					} finally {

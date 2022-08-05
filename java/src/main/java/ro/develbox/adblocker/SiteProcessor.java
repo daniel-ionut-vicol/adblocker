@@ -46,6 +46,7 @@ public class SiteProcessor {
 		reportResult.incrementPages(1);
 
 		while (true) {
+			SeleniumUtils.closeAnnoyingElements(webDriver, site, false);
 			// get next random link from page
 			WebElement link = linksExtractor.chooseRandomLink(webDriver, visited, site.getUrl());
 			// should we go deeper in the page

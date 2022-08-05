@@ -30,12 +30,14 @@ public class AdExtractor {
 	private static Logger logger = LoggerFactory.getLogger(AdExtractor.class);
 
 	public int extractPageAds(WebDriver webDriver, Site site) {
+		logger.debug("Getting ads from page {}" , webDriver.getCurrentUrl());
 		WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(10), Duration.ofMillis(100));
 		List<WebElement> ads = new ArrayList<>();
 		int totalAds = 0;
 		for (String adXpath : adsXpath) {
 			try {
 				ads.addAll(getAdsElements(webDriver, adXpath));
+				logger.debug("Extracted {} ads elements" , ads.size());
 			} catch (Exception e) {
 				logger.error("Exception getting ads by " + adXpath);
 			}
@@ -68,6 +70,8 @@ public class AdExtractor {
 						outputStream.write(ad.getAttribute("innerHTML").getBytes("UTF-8"));
 					}
 					totalAds++;
+				}else {
+					logger.error("Ad not displayed {}" , ad);
 				}
 
 			} catch (Exception e) {
