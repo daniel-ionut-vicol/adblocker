@@ -58,10 +58,13 @@ public class SeleniumUtils {
 
 	public static void click(WebDriver webDriver, Site site, WebElement element) {
 		try {
-			SeleniumUtils.scrollToElement(webDriver, element);
+			try {
+				SeleniumUtils.scrollToElement(webDriver, element);
+			}catch (Exception e) {
+			}
 			element.click();
 		}catch (ElementClickInterceptedException e) {
-			SeleniumUtils.closeAnnoyingElements(null, null, false);
+			SeleniumUtils.closeAnnoyingElements(webDriver, site, false);
 			element.click();
 		}
 	}

@@ -44,27 +44,39 @@ public class SiteProcessor {
 		int ads = adExtractor.extractPageAds(webDriver, site);
 		reportResult.incrementAds(ads);
 		reportResult.incrementPages(1);
-
-		while (true) {
-			SeleniumUtils.closeAnnoyingElements(webDriver, site, false);
-			// get next random link from page
-			WebElement link = linksExtractor.chooseRandomLink(webDriver, visited, site.getUrl());
-			// should we go deeper in the page
-			boolean goDeeper = (curentDepth < site.getMaxDepth() && (Math.random() < 0.5)) || curentDepth == 0;
-			if (link != null && goDeeper) {
-				logger.debug("Elected to go deeper on site {}", site.getUrl());
-				try {
-					SeleniumUtils.click(webDriver, site, link);
-				} catch (Exception e) {
-					logger.error("Exception using link to navigate will try next link ", e);
-					continue;
+		if (reportResult.getPages() <= site.getMaxPages()) {
+			while (true) {
+				if (reportResult.getPages() <= site.getMaxPages()) {
+					SeleniumUtils.closeAnnoyingElements(webDriver, site, false);
+					// get next random link from page
+					WebElement link = linksExtractor.chooseRandomLink(webDriver, visited, site.getUrl());
+					// should we go deeper in the page
+					boolean goDeeper = (curentDepth < site.getMaxDepth() && (Math.random() < 0.5)) || curentDepth == 0;
+					goDeeper = goDeeper && reportResult.getPages() <= site.getMaxPages();
+					if (link != null && goDeeper) {
+						logger.debug("Elected to go deeper on site {}", site.getUrl());
+						try {
+							SeleniumUtils.click(webDriver, site, link);
+						} catch (Exception e) {
+							logger.error("Exception using link to navigate will try next link ", e);
+							continue;
+						}
+						visit(webDriver, site, reportResult, curentDepth + 1, visited);
+					} else {
+						// go back to previous page
+						webDriver.navigate().back();
+						return;
+					}
+				} else {
+					// go back to previous page
+					webDriver.navigate().back();
+					return;
 				}
-				visit(webDriver, site, reportResult, curentDepth + 1, visited);
-			} else {
-				// go back to previous page
-				webDriver.navigate().back();
-				return;
 			}
+		} else {
+			// go back to previous page
+			webDriver.navigate().back();
+			return;
 		}
 
 	}

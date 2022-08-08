@@ -35,6 +35,8 @@ spec:
           value: "2"
         - name: DB_MAX_STS
           value: "10"
+        - name: ADS_DIR
+          value: "/ads/"
         ports:
           - containerPort: 9999
         imagePullPolicy: Always

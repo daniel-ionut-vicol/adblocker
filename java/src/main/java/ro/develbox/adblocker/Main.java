@@ -67,8 +67,7 @@ public class Main {
 						}
 					}
 				} else {
-					logger.debug("No available site sleeping for 1 min");
-					TimeUnit.MINUTES.sleep(1);
+					logger.debug("No available site");
 				}
 			} catch (Exception e) {
 				logger.error("Exception processing site", e);
@@ -77,10 +76,11 @@ public class Main {
 				if(driver!=null) {
 					try {
 						driver.close();
-						TimeUnit.MINUTES.sleep(1);
 					}catch (Exception e) {
 					}
 				}
+				logger.debug("Sleeping for 1 minute");
+				TimeUnit.MINUTES.sleep(1);
 			}
 		}
 	}

@@ -6,11 +6,11 @@ dashboard, dns, ingress, metallb , storage, registry, helm3
 
 ## Install selenium grid
 
-helm install --kubeconfig ../kube.config selenium ./ seleniumGrid --namespace selenium --create-namespace
+helm install --kubeconfig ../kube.config selenium ./seleniumGrid --namespace selenium --create-namespace
 
 ## Upgrade selenium grid
 
-helm upgrade --kubeconfig ../kube.config selenium ./ seleniumGrid --namespace selenium
+helm upgrade --kubeconfig ../kube.config selenium ./seleniumGrid --namespace selenium
 
 ## Install Php My Admin and mariadb
 
@@ -31,3 +31,7 @@ helm upgrade --kubeconfig ../kube.config mysql bitnami/phpmyadmin --namespace my
 ## Remove Php My Admin and mariadb
 
 helm delete --kubeconfig ../kube.config mysql --namespace mysql
+
+## Deploy Scrapper helm 
+
+helm install --kubeconfig ../kube.config scrapper ./scrapper --namespace scrapper --create-namespace
