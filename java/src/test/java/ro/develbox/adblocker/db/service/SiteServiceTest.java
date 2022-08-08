@@ -9,7 +9,7 @@ import ro.develbox.adblocker.db.model.Site;
 
 public class SiteServiceTest {
 
-	@Test
+	//@Test
 	public void testGetAndUpdate() throws SQLException {
 		SiteService siteService = new SiteService();
 		Site site = siteService.getNextAndUpdateFreeSite();

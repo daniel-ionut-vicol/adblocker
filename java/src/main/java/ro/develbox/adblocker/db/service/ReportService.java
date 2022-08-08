@@ -20,4 +20,14 @@ public class ReportService {
 			}
 		}
 	}
+	
+	public void initializeReportRow(int siteId) throws SQLException{
+		try (Connection conn = DbDataSouce.getConnection()) {
+			try (PreparedStatement ps = conn.prepareStatement(
+					"INSERT IGNORE INTO site_report set id= ? , pages_visited = 0 , ads_no = 0")) {
+				ps.setInt(1, siteId);
+				ps.executeUpdate();
+			}
+		}
+	}
 }

@@ -7,6 +7,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.Duration;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
@@ -45,13 +46,14 @@ public class Main {
 		WebDriver driver = null;
 		while (true) {
 			try {
-				logger.debug("Getting driver from grid {}", gridAddress);
-				driver = new RemoteWebDriver(new URL(gridAddress), capabilities);
-				logger.debug("Got driver from grid {}", gridAddress);
-				driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 				site = siteService.getNextAndUpdateFreeSite();
 				logger.debug("Selected site {}", site);
 				if (site != null) {
+					reportService.initializeReportRow(site.getId());
+					logger.debug("Getting driver from grid {}", gridAddress);
+					driver = new RemoteWebDriver(new URL(gridAddress), capabilities);
+					logger.debug("Got driver from grid {}", gridAddress);
+					driver.manage().timeouts().implicitlyWait(Duration.ofMillis(100));
 					try {
 						logger.debug("Start processing site {}", site.getUrl());
 						SiteProcessorReport report = processor.processSite(driver, site);
@@ -69,13 +71,13 @@ public class Main {
 					TimeUnit.MINUTES.sleep(1);
 				}
 			} catch (Exception e) {
-				logger.error("Exception sleeping for 1 min", e);
-				TimeUnit.MINUTES.sleep(1);
+				logger.error("Exception processing site", e);
 			}
 			finally {
 				if(driver!=null) {
 					try {
 						driver.close();
+						TimeUnit.MINUTES.sleep(1);
 					}catch (Exception e) {
 					}
 				}

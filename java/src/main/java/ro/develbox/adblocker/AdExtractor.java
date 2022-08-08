@@ -60,6 +60,7 @@ public class AdExtractor {
 						directory.mkdirs();
 					}
 					String imageFile = paddedHash + ".png";
+					logger.debug("Saving addFile {} in directory {}" , imageFile, directory.getAbsolutePath());
 					try (FileOutputStream outputStream = new FileOutputStream(
 							directory.getAbsolutePath() + "/" + imageFile)) {
 						outputStream.write(bytes);

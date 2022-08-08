@@ -54,8 +54,7 @@ public class SiteProcessor {
 			if (link != null && goDeeper) {
 				logger.debug("Elected to go deeper on site {}", site.getUrl());
 				try {
-					SeleniumUtils.scrollToElement(webDriver, link);
-					link.click();
+					SeleniumUtils.click(webDriver, site, link);
 				} catch (Exception e) {
 					logger.error("Exception using link to navigate will try next link ", e);
 					continue;

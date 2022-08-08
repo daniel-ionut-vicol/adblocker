@@ -5,6 +5,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -33,8 +34,13 @@ public class SeleniumUtils {
 				logger.debug("Trying to close annoying element {}" , element);
 				try {
 					if (waitElements) {
-						WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(30),
+						WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(60),
 								Duration.ofSeconds(1));
+						wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(element)));
+					}else {
+						//if we try and get the element we'll use the default wait time 
+						WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofMillis(20),
+								Duration.ofMillis(10));
 						wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(element)));
 					}
 					WebElement closeFullPageAddElement = webDriver.findElement(By.xpath(element));
@@ -50,6 +56,16 @@ public class SeleniumUtils {
 		}
 	}
 
+	public static void click(WebDriver webDriver, Site site, WebElement element) {
+		try {
+			SeleniumUtils.scrollToElement(webDriver, element);
+			element.click();
+		}catch (ElementClickInterceptedException e) {
+			SeleniumUtils.closeAnnoyingElements(null, null, false);
+			element.click();
+		}
+	}
+	
 	public static void scrollToElement(WebDriver webDriver, WebElement element) {
 		try {
 			((JavascriptExecutor) webDriver).executeScript(
