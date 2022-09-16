@@ -19,7 +19,7 @@ import org.slf4j.LoggerFactory;
 
 import ro.develbox.adblocker.db.model.Site;
 
-public class AdExtractor {
+public class AdExtractor implements PageInfoExtractor{
 
 	private static final String ADS_FILE_PATH_ENV = "ADS_DIR";
 	private static final String ADS_FILE_PATH_ENV_DEF = "./ads/";
@@ -29,6 +29,11 @@ public class AdExtractor {
 
 	private static Logger logger = LoggerFactory.getLogger(AdExtractor.class);
 
+	@Override
+	public int extractPageInfo(WebDriver webDriver, Site site) {
+		return extractPageAds(webDriver, site);
+	}
+	
 	public int extractPageAds(WebDriver webDriver, Site site) {
 		logger.debug("Getting ads from page {}" , webDriver.getCurrentUrl());
 		WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(10), Duration.ofMillis(100));

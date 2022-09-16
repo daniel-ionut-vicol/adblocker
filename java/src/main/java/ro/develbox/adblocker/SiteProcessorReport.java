@@ -3,6 +3,7 @@ package ro.develbox.adblocker;
 public class SiteProcessorReport {
 	private int pages;
 	private int ads;
+	private int nonAds;
 
 	public int getPages() {
 		return pages;
@@ -18,6 +19,14 @@ public class SiteProcessorReport {
 
 	public void incrementAds(int ads) {
 		this.ads = this.ads + ads;
+	}
+
+	public int getNonAds() {
+		return nonAds;
+	}
+
+	public void incrementNonAds(int ads) {
+		this.nonAds = this.nonAds + ads;
 	}
 
 }

@@ -13,13 +13,14 @@ public class Site {
 	private int status;
 	private int maxPages;
 	private int maxDepth;
+	private int maxNonAdImgs = 3;
 
 	public Site() {
 
 	}
 
 	public Site(int id, String url, List<String> annoyingPageElements, int status, int maxPages,
-			int maxDepth) {
+			int maxDepth, int maxNonAdImgs) {
 		super();
 		this.id = id;
 		this.url = url;
@@ -27,6 +28,7 @@ public class Site {
 		this.status = status;
 		this.maxPages = maxPages;
 		this.maxDepth = maxDepth;
+		this.maxNonAdImgs = maxNonAdImgs;
 	}
 
 	public int getId() {
@@ -77,10 +79,14 @@ public class Site {
 		this.maxDepth = maxDepth;
 	}
 
+	public int getMaxNonAdImgs() {
+		return maxNonAdImgs;
+	}
+
 	@Override
 	public String toString() {
 		return "Site [id=" + id + ", url=" + url + ", annoyingPageElements=" + annoyingPageElements + ", status="
-				+ status + ", maxPages=" + maxPages + ", maxDepth=" + maxDepth + "]";
+				+ status + ", maxPages=" + maxPages + ", maxDepth=" + maxDepth + ", maxNonAdImgs=" + maxNonAdImgs + "]";
 	}
 
 }

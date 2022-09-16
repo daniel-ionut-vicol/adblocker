@@ -14,7 +14,7 @@ import ro.develbox.adblocker.db.model.Site;
 
 public class SiteProcessorTest {
 
-	//@Test
+	@Test
 	public void testSiteProcessing() throws MalformedURLException {
 		PersistentCapabilities capabilities = new PersistentCapabilities();
 		WebDriver driver = new RemoteWebDriver(new URL("http://localhost:9515"), capabilities);

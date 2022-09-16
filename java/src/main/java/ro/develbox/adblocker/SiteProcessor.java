@@ -1,15 +1,10 @@
 package ro.develbox.adblocker;
 
-import java.time.Duration;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.openqa.selenium.Alert;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,6 +15,7 @@ public class SiteProcessor {
 	private static Logger logger = LoggerFactory.getLogger(SiteProcessor.class);
 
 	private AdExtractor adExtractor = new AdExtractor();
+	private NonAdImgExtractor imgExtractor = new NonAdImgExtractor();
 	private LinksExtractor linksExtractor = new LinksExtractor();
 
 	public SiteProcessorReport processSite(WebDriver webDriver, Site site) {
@@ -41,8 +37,10 @@ public class SiteProcessor {
 		SeleniumUtils.randomWait();
 		SeleniumUtils.closeAnnoyingElements(webDriver, site, false);
 		logger.debug("Visiting page {}", webDriver.getCurrentUrl());
-		int ads = adExtractor.extractPageAds(webDriver, site);
+		int ads = adExtractor.extractPageInfo(webDriver, site);
+		int nonAds = imgExtractor.extractPageInfo(webDriver, site);
 		reportResult.incrementAds(ads);
+		reportResult.incrementNonAds(nonAds);
 		reportResult.incrementPages(1);
 		if (reportResult.getPages() <= site.getMaxPages()) {
 			while (true) {

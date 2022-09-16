@@ -43,8 +43,14 @@ spec:
         volumeMounts:
           - mountPath: ./ads/
             name: ads-volume
+          - mountPath: ./nonAds/
+            name: non-ads-volume    
       volumes:
       - name: ads-volume
         hostPath:
           path: /home/user/ads
-          type: Directory       
+          type: Directory 
+      - name: non-ads-volume    
+        hostPath:
+          path: /home/user/nonAds
+          type: Directory

@@ -25,7 +25,7 @@ public class SiteService {
 						int siteId= rs.getInt("id");
 						List<String> annoyingPageElements = this.getSiteAnnoyingPageElements(conn, siteId);
 						Site site = new Site(siteId, rs.getString("url"), annoyingPageElements , rs.getInt("status"), rs.getInt("max_pages"),
-								rs.getInt("max_depth"));
+								rs.getInt("max_depth"), rs.getInt("max_non_ad_imgs"));
 						updateSiteStatus(conn, site.getId(), Site.PROCESSING);
 						return site;
 					}
