@@ -23,6 +23,6 @@ ads_no INT(6) NOT NULL  DEFAULT 0
 INSERT INTO site (ID,URL,STATUS,MAX_PAGES,MAX_DEPTH) VALUES (1,'https://www.sport.ro/', 0, 100,10);
 
 
-INSERT INTO site_annoying_elements (ID,ELEMENT) VALUES (1,'//*[@id="onetrust-accept-btn-handler"]');
-INSERT INTO site_annoying_elements (ID,ELEMENT) VALUES (1,'//*[@id="onesignal-slidedown-cancel-button"]');
-INSERT INTO site_annoying_elements (ID,ELEMENT) VALUES (1,'//*[@id="byebyevideo"]');
+INSERT INTO site_annoying_elements (SITE_ID,ELEMENT) VALUES (1,'//*[@id="onetrust-accept-btn-handler"]');
+INSERT INTO site_annoying_elements (SITE_ID,ELEMENT) VALUES (1,'//*[@id="byebyevideo"]');
+INSERT INTO site_annoying_elements (SITE_ID,ELEMENT) VALUES (1,'//*[@id="onesignal-slidedown-cancel-button"]');

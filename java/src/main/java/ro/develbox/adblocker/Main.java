@@ -28,9 +28,6 @@ public class Main {
 	private static String GRID_ENV = "GRID_ADDRESS";
 	private static String GRID_DEF = "http://192.168.69.230:4444";
 
-	// ISSUES :
-	// dialog for notification
-	// top page add is not ok
 	public static void main(String[] args) throws SQLException, InterruptedException, IOException {
 		//startHealthCheckServer();
 		String gridAddress = System.getenv(GRID_ENV);
@@ -50,11 +47,11 @@ public class Main {
 				logger.debug("Selected site {}", site);
 				if (site != null) {
 					reportService.initializeReportRow(site.getId());
-					logger.debug("Getting driver from grid {}", gridAddress);
-					driver = new RemoteWebDriver(new URL(gridAddress), capabilities);
-					logger.debug("Got driver from grid {}", gridAddress);
-					driver.manage().timeouts().implicitlyWait(Duration.ofMillis(100));
 					try {
+						logger.debug("Getting driver from grid {}", gridAddress);
+						driver = new RemoteWebDriver(new URL(gridAddress), capabilities);
+						logger.debug("Got driver from grid {}", gridAddress);
+						driver.manage().timeouts().implicitlyWait(Duration.ofMillis(100));
 						logger.debug("Start processing site {}", site.getUrl());
 						SiteProcessorReport report = processor.processSite(driver, site);
 						siteService.updateSiteStatus(site.getId(), Site.FREE);
