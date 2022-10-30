@@ -31,6 +31,7 @@ public class SiteProcessorTest {
 		SiteProcessorReport report = processor.processSite(driver, site);
 		System.out.println(report.getPages());
 		System.out.println(report.getAds());
+		System.out.println(report.getNonAds());
 		driver.close();
 	}
 }

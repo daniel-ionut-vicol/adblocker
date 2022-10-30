@@ -43,6 +43,9 @@ public class NonAdImgExtractor implements PageInfoExtractor{
 		String domain;
 		try {
 			domain = new URI(site.getUrl()).getHost();
+			if(domain.startsWith("www.")) {
+				domain= domain.substring(4);
+			}
 		} catch (URISyntaxException e1) {
 			e1.printStackTrace();
 			return 0 ;
@@ -78,7 +81,7 @@ public class NonAdImgExtractor implements PageInfoExtractor{
 						directory.mkdirs();
 					}
 					String imageFile = paddedHash + ".png";
-					logger.debug("Saving addFile {} in directory {}" , imageFile, directory.getAbsolutePath());
+					logger.debug("Saving nonaddFile {} in directory {}" , imageFile, directory.getAbsolutePath());
 					try (FileOutputStream outputStream = new FileOutputStream(
 							directory.getAbsolutePath() + "/" + imageFile)) {
 						outputStream.write(bytes);
@@ -90,12 +93,12 @@ public class NonAdImgExtractor implements PageInfoExtractor{
 					}
 					totalImgs++;
 				}else {
-					logger.error("Ad not displayed {}" , img);
+					logger.error("NonAd not displayed {}" , img);
 				}
 
 			} catch (Exception e) {
 				e.printStackTrace();
-				logger.error("Exception getting ads image");
+				logger.error("Exception getting nonads image");
 			}
 		}
 		return totalImgs;
