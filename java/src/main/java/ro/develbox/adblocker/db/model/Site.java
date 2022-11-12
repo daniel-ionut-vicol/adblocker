@@ -83,6 +83,10 @@ public class Site {
 		return maxNonAdImgs;
 	}
 
+	public void setMaxNonAdImgs(int maxNonAdImgs) {
+		this.maxNonAdImgs = maxNonAdImgs;
+	}
+	
 	@Override
 	public String toString() {
 		return "Site [id=" + id + ", url=" + url + ", annoyingPageElements=" + annoyingPageElements + ", status="

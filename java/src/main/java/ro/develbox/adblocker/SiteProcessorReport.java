@@ -25,8 +25,8 @@ public class SiteProcessorReport {
 		return nonAds;
 	}
 
-	public void incrementNonAds(int ads) {
-		this.nonAds = this.nonAds + ads;
+	public void incrementNonAds(int nonAds) {
+		this.nonAds = this.nonAds + nonAds;
 	}
 
 }

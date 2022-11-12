@@ -56,8 +56,8 @@ public class Main {
 						SiteProcessorReport report = processor.processSite(driver, site);
 						siteService.updateSiteStatus(site.getId(), Site.FREE);
 						reportService.updateReport(site.getId(), report);
-						logger.debug("Finished processing site {}, pages : {}, ads : {}", site.getUrl(),
-								report.getPages(), report.getAds());
+						logger.debug("Finished processing site {}, pages : {}, ads : {}, nonAds {}", site.getUrl(),
+								report.getPages(), report.getAds(), report.getNonAds());
 					} finally {
 						if (site != null && siteService != null) {
 							siteService.updateSiteStatus(site.getId(), Site.FREE);

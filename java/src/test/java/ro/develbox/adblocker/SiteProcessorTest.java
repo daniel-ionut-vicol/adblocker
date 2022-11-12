@@ -26,8 +26,9 @@ public class SiteProcessorTest {
 		annoyingPageElements.add("//*[@id=\"onesignal-slidedown-cancel-button\"]");
 		annoyingPageElements.add("//*[@id=\"byebyevideo\"]");
 		site.setAnnoyingPageElements(annoyingPageElements);
-		site.setMaxDepth(4);
-		site.setMaxPages(50);
+		site.setMaxDepth(1);
+		site.setMaxPages(1);
+		site.setMaxNonAdImgs(2);
 		SiteProcessorReport report = processor.processSite(driver, site);
 		System.out.println(report.getPages());
 		System.out.println(report.getAds());
