@@ -56,9 +56,10 @@ public class SiteService {
 	}
 
 	private void updateSiteStatus(Connection conn, int siteId, int status) throws SQLException {
-		try (PreparedStatement ps = conn.prepareStatement("UPDATE site set status =  ? where id = ?")) {
+		try (PreparedStatement ps = conn.prepareStatement("UPDATE site set status =  ?, update_time = ? where id = ?")) {
 			ps.setInt(1, status);
-			ps.setInt(2, siteId);
+			ps.setTimestamp(2, new Timestamp(System.currentTimeMillis()));
+			ps.setInt(3, siteId);
 			ps.executeUpdate();
 		}
 	}
