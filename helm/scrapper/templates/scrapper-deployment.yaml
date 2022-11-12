@@ -37,6 +37,8 @@ spec:
           value: "10"
         - name: ADS_DIR
           value: "/ads/"
+        - name: NON_ADS_DIR
+          value: "/nonAds/"
         ports:
           - containerPort: 9999
         imagePullPolicy: Always

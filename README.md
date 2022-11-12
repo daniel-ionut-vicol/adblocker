@@ -35,3 +35,11 @@ helm delete --kubeconfig ../kube.config mysql --namespace mysql
 ## Deploy Scrapper helm 
 
 helm install --kubeconfig ../kube.config scrapper ./scrapper --namespace scrapper --create-namespace
+
+## Install kafka follow 
+
+https://github.com/confluentinc/cp-helm-charts#installation
+
+helm repo add confluentinc https://confluentinc.github.io/cp-helm-charts/
+helm repo update
+helm install --kubeconfig ../kube.config confluentinc/cp-helm-charts --name my-confluent --version 0.6.0  --namespace scrapper
