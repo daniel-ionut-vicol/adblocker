@@ -20,13 +20,10 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import ro.develbox.common.Env;
 import ro.develbox.common.db.model.Site;
 
 public class NonAdImgExtractor implements PageInfoExtractor{
-
-	private static final String NON_ADS_FILE_PATH_ENV = "NON_ADS_DIR";
-	private static final String NON_ADS_FILE_PATH_ENV_DEF = "./nonAds/";
-	private static String NON_ADS_FILE_PATH;
 	
 	private static Logger logger = LoggerFactory.getLogger(NonAdImgExtractor.class);
 
@@ -76,7 +73,7 @@ public class NonAdImgExtractor implements PageInfoExtractor{
 					String paddedHash = String.format("%012d", hashCode);
 					String[] dirparts = paddedHash.split("(?<=\\G.{3})");
 					String dirs = String.join("/", dirparts);
-					File directory = new File(NonAdImgExtractor.getAdspath() + dirs);
+					File directory = new File(Env.getNonAdspath() + dirs);
 					if (!directory.exists()) {
 						directory.mkdirs();
 					}
@@ -104,14 +101,5 @@ public class NonAdImgExtractor implements PageInfoExtractor{
 		return totalImgs;
 	}
 
-	private static String getAdspath() {
-		if (NON_ADS_FILE_PATH == null) {
-			String envVal = System.getenv(NON_ADS_FILE_PATH_ENV);
-			if (envVal == null || envVal.trim().isEmpty()) {
-				envVal = NON_ADS_FILE_PATH_ENV_DEF;
-			}
-			NON_ADS_FILE_PATH = envVal;
-		}
-		return NON_ADS_FILE_PATH;
-	}
+	
 }

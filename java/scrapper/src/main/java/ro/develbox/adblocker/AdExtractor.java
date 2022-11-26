@@ -17,13 +17,10 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import ro.develbox.common.Env;
 import ro.develbox.common.db.model.Site;
 
 public class AdExtractor implements PageInfoExtractor{
-
-	private static final String ADS_FILE_PATH_ENV = "ADS_DIR";
-	private static final String ADS_FILE_PATH_ENV_DEF = "./ads/";
-	private static String ADS_FILE_PATH;
 
 	private static final String[] adsXpath = new String[] { "//*[@data-google-query-id]" };
 
@@ -60,7 +57,7 @@ public class AdExtractor implements PageInfoExtractor{
 					String paddedHash = String.format("%012d", hashCode);
 					String[] dirparts = paddedHash.split("(?<=\\G.{3})");
 					String dirs = String.join("/", dirparts);
-					File directory = new File(AdExtractor.getAdspath() + dirs);
+					File directory = new File(Env.getAdspath() + dirs);
 					if (!directory.exists()) {
 						directory.mkdirs();
 					}
@@ -93,14 +90,4 @@ public class AdExtractor implements PageInfoExtractor{
 		return webDriver.findElements(By.xpath(xpath));
 	}
 
-	private static String getAdspath() {
-		if (ADS_FILE_PATH == null) {
-			String envVal = System.getenv(ADS_FILE_PATH_ENV);
-			if (envVal == null || envVal.trim().isEmpty()) {
-				envVal = ADS_FILE_PATH_ENV_DEF;
-			}
-			ADS_FILE_PATH = envVal;
-		}
-		return ADS_FILE_PATH;
-	}
 }

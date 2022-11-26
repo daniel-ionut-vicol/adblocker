@@ -19,21 +19,18 @@ import org.slf4j.LoggerFactory;
 
 import ro.develbox.adblocker.db.service.ReportService;
 import ro.develbox.adblocker.db.service.SiteService;
+import ro.develbox.common.Env;
 import ro.develbox.common.db.model.Site;
 
 public class Main {
 
 	private static Logger logger = LoggerFactory.getLogger(Main.class);
 
-	private static String GRID_ENV = "GRID_ADDRESS";
-	private static String GRID_DEF = "http://192.168.69.230:4444";
+
 
 	public static void main(String[] args) throws SQLException, InterruptedException, IOException {
 		//startHealthCheckServer();
-		String gridAddress = System.getenv(GRID_ENV);
-		if (gridAddress == null || gridAddress.trim().isEmpty()) {
-			gridAddress = GRID_DEF;
-		}
+		String gridAddress = Env.getSeleniumGridAddress();
 		logger.debug("Using grid {}", gridAddress);
 		PersistentCapabilities capabilities = new PersistentCapabilities();
 		SiteProcessor processor = new SiteProcessor();
