@@ -1,7 +1,16 @@
 /kube.config
+/java/.mvn
 /java/.settings/org.eclipse.jdt.core.prefs
 /java/.settings/org.eclipse.m2e.core.prefs
 /java/.classpath
 /java/.project
 /java/target/
 /java/ads
+/java/nonAds
+/java/*/.settings/org.eclipse.jdt.core.prefs
+/java/*/.settings/org.eclipse.m2e.core.prefs
+/java/*/.classpath
+/java/*/.project
+/java/*/target/
+/java/*/ads
+/java/*/nonAds
