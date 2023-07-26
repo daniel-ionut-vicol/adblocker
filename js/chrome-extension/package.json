@@ -3,10 +3,10 @@
   "version": "0.2.0",
   "description": "Use tfjs model.predict in a chrome extension (v3)",
   "scripts": {
-    "copy": "mkdir -p dist/src && cp src/content.js dist/src/",
-    "build": "parcel build src/service_worker.js --dist-dir dist/src/ && npm run copy",
-    "watch": "npm run copy && parcel watch src/service_worker.js --dist-dir dist/src/"
-  },
+    "copy": "if not exist dist\\src mkdir dist\\src && xcopy /Y src\\content.js dist\\src\\",
+    "build": "parcel build src\\service_worker.js --dist-dir dist\\src\\ && npm run copy",
+    "watch": "npm run copy && parcel watch src\\service_worker.js --dist-dir dist\\src\\"
+},
   "license": "Apache 2.0",
   "devDependencies": {
     "buffer": "^6.0.3",

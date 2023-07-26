@@ -16,6 +16,7 @@
  */
 import * as mobilenet from '@tensorflow-models/mobilenet';
 import * as tf from '@tensorflow/tfjs';
+import '@tensorflow/tfjs-backend-webgl';
 import {loadGraphModel} from '@tensorflow/tfjs-converter';
 
 // Size of the image expected by mobilenet.
@@ -77,6 +78,9 @@ class ImageClassifier {
    */
   async loadModel() {
     console.log('Loading model...');
+    fetch("http://localhost:5500/model.json").then((response) => {
+      response.json().then(data => console.log(data));
+    })
     const startTime = performance.now();
     try {
       //LOADS mobilenet 
@@ -84,7 +88,7 @@ class ImageClassifier {
       // Warms up the model by causing intermediate tensor values
       // to be built and pushed to GPU.
       //loads custom
-      this.model = await mobilenet.load({ version: 2, alpha: 1.00, inputRange: [0, 1] ,modelUrl :'http://localhost:9999/output/model-tfjs-graph/model.json'});
+      this.model = await mobilenet.load({ version: 2, alpha: 1.00, inputRange: [0, 1] ,modelUrl :'http://localhost:5500/model.json'});
       tf.tidy(() => {
         this.model.classify(tf.zeros([1, IMAGE_SIZE, IMAGE_SIZE, 3]));
       });
