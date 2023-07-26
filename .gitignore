@@ -14,3 +14,8 @@
 /java/*/target/
 /java/*/ads
 /java/*/nonAds
+/pyton/dataset
+/pyton/fcn/dataset
+/pyton/fcn/processedDataSet
+/pyton/fcn/processedDataSetAds
+/pyton/preview

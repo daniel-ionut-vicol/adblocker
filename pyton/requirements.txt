@@ -1,0 +1,8 @@
+tensorflow
+pillow
+pyyaml
+h5py
+opencv-python
+scikit-learn
+cuda-python
+tensorflowjs
