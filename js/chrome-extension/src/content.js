@@ -33,27 +33,15 @@ const MIN_IMG_SIZE = 128;
  * Produces a short text string summarizing the prediction
  * Input prediction should be a list of {className: string, prediction: float}
  * objects.
- * @param {[{className: string, predictions: number}]} predictions ordered list
+ * param {[{className: string, predictions: number}]} predictions ordered list
  *     of objects, each with a prediction class and score
  */
-function textContentFromPrediction(predictions) {
-  if (!predictions || predictions.length < 1) {
-    return `No prediction 🙁`;
-  }
-  // Confident.
-  if (predictions[0].probability >= HIGH_CONFIDENCE_THRESHOLD) {
-    return `😄 ${predictions[0].className}!`;
-  }
-  // Not Confident.
-  if (predictions[0].probability >= LOW_CONFIDENCE_THRESHOLD &&
-      predictions[0].probability < HIGH_CONFIDENCE_THRESHOLD) {
-    return `${predictions[0].className}?...\n Maybe ${
-        predictions[1].className}?`;
-  }
-  // Very not confident.
-  if (predictions[0].probability < LOW_CONFIDENCE_THRESHOLD) {
-    return `😕  ${predictions[0].className}????...\n Maybe ${
-        predictions[1].className}????`;
+function textContentFromPrediction(prediction) {
+  switch (prediction) {
+    case 0:
+      return "AD"
+    default:
+      return "NOT AD"
   }
 }
 
@@ -136,11 +124,11 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       // This is needed to make sendResponse work properly.
       return true;
     case 'IMAGE_CLICK_PROCESSED':
-      if (message.url && message.predictions) {
+      if (message.url && message.prediction !== undefined) {
         // Get the list of images with this srcUrl.
         const imgElements = getImageElementsWithSrcUrl(message.url);
         for (const imgNode of imgElements) {
-          const textContent = textContentFromPrediction(message.predictions);
+          const textContent = textContentFromPrediction(message.prediction);
           addTextElementToImageNode(imgNode, textContent);
         }
       }

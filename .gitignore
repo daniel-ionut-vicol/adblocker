@@ -19,3 +19,6 @@
 /pyton/fcn/processedDataSet
 /pyton/fcn/processedDataSetAds
 /pyton/preview
+/pyton/jupyter/models/logs
+/js/chrome-extension/.parcel-cache
+/js/chrome-extension/dist/node_modules

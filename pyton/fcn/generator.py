@@ -121,7 +121,7 @@ class Generator(tf.keras.utils.Sequence):
 
 if __name__ == "__main__":
 
-    BASE_PATH = 'D:/work/aplicatii develbox/adblocker/pyton/fcn/processedDataSet'
+    BASE_PATH = f'{os.getcwd()}/processedDataSetAds'
     train_generator = Generator(BASE_PATH + '/train')
     val_generator = Generator(BASE_PATH + '/val')
     print(len(train_generator))

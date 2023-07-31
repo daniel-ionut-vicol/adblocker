@@ -14,13 +14,10 @@
  * limitations under the License.
  * =============================================================================
  */
-import * as mobilenet from '@tensorflow-models/mobilenet';
 import * as tf from '@tensorflow/tfjs';
-import {loadGraphModel} from '@tensorflow/tfjs-converter';
 
 // Size of the image expected by mobilenet.
-const IMAGE_SIZE = 224;
-
+const IMAGE_SIZE = 256;
 // How many predictions to take.
 const TOPK_PREDICTIONS = 2;
 const FIVE_SECONDS_IN_MS = 5000;
@@ -53,7 +50,7 @@ function clickMenuCallback(info, tab) {
 chrome.runtime.onInstalled.addListener(() => {
   chrome.contextMenus.create({
     id: 'contextMenu0',
-    title: 'Classify image with TensorFlow.js ',
+    title: 'Is image AD ? ',
     contexts: ['image'],
   });
 });
@@ -68,25 +65,23 @@ chrome.contextMenus.onClicked.addListener(clickMenuCallback);
  * hear and use to manipulate the DOM.
  */
 class ImageClassifier {
-  constructor() {
+  constructor(pathToModel) {
+    this.pathToModel = pathToModel
     this.loadModel();
   }
-
   /**
    * Loads mobilenet from URL and keeps a reference to it in the object.
    */
   async loadModel() {
     console.log('Loading model...');
     const startTime = performance.now();
+
     try {
-      //LOADS mobilenet 
-      // this.model = await mobilenet.load({ version: 2, alpha: 1.00 });
+      this.model = await tf.loadLayersModel(this.pathToModel);
       // Warms up the model by causing intermediate tensor values
       // to be built and pushed to GPU.
-      //loads custom
-      this.model = await mobilenet.load({ version: 2, alpha: 1.00, inputRange: [0, 1] ,modelUrl :'http://localhost:9999/output/model-tfjs-graph/model.json'});
       tf.tidy(() => {
-        this.model.classify(tf.zeros([1, IMAGE_SIZE, IMAGE_SIZE, 3]));
+        this.model.predict(tf.zeros([1, IMAGE_SIZE, IMAGE_SIZE, 3]));
       });
       const totalTime = Math.floor(performance.now() - startTime);
       console.log(`Model loaded and initialized in ${totalTime} ms...`);
@@ -118,12 +113,18 @@ class ImageClassifier {
     }
     console.log('Predicting...');
     const startTime = performance.now();
-    const predictions = await this.model.classify(imageData, TOPK_PREDICTIONS);
+    // Convert the imageData object to a tensor
+    const imageTensor = tf.browser.fromPixels(imageData);
+    // Preprocess the image tensor
+    const preprocessedImage = tf.image.resizeBilinear(imageTensor, [IMAGE_SIZE, IMAGE_SIZE]).expandDims(0);
+
+    const prediction = await this.model.predict(preprocessedImage, TOPK_PREDICTIONS);
     const totalTime = performance.now() - startTime;
     console.log(`Done in ${totalTime.toFixed(1)} ms `);
-    const message = { action: 'IMAGE_CLICK_PROCESSED', url, predictions };
+    console.log("Prediction is: ", prediction.dataSync()[0]);
+    const message = { action: 'IMAGE_CLICK_PROCESSED', url, prediction: prediction.dataSync()[0] };
     chrome.tabs.sendMessage(tabId, message);
   }
 }
 
-const imageClassifier = new ImageClassifier();
+const imageClassifier = new ImageClassifier("http://localhost:5500/v4/model.json");

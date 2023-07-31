@@ -1,6 +1,7 @@
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Dropout
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
+import tensorflow as tf
 
 # Define the CNN model
 model = Sequential()
@@ -48,4 +49,4 @@ model.fit(
     validation_steps=validation_generator.n // validation_generator.batch_size)
 
 # Save the trained model
-model.save('my_model.h5')
+tf.saved_model(model, "trained_model.h5")

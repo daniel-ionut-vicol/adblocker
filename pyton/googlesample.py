@@ -3,7 +3,6 @@ import os
 import PIL
 import PIL.Image
 import tensorflow as tf
-import tensorflow_datasets as tfds
 import pathlib
 import matplotlib.pyplot as plt
 print(tf.__version__)

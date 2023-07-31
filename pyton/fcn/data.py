@@ -5,7 +5,7 @@ import numpy as np
 import tensorflow as tf 
 
 def get_datasetPath():
-    return "D:/work/aplicatii develbox/adblocker/pyton/fcn/dataset/"
+    return f"{os.getcwd()}/dataset/"
 
 def split_dataset(BASE_PATH = './alldataset', DATASET_PATH = 'dataset', train_images = 10, val_images = 5):
     # Specify path to the downloaded folder
@@ -132,5 +132,5 @@ if __name__ == "__main__":
     # Number of images required in train and val sets
     train_images = 50
     val_images = 10
-    split_dataset(BASE_PATH=BASE_PATH, DATASET_PATH = "D:/work/aplicatii develbox/adblocker/pyton/fcn/processedDataSet", train_images = train_images, val_images = val_images)
+    split_dataset(BASE_PATH=BASE_PATH, DATASET_PATH = f"{os.getcwd()}/processedDataSetAds", train_images = train_images, val_images = val_images)
     get_dataset_stats()

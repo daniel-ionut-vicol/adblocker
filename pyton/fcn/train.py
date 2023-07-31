@@ -23,14 +23,14 @@ def train(model, train_generator, val_generator, epochs=50, checkpoint_path='./s
 
 if __name__ == "__main__":
     print('cmd entry:', sys.argv)
-    BASE_PATH = 'D:/work/aplicatii develbox/adblocker/pyton/fcn'
+    BASE_PATH = os.getcwd()
     if len( sys.argv ) > 1 :
           BASE_PATH = sys.argv[1]
     # Create FCN model
     model = FCN_model(len_classes=5, dropout_rate=0.2)
     # The below folders are created using utils.py
-    train_dir = BASE_PATH+'/processedDataSet/train'
-    val_dir = BASE_PATH+'/processedDataSet/val'
+    train_dir = BASE_PATH+'/processedDataSetAds/train'
+    val_dir = BASE_PATH+'/processedDataSetAds/val'
     checkpoint_path = BASE_PATH + "/snapshotsTest"
     
     # If you get out of memory error try reducing the batch size
