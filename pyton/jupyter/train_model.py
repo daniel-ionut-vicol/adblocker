@@ -5,28 +5,43 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Conv2D, MaxPooling2D, Dense, Flatten
 # evaluating performance 
 from tensorflow.keras.metrics import Precision, Recall, BinaryAccuracy
-# saving the model
-from tensorflow.keras.models import load_model
+# loading the model
+# from tensorflow.keras.models import load_model
+# importing dataset
+from get_dataset import DataSetLoader
 
 # -------------------------------------------------------
 
 # import the data
-data = tf.keras.utils.image_dataset_from_directory("../processedDataSetAds/train")
-data_iterator = data.as_numpy_iterator()
+data_dirs = ["C:\\Users\\daniel2.DESKTOP-ARTCORE\\Documents\\AdVision\\adblocker\\pyton\\processedDataSetAds\\0", "C:\\Users\\daniel2.DESKTOP-ARTCORE\\Documents\\AdVision\\adblocker\\pyton\\processedDataSetAds\\1"]
+
+dataset_loader = DataSetLoader()
+datasets = []
+for dir in data_dirs:
+    datasets.append(dataset_loader.load(dir, label=os.path.basename(dir)))
+
+full_dataset = datasets[0]
+
+for dataset in datasets[0:]:
+    full_dataset = full_dataset.concatenate(dataset)
+
+shuffled_dataset = full_dataset.shuffle(buffer_size=1024)
+
+data_iterator = shuffled_dataset.as_numpy_iterator()
 batch = data_iterator.next()
 
 # scaling the data (normalizing)
-data = data.map(lambda x, y: (x/255, y))
+normalized_data = shuffled_dataset.map(lambda x, y: (x/255, y))
 
-# split the data into train, val, and test
-train_size = int(len(data)*.7)
-val_size = int(len(data)*.2)+1
-test_size = int(len(data)*.1)+1
+# split the normalized_data into train, val, and test
+train_size = int(len(normalized_data)*.7)
+val_size = int(len(normalized_data)*.2)+1
+test_size = int(len(normalized_data)*.1)+1
 
 # take the batches for each stage
-train = data.take(train_size)
-val = data.skip(train_size).take(val_size)
-test = data.skip(train_size+val_size).take(test_size)
+train = normalized_data.take(train_size)
+val = normalized_data.skip(train_size).take(val_size)
+test = normalized_data.skip(train_size+val_size).take(test_size)
 
 # building the model
 model = Sequential()
@@ -70,7 +85,7 @@ for batch in test.as_numpy_iterator():
 print(f'Precision: {precision.result().numpy()}, Recall: {recall.result().numpy()}, Accuracy: {accuracy.result().numpy()}')
 
 # saving the model
-model.save(os.path.join('models', 'adnonadmodel.h5'))
+# model.save(os.path.join('models', 'adnonadmodel.h5'))
 
 #loading the model
 # new_model = load_model(os.path.join('models', 'adnonadmodel.h5'))
