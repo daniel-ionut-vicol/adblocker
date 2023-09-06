@@ -1,0 +1,3 @@
+### Dont forget to copy the model from the docker container after trained
+
+docker cp <container_id>:/app/my_model /host/path/to/save
