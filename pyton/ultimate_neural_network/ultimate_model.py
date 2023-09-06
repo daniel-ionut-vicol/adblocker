@@ -3,7 +3,7 @@ import tensorflow as tf
 
 model = tf.keras.Sequential([
     # Convolutional layer with 32 filters and a kernel size of 3
-    tf.keras.layers.Conv2D(32, 3, activation='relu', input_shape=(os.environ['IMAGE_SIZE'], os.environ['IMAGE_SIZE'], 3)),
+    tf.keras.layers.Conv2D(32, 3, activation='relu', input_shape=(int(os.environ['IMAGE_SIZE']), int(os.environ['IMAGE_SIZE']), 3)),
     # Batch normalization layer to normalize the inputs of the convolutional layer
     tf.keras.layers.BatchNormalization(),
     # Max-pooling layer with a pool size of 2

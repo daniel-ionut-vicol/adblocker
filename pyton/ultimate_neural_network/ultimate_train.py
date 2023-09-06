@@ -18,7 +18,7 @@ print("The gpu's available are", tf.config.experimental.list_physical_devices('G
 
 
 # Build the model
-model.build(input_shape=(os.environ['BATCH_SIZE'], os.environ['IMAGE_SIZE'], os.environ['IMAGE_SIZE'], 3))
+model.build(input_shape=(int(os.environ['BATCH_SIZE']), int(os.environ['IMAGE_SIZE']), int(os.environ['IMAGE_SIZE']), 3))
 # Compile the model
 model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
 
@@ -53,9 +53,9 @@ train_paths, temp_paths, train_labels, temp_labels = train_test_split(image_path
 val_paths, test_paths, val_labels, test_labels = train_test_split(temp_paths, temp_labels, test_size=0.5, random_state=42)
 
 # Create generators for training, validation, and test sets
-train_generator = Generator(train_paths, train_labels, BATCH_SIZE=os.environ['BATCH_SIZE'], is_training=True)
-val_generator = Generator(val_paths, val_labels, BATCH_SIZE=os.environ['BATCH_SIZE'], is_training=False)
-test_generator = Generator(test_paths, test_labels, BATCH_SIZE=os.environ['BATCH_SIZE'], is_training=False)
+train_generator = Generator(train_paths, train_labels, BATCH_SIZE=int(os.environ['BATCH_SIZE']), is_training=True)
+val_generator = Generator(val_paths, val_labels, BATCH_SIZE=int(os.environ['BATCH_SIZE']), is_training=False)
+test_generator = Generator(test_paths, test_labels, BATCH_SIZE=int(os.environ['BATCH_SIZE']), is_training=False)
 
 # FIT THE MODEL
 tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir=os.environ['LOG_DIR'])
@@ -65,9 +65,9 @@ start_datetime = datetime.datetime.now()
 # Train the model using the training generator
 history = model.fit(
     train_generator,
-    epochs=os.environ['EPOCHS'],  # Specify the number of training epochs
+    epochs=int(os.environ['EPOCHS']),  # Specify the number of training epochs
     validation_data=val_generator,
-    verbose=os.environ['VERBOSE_LEVEL'],  # You can adjust the verbosity level
+    verbose=int(os.environ['VERBOSE_LEVEL']),  # You can adjust the verbosity level
     callbacks=[tensorboard_callback]
 )
 
