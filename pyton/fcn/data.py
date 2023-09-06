@@ -7,7 +7,7 @@ import tensorflow as tf
 def get_datasetPath():
     return f"{os.getcwd()}/dataset/"
 
-def split_dataset(BASE_PATH = './alldataset', DATASET_PATH = 'dataset', train_images = 10, val_images = 5):
+def split_dataset(BASE_PATH = os.environ['BASE_PATH'], DATASET_PATH = os.environ['DATASET_PATH'], train_images = 10, val_images = 5):
     # Specify path to the downloaded folder
     classes = os.listdir(BASE_PATH)
 
@@ -20,7 +20,7 @@ def split_dataset(BASE_PATH = './alldataset', DATASET_PATH = 'dataset', train_im
 
     # Creating val directory
     val_dir = os.path.join(DATASET_PATH, 'val')
-    os.makedirs(val_dir, exist_ok=True)    
+    os.makedirs(val_dir, exist_ok=True)
 
     # Copying images from original folder to dataset folder
     for class_name in classes:

@@ -1,0 +1,6 @@
+python-dotenv
+tensorflow
+opencv-python
+matplotlib
+scikit-learn
+numpy

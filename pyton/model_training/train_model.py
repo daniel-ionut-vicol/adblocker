@@ -25,7 +25,7 @@ full_dataset = datasets[0]
 for dataset in datasets[0:]:
     full_dataset = full_dataset.concatenate(dataset)
 
-shuffled_dataset = full_dataset.shuffle(buffer_size=1024)
+shuffled_dataset = full_dataset.shuffle(buffer_size=1024) 
 
 data_iterator = shuffled_dataset.as_numpy_iterator()
 batch = data_iterator.next()
