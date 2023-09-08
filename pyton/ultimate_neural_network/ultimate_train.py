@@ -81,8 +81,6 @@ early_stopping = tf.keras.callbacks.EarlyStopping(
     patience=5,           # Number of epochs with no improvement after which training will be stopped
     restore_best_weights=True  # Restore the model weights from the epoch with the best value of the monitored metric
 )
-# FIT THE MODEL
-tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir=config.LOG_DIR)
 
 # TRAINING TIME -----------------------------------
 # Create a new directory for models
@@ -91,8 +89,9 @@ os.makedirs('models', exist_ok=True)
 start_datetime = datetime.datetime.now()
 current_model_folder_name = f'model_{start_datetime.strftime("%Y-%m-%d_%H-%M-%S")}'
 
-start_datetime = datetime.datetime.now()
-# Train the model using the training generator
+# FIT THE MODEL
+tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir=f'models/{current_model_folder_name}/logs')
+
 # Train the model using the training generator
 history = model.fit(
     train_generator,
