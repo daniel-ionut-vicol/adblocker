@@ -5,6 +5,7 @@ import tensorflow as tf
 from sklearn import preprocessing
 from sklearn.model_selection import train_test_split
 from tensorflow.keras.callbacks import ModelCheckpoint
+from PIL import Image
 # ---------------
 import config
 from ultimate_generator import Generator

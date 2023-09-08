@@ -3,5 +3,4 @@ numpy
 matplotlib
 opencv-python
 scikit-learn
-libgl1-mesa-glx
-scikit-learn
+pillow
