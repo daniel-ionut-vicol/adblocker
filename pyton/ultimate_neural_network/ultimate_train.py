@@ -4,103 +4,104 @@ import numpy as np
 import tensorflow as tf
 from sklearn import preprocessing
 from sklearn.model_selection import train_test_split
-from dotenv import load_dotenv
-from matplotlib import pyplot as plt
+from tensorflow.keras.callbacks import ModelCheckpoint
 # ---------------
+import config
 from ultimate_generator import Generator
 from ultimate_model import model
+from eval import eval
 
-# Load environment variables from the .env file
-load_dotenv()
+def load_image_paths_labels(DATASET_PATH):
+    classes = os.listdir(DATASET_PATH)
+    lb = preprocessing.LabelBinarizer()
+    lb.fit(classes)
 
-# CHECK the GPU's state
-print("The gpu's available are", tf.config.experimental.list_physical_devices('GPU'))
-
-
-# Build the model
-model.build(input_shape=(int(os.environ['BATCH_SIZE']), int(os.environ['IMAGE_SIZE']), int(os.environ['IMAGE_SIZE']), 3))
-# Compile the model
-model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
-
-print("Model compilation summary", model.summary())
-
-def load_image_paths_labels(DATASET_PATH=os.environ['DATASET_PATH']):
-    classes = []
     image_paths = []
     image_labels = []
 
-    for class_name in os.listdir(DATASET_PATH):
+    # Get class names directly from the list of classes
+    for class_name in classes:
         class_path = os.path.join(DATASET_PATH, class_name)
-        if os.path.isdir(class_path):
+        
+        if os.path.isdir(class_path):  # Ensure it's a directory
+            # Recursively traverse the directory structure
             for root, _, files in os.walk(class_path):
-                for file in files:
-                    if file.endswith(".png"):  # Only collect PNG files
-                        if class_name not in classes:
-                            classes.append(class_name)
-    lb = preprocessing.LabelBinarizer()
-    lb.fit(classes)
-    image_labels = np.array(lb.transform(image_labels), dtype='int')
+                for image_file_name in files:
+                    if image_file_name.endswith(".png"):
+                        image_path = os.path.join(root, image_file_name)
+
+                        # Attempt to open the image
+                        try:
+                            img = Image.open(image_path)
+                            img.verify()  # Verify the image file
+                        except (IOError, SyntaxError) as e:
+                            print(f"Skipping invalid image: {image_path}")
+                            continue
+
+                        image_paths.append(image_path)
+                        image_labels.append(class_name)
+
+    image_labels = np.array(lb.transform(image_labels), dtype='float32')
+
     assert len(image_paths) == len(image_labels)
 
     return image_paths, image_labels
 
-
 # Load image paths and labels
-image_paths, image_labels = load_image_paths_labels(os.environ['DATASET_PATH'])
+image_paths, image_labels = load_image_paths_labels(config.DATASET_PATH)
 
 # Split the data into training, validation, and test sets
 train_paths, temp_paths, train_labels, temp_labels = train_test_split(image_paths, image_labels, test_size=0.2, random_state=42)
 val_paths, test_paths, val_labels, test_labels = train_test_split(temp_paths, temp_labels, test_size=0.5, random_state=42)
 
 # Create generators for training, validation, and test sets
-train_generator = Generator(train_paths, train_labels, BATCH_SIZE=int(os.environ['BATCH_SIZE']), is_training=True)
-val_generator = Generator(val_paths, val_labels, BATCH_SIZE=int(os.environ['BATCH_SIZE']), is_training=False)
-test_generator = Generator(test_paths, test_labels, BATCH_SIZE=int(os.environ['BATCH_SIZE']), is_training=False)
+train_generator = Generator(train_paths, train_labels, BATCH_SIZE=config.BATCH_SIZE, is_training=True)
+val_generator = Generator(val_paths, val_labels, BATCH_SIZE=config.BATCH_SIZE, is_training=False)
+test_generator = Generator(test_paths, test_labels, BATCH_SIZE=config.BATCH_SIZE, is_training=False)
 
-# FIT THE MODEL
-tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir=os.environ['LOG_DIR'])
+# CALLBACKS -----------------------------------
+# Define a callback for dynamic checkpoint naming and specific folder
+def get_checkpoint_callback(folder_name):
+    checkpoint_dir = os.path.join('models', folder_name, 'checkpoints')
+    os.makedirs(checkpoint_dir, exist_ok=True)
+    checkpoint_callback = ModelCheckpoint(
+        filepath=os.path.join(checkpoint_dir, 'model_epoch_{epoch:04d}_loss_{loss:.4f}_acc_{accuracy:.4f}_val_loss_{val_loss:.4f}_val_acc_{val_accuracy:.4f}.h5'),
+        save_best_only=True,
+        monitor='val_loss',  # Monitoring validation loss
+        mode='min',
+        save_weights_only=False,  # Save entire model
+        verbose=config.VERBOSE_LEVEL
+    )
+    return checkpoint_callback
 
-start_datetime = datetime.datetime.now()
-
-# Train the model using the training generator
-history = model.fit(
-    train_generator,
-    epochs=int(os.environ['EPOCHS']),  # Specify the number of training epochs
-    validation_data=val_generator,
-    verbose=int(os.environ['VERBOSE_LEVEL']),  # You can adjust the verbosity level
-    callbacks=[tensorboard_callback]
+# Define EarlyStopping callback
+early_stopping = tf.keras.callbacks.EarlyStopping(
+    monitor='val_loss',  # Metric to monitor (e.g., validation loss)
+    patience=5,           # Number of epochs with no improvement after which training will be stopped
+    restore_best_weights=True  # Restore the model weights from the epoch with the best value of the monitored metric
 )
+# FIT THE MODEL
+tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir=config.LOG_DIR)
 
-finish_datetime = datetime.datetime.now()
-
-# Evaluate the model on the test data
-test_loss, test_accuracy = model.evaluate(test_generator)
-print(f'Test Loss: {test_loss:.4f}')
-print(f'Test Accuracy: {test_accuracy:.4f}')
-print(f'---Training took:', finish_datetime - start_datetime)
-
+# TRAINING TIME -----------------------------------
 # Create a new directory for models
 os.makedirs('models', exist_ok=True)
 
-current_model_folder_name = f'model_{start_datetime}-{finish_datetime}'
-os.makedirs(f'/models/{current_model_folder_name}/metrics', exist_ok=True)
+start_datetime = datetime.datetime.now()
+current_model_folder_name = f'model_{start_datetime.strftime("%Y-%m-%d_%H-%M-%S")}'
 
-# Plot the loss over epochs
-fig = plt.figure()
-plt.plot(history.history['loss'], color='teal', label='loss')
-plt.plot(history.history['val_loss'], color='orange', label='val_loss')
-fig.suptitle('Loss', fontsize=20)
-plt.legend(loc="upper left")
-plt.savefig(f'/models/{current_model_folder_name}/metrics/training_loss.png', bbox_inches='tight')
+start_datetime = datetime.datetime.now()
+# Train the model using the training generator
+# Train the model using the training generator
+history = model.fit(
+    train_generator,
+    epochs=config.EPOCHS,  # Specify the number of training epochs
+    validation_data=val_generator,
+    verbose=config.VERBOSE_LEVEL,  # You can adjust the verbosity level
+    callbacks=[tensorboard_callback, get_checkpoint_callback(current_model_folder_name), early_stopping]
+)
+finish_datetime = datetime.datetime.now()
 
-# Plot the accuracy
-fig = plt.figure()
-plt.plot(history.history['accuracy'], color='teal', label='accuracy')
-plt.plot(history.history['val_accuracy'], color='orange', label='val_accuracy')
-fig.suptitle('Accuracy', fontsize=20)
-plt.legend(loc="upper left")
-plt.savefig(f'/models/{current_model_folder_name}/metrics/training_accuracy.png', bbox_inches='tight')
+# EVAL TIME -----------------------------------
+eval(model, test_generator, history, start_datetime, finish_datetime)
 
-model.save(f'/models/{current_model_folder_name}/saved_model/keras/model.keras', save_format='keras')
-model.save(f'/models/{current_model_folder_name}/saved_model/tf/model', save_format='tf')
-model.save(f'/models/{current_model_folder_name}/saved_model/h5/model.h5', save_format='h5')

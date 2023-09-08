@@ -7,14 +7,6 @@ WORKDIR /app
 # Copy your project files into the container
 COPY . /app
 
-# Set environment variables
-ENV IMAGE_SIZE=256
-ENV BATCH_SIZE=32
-ENV LOG_DIR=logs
-ENV DATASET_PATH=/app/dataset
-ENV EPOCHS=10
-ENV VERBOSE_LEVEL=1
-
 # Install any additional dependencies your project requires
 # For example, if you have a requirements.txt file:
 RUN apt-get update && apt-get install ffmpeg libsm6 libxext6  -y

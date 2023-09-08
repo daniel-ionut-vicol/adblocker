@@ -1,6 +1,7 @@
-python-dotenv
 tensorflow
-opencv-python
-matplotlib
-scikit-learn
 numpy
+matplotlib
+opencv-python
+scikit-learn
+libgl1-mesa-glx
+scikit-learn

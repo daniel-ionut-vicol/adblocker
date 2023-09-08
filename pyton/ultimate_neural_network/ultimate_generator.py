@@ -1,11 +1,11 @@
-import os
 import numpy as np
 import cv2
 import tensorflow as tf
+import config
 
 class Generator(tf.keras.utils.Sequence):
 
-    def __init__(self, image_paths, image_labels, BATCH_SIZE=int(os.environ['BATCH_SIZE']), shuffle_images=True, image_min_side=int(os.environ['IMAGE_SIZE']), is_training=True):
+    def __init__(self, image_paths, image_labels, BATCH_SIZE=config.BATCH_SIZE, shuffle_images=True, image_min_side=config.IMAGE_SIZE, is_training=True):
         """ Initialize Generator object.
         Args
             image_paths            : List of image file paths.
