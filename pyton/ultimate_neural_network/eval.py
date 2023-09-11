@@ -1,5 +1,6 @@
 import os
 from matplotlib import pyplot as plt
+from config import IMAGE_SIZE, BATCH_SIZE, EPOCHS
 
 def eval(model, test_generator, history, start_datetime, finish_datetime):
     current_model_folder_name = f'model_{start_datetime.strftime("%Y-%m-%d_%H-%M-%S")}'
@@ -13,6 +14,11 @@ def eval(model, test_generator, history, start_datetime, finish_datetime):
     # Open the file in write mode
     with open(output_file, 'w') as file:
         # Write the metrics to the file
+        file.write('Training settings:\n')
+        file.write(f'IMAGE_SIZE={IMAGE_SIZE}\n')
+        file.write(f'BATCH_SIZE={BATCH_SIZE}\n')
+        file.write(f'EPOCHS={EPOCHS}\n')
+        file.write('-----------------------\n')
         file.write(f'Loss: {loss}\n')
         file.write(f'Accuracy: {accuracy}\n')
         file.write(f'Precision: {precision}\n')
