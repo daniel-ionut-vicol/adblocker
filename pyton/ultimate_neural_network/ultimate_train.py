@@ -102,6 +102,5 @@ history = model.fit(
 )
 finish_datetime = datetime.datetime.now()
 
-# EVAL TIME -----------------------------------
+# EVAL AND SAVE TIME -----------------------------------
 eval(model, test_generator, history, start_datetime, finish_datetime)
-
