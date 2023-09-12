@@ -1,5 +1,6 @@
 import os
 import datetime
+import random
 import numpy as np
 import tensorflow as tf
 from sklearn import preprocessing
@@ -46,6 +47,15 @@ def load_image_paths_labels(DATASET_PATH):
 
     assert len(image_paths) == len(image_labels)
 
+    # Combine the lists into a list of tuples
+    combined = list(zip(image_paths, image_labels))
+    
+    # Shuffle the combined list
+    random.shuffle(combined)
+    
+    # Unzip the shuffled list back into separate lists
+    image_paths[:], image_labels[:] = zip(*combined)
+
     return image_paths, image_labels
 
 # Load image paths and labels
@@ -66,7 +76,7 @@ def get_checkpoint_callback(folder_name):
     checkpoint_dir = os.path.join('models', folder_name, 'checkpoints')
     os.makedirs(checkpoint_dir, exist_ok=True)
     checkpoint_callback = ModelCheckpoint(
-        filepath=os.path.join(checkpoint_dir, 'model_epoch_{epoch:04d}_loss_{loss:.4f}_acc_{accuracy:.4f}_val_loss_{val_loss:.4f}_val_acc_{val_accuracy:.4f}.h5'),
+        filepath=os.path.join(checkpoint_dir, 'model_epoch_{epoch:04d}_loss_{loss:.4f}_acc_{accuracy:.4f}_val_loss_{val_loss:.4f}_val_acc_{val_accuracy:.4f}.keras'),
         save_best_only=True,
         monitor='val_loss',  # Monitoring validation loss
         mode='min',
@@ -78,7 +88,7 @@ def get_checkpoint_callback(folder_name):
 # Define EarlyStopping callback
 early_stopping = tf.keras.callbacks.EarlyStopping(
     monitor='val_loss',  # Metric to monitor (e.g., validation loss)
-    patience=5,           # Number of epochs with no improvement after which training will be stopped
+    patience=config.PATIENCE,           # Number of epochs with no improvement after which training will be stopped
     restore_best_weights=True  # Restore the model weights from the epoch with the best value of the monitored metric
 )
 
