@@ -76,7 +76,7 @@ def get_checkpoint_callback(folder_name):
     checkpoint_dir = os.path.join('models', folder_name, 'checkpoints')
     os.makedirs(checkpoint_dir, exist_ok=True)
     checkpoint_callback = ModelCheckpoint(
-        filepath=os.path.join(checkpoint_dir, 'model_epoch_{epoch:04d}_loss_{loss:.4f}_acc_{accuracy:.4f}_val_loss_{val_loss:.4f}_val_acc_{val_accuracy:.4f}.keras'),
+        filepath=os.path.join(checkpoint_dir, 'model_epoch_{epoch:04d}_loss_{loss:.4f}_acc_{accuracy:.4f}_val_loss_{val_loss:.4f}_val_acc_{val_accuracy:.4f}.h5'),
         save_best_only=True,
         monitor='val_loss',  # Monitoring validation loss
         mode='min',
