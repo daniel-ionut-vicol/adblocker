@@ -1,6 +1,7 @@
 import os
 from matplotlib import pyplot as plt
 import tensorflow as tf
+import tensorflowjs as tfjs
 from config import IMAGE_SIZE, BATCH_SIZE, EPOCHS, PATIENCE
 
 def eval(model, test_generator, history, start_datetime, finish_datetime):
@@ -51,6 +52,7 @@ def eval(model, test_generator, history, start_datetime, finish_datetime):
         os.makedirs(f'/models/{current_model_folder_name}/saved_model/tf/', exist_ok=True)
         os.makedirs(f'/models/{current_model_folder_name}/saved_model/h5/', exist_ok=True)
         
+        tfjs.converters.save_keras_model(model, f'/models/{current_model_folder_name}/saved_model/tfjs/' )
         tf.keras.models.save_model(model, f'/models/{current_model_folder_name}/saved_model/keras/{name}.keras')
         tf.keras.models.save_model(model, f'/models/{current_model_folder_name}/saved_model/tf/{name}', save_format='tf')
         tf.keras.models.save_model(model, f'/models/{current_model_folder_name}/saved_model/h5/{name}.h5', save_format='h5')

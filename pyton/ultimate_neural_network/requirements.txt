@@ -1,4 +1,5 @@
 tensorflow
+tfjs
 numpy
 matplotlib
 opencv-python

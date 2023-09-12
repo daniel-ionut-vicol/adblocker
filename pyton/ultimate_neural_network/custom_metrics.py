@@ -1,6 +1,7 @@
 import tensorflow as tf
 
 # Precision metric
+@tf.keras.utils.register_keras_serializable(package="Custom")
 def precision(y_true, y_pred):
     true_positives = tf.keras.backend.sum(tf.keras.backend.round(tf.keras.backend.clip(y_true * y_pred, 0, 1)))
     predicted_positives = tf.keras.backend.sum(tf.keras.backend.round(tf.keras.backend.clip(y_pred, 0, 1)))
@@ -8,6 +9,7 @@ def precision(y_true, y_pred):
     return precision
 
 # Recall metric
+@tf.keras.utils.register_keras_serializable(package="Custom")
 def recall(y_true, y_pred):
     true_positives = tf.keras.backend.sum(tf.keras.backend.round(tf.keras.backend.clip(y_true * y_pred, 0, 1)))
     possible_positives = tf.keras.backend.sum(tf.keras.backend.round(tf.keras.backend.clip(y_true, 0, 1)))
@@ -15,6 +17,7 @@ def recall(y_true, y_pred):
     return recall
 
 # F1-score metric
+@tf.keras.utils.register_keras_serializable(package="Custom")
 def f1_score(y_true, y_pred):
     precision_val = precision(y_true, y_pred)
     recall_val = recall(y_true, y_pred)
