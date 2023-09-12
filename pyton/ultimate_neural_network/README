@@ -1,3 +1,41 @@
-### Dont forget to copy the model from the docker container after trained
+## Clone the repository and change into the directory with the CNN
 
-docker cp <container_id>:/app/my_model /host/path/to/save
+```bash
+git clone 'the/link.git'
+cd /ad-blocker/pyton/ultimate_neural_network/
+```
+
+## Update the update.sh with your github credentials
+
+```bash
+...
+git config --global user.name "github_username"
+git config --global user.password "yourToken" # you can get it in github.com Settings > Developer Settings > Personal access tokens
+...
+```
+
+## Pull the latest changes from master and build the docker image 
+
+```bash
+./update.sh
+```
+
+## Create folders for the results of training
+
+```bash
+mkdir ~/cnn_training/models
+```
+
+## The dataset folder
+- By default the folder where should the dataset be is `~/Documents/adblocker/data`
+- It should contain 2 folders - `ad` and `nonad`
+
+```bash
+mkdir ~/Documents/adblocker/data/
+```
+
+## Start the docker container
+
+```bash
+./start.sh
+```
