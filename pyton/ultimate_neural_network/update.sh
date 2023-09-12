@@ -18,6 +18,3 @@ docker rmi -f ad-detection-cnn || true # Replace <IMAGE_NAME> with your actual i
 
 # Step 3: build the docker image from current folder docker file
 docker build -t ad-detection-cnn . # Replace <IMAGE_NAME> with your desired image name
-
-# Step 4: start the docker image with a specific command
-docker run --gpus all -v /home/mlserver/Documents/adblocker/data/:/app/dataset -v /home/mlserver/cnn_training/models:/app/models -it ad-detection-cnn
