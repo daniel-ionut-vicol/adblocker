@@ -1,7 +1,14 @@
 #!/bin/bash
 
-# Step 1: git pull with your github credentials
-git -c http.extraheader="AUTHORIZATION: bearer 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" pull origin master
+# Set Git to use the credential memory cache
+git config --global credential.helper cache
+
+# Set the cache to timeout after 1 hour (setting is in seconds)
+git config --global credential.helper 'cache --timeout=3600'
+
+# Add your GitHub username and password/PAT to the Git configuration
+git config --global user.name "RocketChamp"
+git config --global user.password "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"
 
 # Replace <TOKEN> with your actual GitHub personal access token
 
