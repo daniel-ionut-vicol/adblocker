@@ -39,26 +39,22 @@ def eval(model, test_generator, history, start_datetime, finish_datetime):
     # Print a confirmation message
     print(f'Evaluation metrics saved to {output_file}')
 
-    os.makedirs(f'/models/{current_model_folder_name}/metrics/', exist_ok=True)
+    os.makedirs(f'models/{current_model_folder_name}/metrics/', exist_ok=True)
 
     def saveMetric(metric):
-        # Plot the loss over epochs
+        # Plot the metric over epochs
         fig = plt.figure()
         plt.plot(history.history[metric], color='teal', label=metric)
         plt.plot(history.history[f'val_{metric}'], color='orange', label=f'val_{metric}')
         fig.suptitle(metric, fontsize=20)
         plt.legend(loc="upper left")
-        plt.savefig(f'/models/{current_model_folder_name}/metrics/tragining_{metric}.png', bbox_inches='tight')
+        plt.savefig(f'models/{current_model_folder_name}/metrics/training_{metric}.png', bbox_inches='tight')
 
     def saveModel(name='model'):
-        os.makedirs(f'/models/{current_model_folder_name}/saved_model/keras/', exist_ok=True)
-        os.makedirs(f'/models/{current_model_folder_name}/saved_model/tf/', exist_ok=True)
-        os.makedirs(f'/models/{current_model_folder_name}/saved_model/h5/', exist_ok=True)
-        
-        tfjs.converters.save_keras_model(model, f'/models/{current_model_folder_name}/saved_model/tfjs/' )
-        tf.keras.models.save_model(model, f'/models/{current_model_folder_name}/saved_model/keras/{name}.keras')
-        tf.keras.models.save_model(model, f'/models/{current_model_folder_name}/saved_model/tf/{name}', save_format='tf')
-        tf.keras.models.save_model(model, f'/models/{current_model_folder_name}/saved_model/h5/{name}.h5', save_format='h5')
+        tfjs.converters.save_keras_model(model, f'models/{current_model_folder_name}/saved_model/tfjs/' )
+        tf.keras.models.save_model(model, f'models/{current_model_folder_name}/saved_model/keras/{name}.keras')
+        tf.keras.models.save_model(model, f'models/{current_model_folder_name}/saved_model/tf/{name}', save_format='tf')
+        tf.keras.models.save_model(model, f'models/{current_model_folder_name}/saved_model/h5/{name}.h5', save_format='h5')
 
     try:
         saveMetric('loss')
