@@ -7,6 +7,7 @@ git config --global credential.helper cache
 git config --global credential.helper 'cache --timeout=3600'
 
 # Add your GitHub username and password/PAT to the Git configuration
+# TODO: Find another way to authenticate, this is unsecure
 git config --global user.name "RocketChamp"
 git config --global user.password "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"
 

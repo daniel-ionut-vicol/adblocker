@@ -5,7 +5,7 @@ git clone 'the/link.git'
 cd /ad-blocker/pyton/ultimate_neural_network/
 ```
 
-## Update the update.sh with your github credentials
+## Update the update.sh with your github credentials (you need to have access)
 
 ```bash
 ...
@@ -34,8 +34,58 @@ mkdir ~/cnn_training/models
 mkdir ~/Documents/adblocker/data/
 ```
 
-## Start the docker container
+## Model configuration is located in `config.py`
+
+- You can change some basic configurations of the training as: 
+    - IMAGE_SIZE
+    - BATCH_SIZE
+    - EPOCHS
+    - PATIENCE - how many epoch without improvement to wait until early stop
+    - DATASET_PATH - dataset location in the container
+    - VERBOSE_LEVEL - verbosity of the training
+
+## Start the docker container to start training
 
 ```bash
 ./start.sh
 ```
+
+## After training finishes
+
+You should get in the `~/cnn_training/models`: 
+- `models/` 
+- `logs/` 
+- `training_results.txt`
+
+## Evaluate and analyse training data
+
+### Tensorboard logs 
+
+To analyse the training data
+```bash
+pip install tensorboard
+cd ~/cnn_training/models
+tensorboard --logdir logs/
+``` 
+
+## Training settings and results interpretation on an example 
+
+`IMAGE_SIZE`=256: This indicates that the input images used for training and validation are resized to a resolution of 256x256 pixels. The choice of image size can impact the training process and model performance.
+
+`BATCH_SIZE`=32: During training, the dataset is divided into batches, and each batch contains 32 images. Batch size affects training speed and memory usage. Smaller batch sizes might lead to more stochastic updates, while larger batch sizes might lead to more stable gradients.
+
+`EPOCHS`=50: The model is trained for 50 epochs, meaning it goes through the entire training dataset 50 times. The number of epochs is a hyperparameter that determines how long the model is trained. It should be chosen based on the convergence of the loss and validation performance.
+
+`PATIENCE`=10: Patience is often used in early stopping. If the validation performance doesn't improve for 10 consecutive epochs, training is stopped to prevent overfitting.
+
+### Evaluation Metrics:
+
+`Loss`: 0.4689: This is the value of the loss function after training. The loss measures the error between the predicted values and the actual labels. Lower values indicate better model performance, but the significance of the value depends on the specific problem and dataset.
+
+`Accuracy`: 0.8084: This represents the classification accuracy of the model, which is the ratio of correctly predicted samples to the total number of samples in the validation set. An accuracy of 0.8084 indicates that approximately 80.84% of the samples were correctly classified.
+
+`Precision`: 0.9226: Precision is a measure of how many of the positive predictions made by the model are actually correct. A high precision score (close to 1) suggests that when the model predicts a positive class, it's often correct. In this case, the model has a precision of approximately 92.26%.
+
+`Recall`: 0.5953: Recall, also known as sensitivity or true positive rate, measures how many of the actual positive samples were correctly predicted by the model. A recall of 0.5953 indicates that the model correctly identified about 59.53% of the positive samples.
+
+`F1-score`: 0.7040: The F1-score is the harmonic mean of precision and recall. It provides a single metric that balances both precision and recall. An F1-score of approximately 0.7040 suggests a reasonable trade-off between precision and recall for this model.
