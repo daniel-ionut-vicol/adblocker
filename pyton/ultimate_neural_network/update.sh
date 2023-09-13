@@ -12,6 +12,8 @@ git config --global user.name "RocketChamp"
 git config --global user.password "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"
 
 # Replace <TOKEN> with your actual GitHub personal access token
+git pull
+
 
 # Step 2: remove the current container image with a specific name
 docker rm -f ad-detection-cnn || true # Replace <CONTAINER_NAME> with your actual container name
