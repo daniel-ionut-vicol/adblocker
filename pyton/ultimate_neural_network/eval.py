@@ -51,9 +51,9 @@ def eval(model, test_generator, history, start_datetime, finish_datetime):
         plt.savefig(f'models/{current_model_folder_name}/metrics/training_{metric}.png', bbox_inches='tight')
 
     def saveModel(name='model'):
-        os.makedirs(f'/models/{current_model_folder_name}/saved_model/keras/', exist_ok=True)
-        os.makedirs(f'/models/{current_model_folder_name}/saved_model/tf/', exist_ok=True)
-        os.makedirs(f'/models/{current_model_folder_name}/saved_model/h5/', exist_ok=True)
+        os.makedirs(f'models/{current_model_folder_name}/saved_model/keras/', exist_ok=True)
+        os.makedirs(f'models/{current_model_folder_name}/saved_model/tf/', exist_ok=True)
+        os.makedirs(f'models/{current_model_folder_name}/saved_model/h5/', exist_ok=True)
         
         tfjs.converters.save_keras_model(model, f'models/{current_model_folder_name}/saved_model/tfjs/' )
         tf.keras.models.save_model(model, f'models/{current_model_folder_name}/saved_model/keras/{name}.keras')
