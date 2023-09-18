@@ -10,7 +10,7 @@ from PIL import Image
 # ---------------
 import config
 from ultimate_generator import Generator
-from resnet50_model import get_model
+from resnet50_model import model
 from eval import eval
 
 def load_image_paths_labels(DATASET_PATH):
@@ -96,7 +96,6 @@ early_stopping = tf.keras.callbacks.EarlyStopping(
 # Create a new directory for models
 os.makedirs('models', exist_ok=True)
 
-model = get_model()
 start_datetime = datetime.datetime.now()
 current_model_folder_name = f'model_{start_datetime.strftime("%Y-%m-%d_%H-%M-%S")}'
 
