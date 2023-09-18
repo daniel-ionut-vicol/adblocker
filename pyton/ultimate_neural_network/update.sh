@@ -9,6 +9,7 @@ echo "https://RocketChamp:<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>@github.com"
 # Secure your ~/.git-credentials file
 chmod 600 ~/.git-credentials
 
+git stash
 # Pull the latest code from the Git repository
 git pull
 
