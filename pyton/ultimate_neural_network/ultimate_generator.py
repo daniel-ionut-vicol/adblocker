@@ -87,7 +87,9 @@ class Generator(tf.keras.utils.Sequence):
             _, threshed = cv2.threshold(gray, 240, 255, cv2.THRESH_BINARY_INV)
 
             # Find the contours
-            contours, _ = cv2.findContours(threshed, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+            contours, _ = cv2.findContours(
+                threshed, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE
+            )
 
             # Get the bounding rectangle for each contour
             rects = [cv2.boundingRect(cnt) for cnt in contours]
@@ -95,8 +97,8 @@ class Generator(tf.keras.utils.Sequence):
             # Calculate the combined bounding rectangle points.
             top_x = min([x for (x, y, w, h) in rects])
             top_y = min([y for (x, y, w, h) in rects])
-            bottom_x = max([x+w for (x, y, w, h) in rects])
-            bottom_y = max([y+h for (x, y, w, h) in rects])
+            bottom_x = max([x + w for (x, y, w, h) in rects])
+            bottom_y = max([y + h for (x, y, w, h) in rects])
 
             # Crop the image with the calculated coordinates
             img = img[top_y:bottom_y, top_x:bottom_x]
@@ -107,7 +109,7 @@ class Generator(tf.keras.utils.Sequence):
             img = img / 255.0  # Assuming pixel values are in the range [0, 255]
 
             images.append(img)
-
+            
         return images
 
     def construct_image_batch(self, image_group):
