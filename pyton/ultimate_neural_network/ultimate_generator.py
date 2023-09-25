@@ -3,10 +3,18 @@ import cv2
 import tensorflow as tf
 import config
 
-class Generator(tf.keras.utils.Sequence):
 
-    def __init__(self, image_paths, image_labels, BATCH_SIZE=config.BATCH_SIZE, shuffle_images=True, image_min_side=config.IMAGE_SIZE, is_training=True):
-        """ Initialize Generator object.
+class Generator(tf.keras.utils.Sequence):
+    def __init__(
+        self,
+        image_paths,
+        image_labels,
+        BATCH_SIZE=config.BATCH_SIZE,
+        shuffle_images=True,
+        image_min_side=config.IMAGE_SIZE,
+        is_training=True,
+    ):
+        """Initialize Generator object.
         Args
             image_paths            : List of image file paths.
             image_labels           : List of image labels.
@@ -23,9 +31,9 @@ class Generator(tf.keras.utils.Sequence):
         # Load image paths and labels
         self.image_paths = image_paths
         self.image_labels = image_labels
-        
+
         self.create_image_groups()
-    
+
     def create_image_groups(self):
         if self.shuffle_images:
             # Randomly shuffle dataset
@@ -36,11 +44,20 @@ class Generator(tf.keras.utils.Sequence):
             np.random.shuffle(self.image_labels)
 
         # Divide image_paths and image_labels into groups of BATCH_SIZE
-        self.image_groups = [[self.image_paths[x % len(self.image_paths)] for x in range(i, i + self.batch_size)]
-                              for i in range(0, len(self.image_paths), self.batch_size)]
-        self.label_groups = [[self.image_labels[x % len(self.image_labels)] for x in range(i, i + self.batch_size)]
-                              for i in range(0, len(self.image_labels), self.batch_size)]
-
+        self.image_groups = [
+            [
+                self.image_paths[x % len(self.image_paths)]
+                for x in range(i, i + self.batch_size)
+            ]
+            for i in range(0, len(self.image_paths), self.batch_size)
+        ]
+        self.label_groups = [
+            [
+                self.image_labels[x % len(self.image_labels)]
+                for x in range(i, i + self.batch_size)
+            ]
+            for i in range(0, len(self.image_labels), self.batch_size)
+        ]
 
     def resize_image(self, img, target_size):
         # Convert the image to a TensorFlow tensor
@@ -50,7 +67,7 @@ class Generator(tf.keras.utils.Sequence):
         resized_image = tf.image.resize(img, (target_size, target_size))
 
         return resized_image.numpy()  # Convert back to NumPy array for compatibility
-    
+
     def load_images(self, image_group):
         images = []
         for image_path in image_group:
@@ -62,6 +79,28 @@ class Generator(tf.keras.utils.Sequence):
                 img = cv2.cvtColor(img, cv2.COLOR_BGRA2RGB)
             elif img_shape == 3:
                 img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+
+            # Convert the image to grayscale[^1^][1]
+            gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+            # Threshold the image
+            _, threshed = cv2.threshold(gray, 240, 255, cv2.THRESH_BINARY_INV)
+
+            # Find the contours
+            contours, _ = cv2.findContours(threshed, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+
+            # Get the bounding rectangle for each contour
+            rects = [cv2.boundingRect(cnt) for cnt in contours]
+
+            # Calculate the combined bounding rectangle points.
+            top_x = min([x for (x, y, w, h) in rects])
+            top_y = min([y for (x, y, w, h) in rects])
+            bottom_x = max([x+w for (x, y, w, h) in rects])
+            bottom_y = max([y+h for (x, y, w, h) in rects])
+
+            # Crop the image with the calculated coordinates
+            img = img[top_y:bottom_y, top_x:bottom_x]
+
             img = self.resize_image(img, self.image_min_side)
 
             # Normalize the image
@@ -73,17 +112,21 @@ class Generator(tf.keras.utils.Sequence):
 
     def construct_image_batch(self, image_group):
         # get the max image shape
-        max_shape = tuple(max(image.shape[x] for image in image_group) for x in range(3))
+        max_shape = tuple(
+            max(image.shape[x] for image in image_group) for x in range(3)
+        )
 
         # construct an image batch object
-        image_batch = np.zeros((self.batch_size,) + max_shape, dtype='float32')
+        image_batch = np.zeros((self.batch_size,) + max_shape, dtype="float32")
 
         # copy all images to the upper left part of the image batch object
         for image_index, image in enumerate(image_group):
-            image_batch[image_index, :image.shape[0], :image.shape[1], :image.shape[2]] = image
+            image_batch[
+                image_index, : image.shape[0], : image.shape[1], : image.shape[2]
+            ] = image
 
         return image_batch
-    
+
     def __len__(self):
         """
         Number of batches for generator.
