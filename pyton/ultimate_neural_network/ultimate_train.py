@@ -11,8 +11,27 @@ from sklearn.model_selection import train_test_split
 from tensorflow.keras.callbacks import ModelCheckpoint
 # -----------
 from eval import eval
-import config
 
+# Function to read input with default value
+def get_input(prompt, default=None):
+    user_input = input(prompt)
+    return user_input if user_input else default
+
+IMAGE_SIZE = get_input("Image size(256): ", default=256)
+BATCH_SIZE = get_input("Batch size(32): ", default=32)
+EPOCHS = get_input("Epochs(10): ", default=10)
+PATIENCE = get_input("Patience(20): ", default=20)
+DATASET_PATH = get_input("Dataset path('/app/dataset'): ", default="/app/dataset")
+VERBOSE_LEVEL = get_input("Verbosity level(1): ", default=1)
+
+config = {
+    IMAGE_SIZE,
+    BATCH_SIZE,
+    EPOCHS,
+    PATIENCE,
+    DATASET_PATH,
+    VERBOSE_LEVEL
+}
 
 # Load the pre-trained ResNet50 model without the top layer
 base_model = ResNet50(weights='imagenet', include_top=False)
@@ -28,7 +47,6 @@ x = Dense(1024, activation='relu')(x)
 predictions = Dense(1, activation='sigmoid')(x)  # Single output node for binary classification
 
 model = Model(inputs=base_model.input, outputs=predictions)
-
 
 # Compile the model with binary cross-entropy loss
 model.compile(optimizer=Adam(learning_rate=0.001), loss='binary_crossentropy', metrics=['accuracy'])
@@ -68,8 +86,8 @@ def collect_image_paths(root_dir, label):
     return file_paths, labels
 
 # Collect image paths and labels
-ad_paths, ad_labels = collect_image_paths(os.path.join(config.DATASET_PATH, 'ad'), 0)  # Label for 'Ad'
-nonad_paths, nonad_labels = collect_image_paths(os.path.join(config.DATASET_PATH, 'nonAd'), 1)  # Label for 'NonAd'
+ad_paths, ad_labels = collect_image_paths(os.path.join(DATASET_PATH, 'ad'), 0)  # Label for 'Ad'
+nonad_paths, nonad_labels = collect_image_paths(os.path.join(DATASET_PATH, 'nonAd'), 1)  # Label for 'NonAd'
 
 # Combine the paths and labels
 file_paths = ad_paths + nonad_paths
@@ -81,13 +99,13 @@ train_paths, val_paths, train_labels, val_labels = train_test_split(file_paths, 
 # Split the data into training and validation sets
 train_paths, val_paths, train_labels, val_labels = train_test_split(file_paths, labels, test_size=0.2, random_state=42)
 
-train_generator = custom_generator(train_paths, train_labels, config.BATCH_SIZE, (config.IMAGE_SIZE, config.IMAGE_SIZE))
-val_generator = custom_generator(val_paths, val_labels, config.BATCH_SIZE, (config.IMAGE_SIZE, config.IMAGE_SIZE))
+train_generator = custom_generator(train_paths, train_labels, BATCH_SIZE, (IMAGE_SIZE, IMAGE_SIZE))
+val_generator = custom_generator(val_paths, val_labels, BATCH_SIZE, (IMAGE_SIZE, IMAGE_SIZE))
 
 # Assuming 'model' is your compiled model (e.g., based on ResNet50)
 # Define the number of steps per epoch for training and validation
-train_steps = len(train_paths) // config.BATCH_SIZE
-val_steps = len(val_paths) // config.BATCH_SIZE
+train_steps = len(train_paths) // BATCH_SIZE
+val_steps = len(val_paths) // BATCH_SIZE
 
 # CALLBACKS -----------------------------------
 # Define a callback for dynamic checkpoint naming and specific folder
@@ -103,7 +121,7 @@ def get_checkpoint_callback(folder_name):
         monitor="val_loss",  # Monitoring validation loss
         mode="min",
         save_weights_only=False,  # Save entire model
-        verbose=config.VERBOSE_LEVEL,
+        verbose=VERBOSE_LEVEL,
     )
     return checkpoint_callback
 
@@ -111,7 +129,7 @@ def get_checkpoint_callback(folder_name):
 # Define EarlyStopping callback
 early_stopping = tf.keras.callbacks.EarlyStopping(
     monitor="val_loss",  # Metric to monitor (e.g., validation loss)
-    patience=config.PATIENCE,  # Number of epochs with no improvement after which training will be stopped
+    patience=PATIENCE,  # Number of epochs with no improvement after which training will be stopped
     restore_best_weights=True,  # Restore the model weights from the epoch with the best value of the monitored metric
 )
 
@@ -129,10 +147,10 @@ tensorboard_callback = tf.keras.callbacks.TensorBoard(
 history = model.fit(
     train_generator,
     steps_per_epoch=train_steps,
-    epochs=config.EPOCHS,  # Number of epochs
+    epochs=EPOCHS,  # Number of epochs
     validation_data=val_generator,
     validation_steps=val_steps,
-    verbose=config.VERBOSE_LEVEL,  # You can adjust the verbosity level
+    verbose=VERBOSE_LEVEL,  # You can adjust the verbosity level
     callbacks=[
         tensorboard_callback,
         get_checkpoint_callback(current_model_folder_name),
@@ -142,4 +160,4 @@ history = model.fit(
 
 finish_datetime = datetime.datetime.now()
 
-eval(model, val_generator, history, start_datetime, finish_datetime)
+eval(model, val_generator, history, start_datetime, finish_datetime, config)

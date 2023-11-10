@@ -2,9 +2,8 @@ import os
 from matplotlib import pyplot as plt
 import tensorflow as tf
 import tensorflowjs as tfjs
-from config import IMAGE_SIZE, BATCH_SIZE, EPOCHS, PATIENCE
 
-def eval(model, test_generator, history, start_datetime, finish_datetime):
+def eval(model, test_generator, history, start_datetime, finish_datetime, config):
     print("Starting evaluation...")
     current_model_folder_name = f'model_{start_datetime.strftime("%Y-%m-%d_%H-%M-%S")}'
 
@@ -19,10 +18,10 @@ def eval(model, test_generator, history, start_datetime, finish_datetime):
         # Write the metrics to the file
         file.write('#TRAINING SETTINGS#\n')
         file.write('-----------------------\n')
-        file.write(f'IMAGE_SIZE={IMAGE_SIZE}\n')
-        file.write(f'BATCH_SIZE={BATCH_SIZE}\n')
-        file.write(f'EPOCHS={EPOCHS}\n')
-        file.write(f'PATIENCE={PATIENCE}\n\n')
+        file.write(f'IMAGE_SIZE={config.IMAGE_SIZE}\n')
+        file.write(f'BATCH_SIZE={config.BATCH_SIZE}\n')
+        file.write(f'EPOCHS={config.EPOCHS}\n')
+        file.write(f'PATIENCE={config.PATIENCE}\n\n')
         file.write('#METRICS#\n')
         file.write('-----------------------\n')
         file.write(f'Loss: {loss}\n')
