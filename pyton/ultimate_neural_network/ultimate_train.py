@@ -8,8 +8,11 @@ from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Dense, GlobalAveragePooling2D
 from tensorflow.keras.optimizers import Adam
 from sklearn.model_selection import train_test_split
+from tensorflow.keras.callbacks import ModelCheckpoint
+# -----------
 from eval import eval
 import config
+
 
 # Load the pre-trained ResNet50 model without the top layer
 base_model = ResNet50(weights='imagenet', include_top=False)
@@ -54,9 +57,11 @@ def custom_generator(file_paths, labels, batch_size, target_size):
 def collect_image_paths(root_dir, label):
     file_paths = []
     labels = []
+    print(f"Scanning directory: {root_dir}")  # Debug print
     for subdir, dirs, files in os.walk(root_dir):
+        print(f"Found {len(files)} files in {subdir}")  # Debug print
         for file in files:
-            if file.lower().endswith(('.png', '.jpg', '.jpeg')):  # Check for image file extensions
+            if file.lower().endswith(('.png', '.jpg', '.jpeg')):
                 file_path = os.path.join(subdir, file)
                 file_paths.append(file_path)
                 labels.append(label)
@@ -84,7 +89,41 @@ val_generator = custom_generator(val_paths, val_labels, config.BATCH_SIZE, (conf
 train_steps = len(train_paths) // config.BATCH_SIZE
 val_steps = len(val_paths) // config.BATCH_SIZE
 
+# CALLBACKS -----------------------------------
+# Define a callback for dynamic checkpoint naming and specific folder
+def get_checkpoint_callback(folder_name):
+    checkpoint_dir = os.path.join("models", folder_name, "checkpoints")
+    os.makedirs(checkpoint_dir, exist_ok=True)
+    checkpoint_callback = ModelCheckpoint(
+        filepath=os.path.join(
+            checkpoint_dir,
+            "model_epoch_{epoch:04d}_loss_{loss:.4f}_acc_{accuracy:.4f}_val_loss_{val_loss:.4f}_val_acc_{val_accuracy:.4f}.h5",
+        ),
+        save_best_only=True,
+        monitor="val_loss",  # Monitoring validation loss
+        mode="min",
+        save_weights_only=False,  # Save entire model
+        verbose=config.VERBOSE_LEVEL,
+    )
+    return checkpoint_callback
+
+
+# Define EarlyStopping callback
+early_stopping = tf.keras.callbacks.EarlyStopping(
+    monitor="val_loss",  # Metric to monitor (e.g., validation loss)
+    patience=config.PATIENCE,  # Number of epochs with no improvement after which training will be stopped
+    restore_best_weights=True,  # Restore the model weights from the epoch with the best value of the monitored metric
+)
+
+# Create a new directory for models
+os.makedirs("models", exist_ok=True)
+
 start_datetime = datetime.datetime.now()
+current_model_folder_name = f'model_{start_datetime.strftime("%Y-%m-%d_%H-%M-%S")}'
+
+tensorboard_callback = tf.keras.callbacks.TensorBoard(
+    log_dir=f"models/{current_model_folder_name}/logs"
+)
 
 # Fit the model
 history = model.fit(
@@ -92,7 +131,13 @@ history = model.fit(
     steps_per_epoch=train_steps,
     epochs=config.EPOCHS,  # Number of epochs
     validation_data=val_generator,
-    validation_steps=val_steps
+    validation_steps=val_steps,
+    verbose=config.VERBOSE_LEVEL,  # You can adjust the verbosity level
+    callbacks=[
+        tensorboard_callback,
+        get_checkpoint_callback(current_model_folder_name),
+        early_stopping,
+    ],
 )
 
 finish_datetime = datetime.datetime.now()
