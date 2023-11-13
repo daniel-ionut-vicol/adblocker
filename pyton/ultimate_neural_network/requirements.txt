@@ -5,3 +5,4 @@ matplotlib
 opencv-python
 scikit-learn
 pillow
+transformers
