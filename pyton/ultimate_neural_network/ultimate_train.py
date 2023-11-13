@@ -7,49 +7,64 @@ from tensorflow.keras.applications.resnet50 import ResNet50
 from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Dense, GlobalAveragePooling2D
 from tensorflow.keras.optimizers import Adam
+from tensorflow.keras import backend as K
 from sklearn.model_selection import train_test_split
 from tensorflow.keras.callbacks import ModelCheckpoint
 # -----------
 from eval import eval
+from utils import get_input, is_image_corrupt
 
-# Function to read input with default value
-def get_input(prompt, default=None):
-    user_input = input(prompt)
-    return user_input if user_input else default
+# GPU setup configuration 
+K.clear_session()
 
-IMAGE_SIZE = get_input("Image size(256): ", default=256)
-BATCH_SIZE = get_input("Batch size(32): ", default=32)
-EPOCHS = get_input("Epochs(10): ", default=10)
-PATIENCE = get_input("Patience(20): ", default=20)
-DATASET_PATH = get_input("Dataset path('/app/dataset'): ", default="/app/dataset")
-VERBOSE_LEVEL = get_input("Verbosity level(1): ", default=1)
+gpus = tf.config.experimental.list_physical_devices('GPU')
+if gpus:
+    try:
+        for gpu in gpus:
+            tf.config.experimental.set_memory_growth(gpu, True)
+    except RuntimeError as e:
+        print(e)
+
+# Use MirroredStrategy to utilize all GPUs
+strategy = tf.distribute.MirroredStrategy()
+print(f"Number of GPUs: {strategy.num_replicas_in_sync}")
+
+IMAGE_SIZE = get_input("Image size", default=224)
+BATCH_SIZE = get_input("Batch size", default=32)
+EPOCHS = get_input("Epochs", default=10)
+PATIENCE = get_input("Patience", default=20)
+DATASET_PATH = get_input("Dataset path", default="/app/dataset")
+VERBOSE_LEVEL = get_input("Verbosity level", default=1)
 
 config = {
-    IMAGE_SIZE,
-    BATCH_SIZE,
-    EPOCHS,
-    PATIENCE,
+    int(IMAGE_SIZE),
+    int(BATCH_SIZE),
+    int(EPOCHS),
+    int(PATIENCE),
     DATASET_PATH,
-    VERBOSE_LEVEL
+    int(VERBOSE_LEVEL)
 }
 
-# Load the pre-trained ResNet50 model without the top layer
-base_model = ResNet50(weights='imagenet', include_top=False)
+# Define the model inside the strategy's scope
+with strategy.scope():
+    # Load the pre-trained ResNet50 model without the top layer
+    base_model = ResNet50(weights='imagenet', include_top=False)
 
-# Freeze the layers of the base model
-for layer in base_model.layers:
-    layer.trainable = False
+    # Freeze the layers of the base model
+    for layer in base_model.layers:
+        layer.trainable = False
 
-# Add new layers for binary classification
-x = base_model.output
-x = GlobalAveragePooling2D()(x)
-x = Dense(1024, activation='relu')(x)
-predictions = Dense(1, activation='sigmoid')(x)  # Single output node for binary classification
+    # Add new layers for binary classification
+    x = base_model.output
+    x = GlobalAveragePooling2D()(x)
+    x = Dense(1024, activation='relu')(x)
+    predictions = Dense(1, activation='sigmoid')(x)  # Single output node for binary classification
 
-model = Model(inputs=base_model.input, outputs=predictions)
+    model = Model(inputs=base_model.input, outputs=predictions)
 
-# Compile the model with binary cross-entropy loss
-model.compile(optimizer=Adam(learning_rate=0.001), loss='binary_crossentropy', metrics=['accuracy'])
+    # Compile the model with binary cross-entropy loss
+    model.compile(optimizer=Adam(learning_rate=0.001), loss='binary_crossentropy', metrics=['accuracy'])
+
 
 # Function to load and preprocess a single image
 def preprocess_image(image_path, target_size):
@@ -72,18 +87,32 @@ def custom_generator(file_paths, labels, batch_size, target_size):
             yield images, np.array(batch_labels)
 
 # Function to recursively collect all image file paths in a given directory
+import os
+
 def collect_image_paths(root_dir, label):
     file_paths = []
     labels = []
+    corrupt_images_log = "corrupt_images.log"  # Log file for corrupt images
+
     print(f"Scanning directory: {root_dir}")  # Debug print
     for subdir, dirs, files in os.walk(root_dir):
         print(f"Found {len(files)} files in {subdir}")  # Debug print
         for file in files:
             if file.lower().endswith(('.png', '.jpg', '.jpeg')):
                 file_path = os.path.join(subdir, file)
+
+                # Check for corrupt images
+                if is_image_corrupt(file_path):
+                    print(f"Corrupt image detected: {file_path}")
+                    with open(corrupt_images_log, "a") as log:
+                        log.write(file_path + "\n")
+                    continue
+
                 file_paths.append(file_path)
                 labels.append(label)
+
     return file_paths, labels
+
 
 # Collect image paths and labels
 ad_paths, ad_labels = collect_image_paths(os.path.join(DATASET_PATH, 'ad'), 0)  # Label for 'Ad'
