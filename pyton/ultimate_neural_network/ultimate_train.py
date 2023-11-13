@@ -37,12 +37,12 @@ DATASET_PATH = get_input("Dataset path", default="/app/dataset")
 VERBOSE_LEVEL = get_input("Verbosity level", default=1)
 
 config = {
-    int(IMAGE_SIZE),
-    int(BATCH_SIZE),
-    int(EPOCHS),
-    int(PATIENCE),
+    IMAGE_SIZE,
+    BATCH_SIZE,
+    EPOCHS,
+    PATIENCE,
     DATASET_PATH,
-    int(VERBOSE_LEVEL)
+    VERBOSE_LEVEL
 }
 
 # Define the model inside the strategy's scope
@@ -68,7 +68,7 @@ with strategy.scope():
 
 # Function to load and preprocess a single image
 def preprocess_image(image_path, target_size):
-    img = load_img(image_path, target_size=target_size)
+    img = load_img(image_path, target_size=int(target_size))
     img = img_to_array(img)
     img = np.expand_dims(img, axis=0)
     return tf.keras.applications.resnet50.preprocess_input(img)
