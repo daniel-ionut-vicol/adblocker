@@ -29,12 +29,12 @@ if gpus:
 strategy = tf.distribute.MirroredStrategy()
 print(f"Number of GPUs: {strategy.num_replicas_in_sync}")
 
-IMAGE_SIZE = get_input("Image size", default=224)
-BATCH_SIZE = get_input("Batch size", default=32)
-EPOCHS = get_input("Epochs", default=10)
-PATIENCE = get_input("Patience", default=20)
+IMAGE_SIZE = int(get_input("Image size", default=224))
+BATCH_SIZE = int(get_input("Batch size", default=32))
+EPOCHS = int(get_input("Epochs", default=10))
+PATIENCE = int(get_input("Patience", default=20))
 DATASET_PATH = get_input("Dataset path", default="/app/dataset")
-VERBOSE_LEVEL = get_input("Verbosity level", default=1)
+VERBOSE_LEVEL = int(get_input("Verbosity level", default=1))
 
 config = {
     IMAGE_SIZE,
@@ -68,7 +68,7 @@ with strategy.scope():
 
 # Function to load and preprocess a single image
 def preprocess_image(image_path, target_size):
-    img = load_img(image_path, target_size=int(target_size))
+    img = load_img(image_path, target_size=target_size)
     img = img_to_array(img)
     img = np.expand_dims(img, axis=0)
     return tf.keras.applications.resnet50.preprocess_input(img)
@@ -87,8 +87,6 @@ def custom_generator(file_paths, labels, batch_size, target_size):
             yield images, np.array(batch_labels)
 
 # Function to recursively collect all image file paths in a given directory
-import os
-
 def collect_image_paths(root_dir, label):
     file_paths = []
     labels = []
@@ -176,7 +174,7 @@ tensorboard_callback = tf.keras.callbacks.TensorBoard(
 history = model.fit(
     train_generator,
     steps_per_epoch=train_steps,
-    epochs=EPOCHS,  # Number of epochs
+    epochs=EPOCHS,# Number of epochs
     validation_data=val_generator,
     validation_steps=val_steps,
     verbose=VERBOSE_LEVEL,  # You can adjust the verbosity level

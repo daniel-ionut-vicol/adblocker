@@ -1,6 +1,12 @@
 # Use an official TensorFlow GPU image as the base image
 FROM tensorflow/tensorflow:latest-gpu-jupyter
 
+# Set the working directory in the container
+WORKDIR /tf
+
+# Copy your project files into the container
+COPY . /tf
+
 # Install any additional dependencies your project requires
 # For example, if you have a requirements.txt file:
 RUN apt-get update && apt-get install ffmpeg libsm6 libxext6  -y

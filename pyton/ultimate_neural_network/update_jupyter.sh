@@ -5,4 +5,4 @@ docker rm -f ad-detection-cnn-jupyter || true
 docker rmi -f ad-detection-cnn-jupyter || true
 
 # Step 2: build the docker image from current folder docker file
-docker build -t ad-detection-cnn-jupyter .
+docker build -t ad-detection-cnn-jupyter -f Dockerfile_jupyter .
