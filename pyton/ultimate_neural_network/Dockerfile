@@ -18,4 +18,4 @@ RUN pip install -r requirements.txt
 EXPOSE 8080
 
 # Command to run your TensorFlow project (modify this as needed)
-CMD ["python", "ultimate_train.py"]
+CMD ["python", "clip_gpt-training.py"]

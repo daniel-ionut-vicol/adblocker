@@ -29,13 +29,23 @@ if gpus:
 strategy = tf.distribute.MirroredStrategy()
 print(f"Number of GPUs: {strategy.num_replicas_in_sync}")
 
-IMAGE_SIZE = get_input("Image size", default=224)
-TEXT_INPUT_SIZE = get_input("Text input size", default=128)  # Specify the desired text input size for CLIP
-BATCH_SIZE = get_input("Batch size", default=32)
-EPOCHS = get_input("Epochs", default=10)
-PATIENCE = get_input("Patience", default=20)
+IMAGE_SIZE = int(get_input("Image size", default=224))
+BATCH_SIZE = int(get_input("Batch size", default=32))
+EPOCHS = int(get_input("Epochs", default=10))
+PATIENCE = int(get_input("Patience", default=20))
 DATASET_PATH = get_input("Dataset path", default="/app/dataset")
-VERBOSE_LEVEL = get_input("Verbosity level", default=1)
+VERBOSE_LEVEL = int(get_input("Verbosity level", default=1))
+TEXT_INPUT_SIZE = int(get_input("Text input size", default=1))
+
+config = {
+    IMAGE_SIZE,
+    BATCH_SIZE,
+    EPOCHS,
+    PATIENCE,
+    DATASET_PATH,
+    VERBOSE_LEVEL,
+    TEXT_INPUT_SIZE
+}
 
 # Define CLIP model and processor
 with strategy.scope():
@@ -89,9 +99,6 @@ def custom_generator(file_paths, labels, batch_size, target_size, processor):
             text_inputs = processor(text_inputs, max_length=TEXT_INPUT_SIZE, padding="max_length", truncation=True, return_tensors="tf")
 
             yield {"image_input": images, "text_input": text_inputs}, np.array(batch_labels)
-
-# Function to recursively collect all image file paths in a given directory
-import os
 
 def collect_image_paths(root_dir, label):
     file_paths = []
