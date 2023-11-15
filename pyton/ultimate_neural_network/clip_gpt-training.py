@@ -3,16 +3,47 @@ import datetime
 import numpy as np
 import tensorflow as tf
 from tensorflow.keras.models import Model
-from tensorflow.keras.layers import Input, Dense, GlobalAveragePooling2D
+from tensorflow.keras.layers import Input, Dense
 from tensorflow.keras.preprocessing.image import load_img, img_to_array
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras import backend as K
 from sklearn.model_selection import train_test_split
 from tensorflow.keras.callbacks import ModelCheckpoint
 from transformers import CLIPModel, CLIPProcessor
+import argparse
 # -----------
 from eval import eval
-from utils import get_input, is_image_corrupt
+from utils import is_image_corrupt
+
+# Create the parser
+parser = argparse.ArgumentParser()
+
+# Add arguments
+parser.add_argument('--image_size', type=int, help='Image size', default=224)
+parser.add_argument('--batch_size', type=int, help='Batch size', default=32)
+parser.add_argument('--epochs', type=int, help='Epochs', default=10)
+parser.add_argument('--patience', type=int, help='Patience', default=20)
+parser.add_argument('--dataset_path', type=str, help='Dataset path', default="/app/dataset")
+parser.add_argument('--verbose_level', type=int, help='Verbosity level', default=1)
+parser.add_argument('--text_input_size', type=int, help='Text input size', default=1)
+
+IMAGE_SIZE = int(os.getenv('IMAGE_SIZE', 224))
+BATCH_SIZE = int(os.getenv('BATCH_SIZE', 32))
+EPOCHS = int(os.getenv('EPOCHS', 10))
+PATIENCE = int(os.getenv('PATIENCE', 20))
+DATASET_PATH = os.getenv('DATASET_PATH', "/app/dataset")
+VERBOSE_LEVEL = int(os.getenv('VERBOSE_LEVEL', 1))
+TEXT_INPUT_SIZE = int(os.getenv('TEXT_INPUT_SIZE', 1))
+
+config = {
+    IMAGE_SIZE,
+    BATCH_SIZE,
+    EPOCHS,
+    PATIENCE,
+    DATASET_PATH,
+    VERBOSE_LEVEL,
+    TEXT_INPUT_SIZE
+}
 
 # GPU setup configuration
 K.clear_session()
@@ -28,24 +59,6 @@ if gpus:
 # Use MirroredStrategy to utilize all GPUs
 strategy = tf.distribute.MirroredStrategy()
 print(f"Number of GPUs: {strategy.num_replicas_in_sync}")
-
-IMAGE_SIZE = int(get_input("Image size", default=224))
-BATCH_SIZE = int(get_input("Batch size", default=32))
-EPOCHS = int(get_input("Epochs", default=10))
-PATIENCE = int(get_input("Patience", default=20))
-DATASET_PATH = get_input("Dataset path", default="/app/dataset")
-VERBOSE_LEVEL = int(get_input("Verbosity level", default=1))
-TEXT_INPUT_SIZE = int(get_input("Text input size", default=1))
-
-config = {
-    IMAGE_SIZE,
-    BATCH_SIZE,
-    EPOCHS,
-    PATIENCE,
-    DATASET_PATH,
-    VERBOSE_LEVEL,
-    TEXT_INPUT_SIZE
-}
 
 # Define CLIP model and processor
 with strategy.scope():
