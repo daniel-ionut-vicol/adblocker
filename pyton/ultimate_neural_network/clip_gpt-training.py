@@ -10,22 +10,9 @@ from tensorflow.keras import backend as K
 from sklearn.model_selection import train_test_split
 from tensorflow.keras.callbacks import ModelCheckpoint
 from transformers import CLIPModel, CLIPProcessor
-import argparse
 # -----------
 from eval import eval
 from utils import is_image_corrupt
-
-# Create the parser
-parser = argparse.ArgumentParser()
-
-# Add arguments
-parser.add_argument('--image_size', type=int, help='Image size', default=224)
-parser.add_argument('--batch_size', type=int, help='Batch size', default=32)
-parser.add_argument('--epochs', type=int, help='Epochs', default=10)
-parser.add_argument('--patience', type=int, help='Patience', default=20)
-parser.add_argument('--dataset_path', type=str, help='Dataset path', default="/app/dataset")
-parser.add_argument('--verbose_level', type=int, help='Verbosity level', default=1)
-parser.add_argument('--text_input_size', type=int, help='Text input size', default=1)
 
 IMAGE_SIZE = int(os.getenv('IMAGE_SIZE', 224))
 BATCH_SIZE = int(os.getenv('BATCH_SIZE', 32))
@@ -63,12 +50,12 @@ print(f"Number of GPUs: {strategy.num_replicas_in_sync}")
 # Define CLIP model and processor
 with strategy.scope():
     # Load the pre-trained CLIP model and processor
-    clip_model = CLIPModel.from_pretrained("openai/clip-vit-base")
-    clip_processor = CLIPProcessor.from_pretrained("openai/clip-vit-base")
+    clip_model = CLIPModel.from_pretrained('./pretrained/clip-vit-base-patch32', from_tf=False)
+    clip_processor = CLIPProcessor.from_pretrained('./pretrained/clip-vit-base-patch32')
 
     # Define the input layers for images and text
-    image_input = Input(shape=(int(IMAGE_SIZE), int(IMAGE_SIZE), 3), name="image_input")
-    text_input = Input(shape=(int(TEXT_INPUT_SIZE),), dtype=tf.string, name="text_input")
+    image_input = Input(shape=(IMAGE_SIZE, IMAGE_SIZE, 3), name="image_input")
+    text_input = Input(shape=(TEXT_INPUT_SIZE,), dtype=tf.string, name="text_input")
 
     # Process images and text
     image_features = clip_model.pixel_values(image_input)
