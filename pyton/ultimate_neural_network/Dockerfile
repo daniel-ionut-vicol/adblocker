@@ -4,18 +4,15 @@ FROM tensorflow/tensorflow:latest-gpu
 # Set the working directory in the container
 WORKDIR /app
 
-# Copy your project files into the container
-COPY . /app
-
 # Install any additional dependencies your project requires
-# For example, if you have a requirements.txt file:
 RUN apt-get update && apt-get install ffmpeg libsm6 libxext6  -y
 RUN python3 -m pip install --upgrade pip
+COPY requirements.txt .
 RUN pip install -r requirements.txt
 
 # Expose any necessary ports if your project runs a service
-# For example, if your application listens on port 8080:
 EXPOSE 8080
 
 # Command to run your TensorFlow project (modify this as needed)
 CMD ["python", "clip_gpt-training.py"]
+
