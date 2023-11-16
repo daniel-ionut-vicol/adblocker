@@ -24,3 +24,4 @@
 /js/chrome-extension/node_modules
 /js/chrome-extension/dist/src
 /pyton/processedDataSetAds
+/pyton/flask_backend/flaskapp
