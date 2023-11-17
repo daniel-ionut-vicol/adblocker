@@ -1,11 +1,12 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 import torch
 from transformers import CLIPProcessor, CLIPModel, CLIPImageProcessor
 from PIL import Image, UnidentifiedImageError
 import io
 
 app = Flask(__name__)
-
+CORS(app)
 # Load a pre-trained CLIP model and processor
 model = CLIPModel.from_pretrained("openai/clip-vit-base-patch32")
 processor = CLIPProcessor.from_pretrained("openai/clip-vit-base-patch32")
