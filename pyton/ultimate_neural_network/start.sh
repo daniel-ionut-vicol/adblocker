@@ -75,4 +75,4 @@ while true; do
 done
 
 # Run the Docker command
-docker run --gpus all -v ~/adblocker/pyton/ultimate_neural_network:/app -v ~/dataset:/app/dataset -v ~/cnn_training/models:/app/models -it -e IMAGE_SIZE=$IMAGE_SIZE -e BATCH_SIZE=$BATCH_SIZE -e EPOCHS=$EPOCHS -e PATIENCE=$PATIENCE -e DATASET_PATH=$DATASET_PATH -e VERBOSE_LEVEL=$VERBOSE_LEVEL -e TEXT_INPUT_SIZE=$TEXT_INPUT_SIZE ad-detection-cnn
+docker run --gpus all -v ~/adblock/pyton/ultimate_neural_network:/app -v ~/dataset:/home/dataset -v ~/cnn_training/models:/home/models -it -e IMAGE_SIZE=$IMAGE_SIZE -e BATCH_SIZE=$BATCH_SIZE -e EPOCHS=$EPOCHS -e PATIENCE=$PATIENCE -e DATASET_PATH=$DATASET_PATH -e VERBOSE_LEVEL=$VERBOSE_LEVEL -e TEXT_INPUT_SIZE=$TEXT_INPUT_SIZE ad-detection-cnn
