@@ -22,6 +22,8 @@ def eval(model, test_generator, history, start_datetime, finish_datetime, config
         file.write(f'BATCH_SIZE={config.BATCH_SIZE}\n')
         file.write(f'EPOCHS={config.EPOCHS}\n')
         file.write(f'PATIENCE={config.PATIENCE}\n\n')
+        file.write(f'AD_IMAGE_LIMIT={config.AD_IMAGE_LIMIT}\n\n')
+        file.write(f'NONAD_IMAGE_LIMIT={config.NONAD_IMAGE_LIMIT}\n\n')
         file.write('#METRICS#\n')
         file.write('-----------------------\n')
         file.write(f'Loss: {loss}\n')

@@ -2,69 +2,59 @@ import os
 import datetime
 import numpy as np
 import tensorflow as tf
-from tensorflow.keras.preprocessing.image import load_img, img_to_array
 from tensorflow.keras.applications.resnet50 import ResNet50
+from tensorflow.keras.preprocessing.image import load_img, img_to_array
 from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Dense, GlobalAveragePooling2D
 from tensorflow.keras.optimizers import Adam
-from tensorflow.keras import backend as K
+from tensorflow.keras.callbacks import ModelCheckpoint, EarlyStopping
 from sklearn.model_selection import train_test_split
-from tensorflow.keras.callbacks import ModelCheckpoint
+
 # -----------
 from eval import eval
-from utils import get_input, is_image_corrupt
+from utils import is_image_corrupt
 
 # GPU setup configuration 
-K.clear_session()
-
+tf.keras.backend.clear_session()
 gpus = tf.config.experimental.list_physical_devices('GPU')
-if gpus:
-    try:
-        for gpu in gpus:
-            tf.config.experimental.set_memory_growth(gpu, True)
-    except RuntimeError as e:
-        print(e)
+for gpu in gpus:
+    tf.config.experimental.set_memory_growth(gpu, True)
 
-# Use MirroredStrategy to utilize all GPUs
 strategy = tf.distribute.MirroredStrategy()
 print(f"Number of GPUs: {strategy.num_replicas_in_sync}")
 
-IMAGE_SIZE = int(get_input("Image size", default=224))
-BATCH_SIZE = int(get_input("Batch size", default=32))
-EPOCHS = int(get_input("Epochs", default=10))
-PATIENCE = int(get_input("Patience", default=20))
-DATASET_PATH = get_input("Dataset path", default="/app/dataset")
-VERBOSE_LEVEL = int(get_input("Verbosity level", default=1))
+# Constants from Environment Variables
+IMAGE_SIZE = int(os.environ.get("IMAGE_SIZE", 224))
+# Constants from Environment Variables for Image Limits
+AD_IMAGE_LIMIT = os.environ.get("AD_IMAGE_LIMIT", "all")
+NONAD_IMAGE_LIMIT = os.environ.get("NONAD_IMAGE_LIMIT", "all")
+BATCH_SIZE = int(os.environ.get("BATCH_SIZE", 32))
+EPOCHS = int(os.environ.get("EPOCHS", 10))
+PATIENCE = int(os.environ.get("PATIENCE", 20))
+DATASET_PATH = os.environ.get("DATASET_PATH", "/app/dataset")
+VERBOSE_LEVEL = int(os.environ.get("VERBOSE_LEVEL", 1))
 
 config = {
-    IMAGE_SIZE,
-    BATCH_SIZE,
-    EPOCHS,
-    PATIENCE,
-    DATASET_PATH,
-    VERBOSE_LEVEL
+    'IMAGE_SIZE': IMAGE_SIZE,
+    'BATCH_SIZE': BATCH_SIZE,
+    'EPOCHS': EPOCHS,
+    'PATIENCE': PATIENCE,
+    'DATASET_PATH': DATASET_PATH,
+    'VERBOSE_LEVEL': VERBOSE_LEVEL,
+    'AD_IMAGE_LIMIT': AD_IMAGE_LIMIT,
+    'NONAD_IMAGE_LIMIT': NONAD_IMAGE_LIMIT
 }
 
-# Define the model inside the strategy's scope
 with strategy.scope():
-    # Load the pre-trained ResNet50 model without the top layer
     base_model = ResNet50(weights='imagenet', include_top=False)
-
-    # Freeze the layers of the base model
     for layer in base_model.layers:
         layer.trainable = False
 
-    # Add new layers for binary classification
-    x = base_model.output
-    x = GlobalAveragePooling2D()(x)
+    x = GlobalAveragePooling2D()(base_model.output)
     x = Dense(1024, activation='relu')(x)
-    predictions = Dense(1, activation='sigmoid')(x)  # Single output node for binary classification
-
+    predictions = Dense(1, activation='sigmoid')(x)
     model = Model(inputs=base_model.input, outputs=predictions)
-
-    # Compile the model with binary cross-entropy loss
     model.compile(optimizer=Adam(learning_rate=0.001), loss='binary_crossentropy', metrics=['accuracy'])
-
 
 # Function to load and preprocess a single image
 def preprocess_image(image_path, target_size):
@@ -87,50 +77,43 @@ def custom_generator(file_paths, labels, batch_size, target_size):
             yield images, np.array(batch_labels)
 
 # Function to recursively collect all image file paths in a given directory
-def collect_image_paths(root_dir, label):
+def collect_image_paths(root_dir, label, image_limit):
     file_paths = []
     labels = []
-    corrupt_images_log = "corrupt_images.log"  # Log file for corrupt images
+    corrupt_images_log = "corrupt_images.log"
+    image_count = 0
 
-    print(f"Scanning directory: {root_dir}")  # Debug print
     for subdir, dirs, files in os.walk(root_dir):
-        print(f"Found {len(files)} files in {subdir}")  # Debug print
         for file in files:
+            if image_limit != "all" and image_count >= int(image_limit):
+                break
+
             if file.lower().endswith(('.png', '.jpg', '.jpeg')):
                 file_path = os.path.join(subdir, file)
 
-                # Check for corrupt images
                 if is_image_corrupt(file_path):
-                    print(f"Corrupt image detected: {file_path}")
                     with open(corrupt_images_log, "a") as log:
                         log.write(file_path + "\n")
                     continue
 
                 file_paths.append(file_path)
                 labels.append(label)
+                image_count += 1
 
     return file_paths, labels
 
-
 # Collect image paths and labels
-ad_paths, ad_labels = collect_image_paths(os.path.join(DATASET_PATH, 'ad'), 0)  # Label for 'Ad'
-nonad_paths, nonad_labels = collect_image_paths(os.path.join(DATASET_PATH, 'nonAd'), 1)  # Label for 'NonAd'
+ad_paths, ad_labels = collect_image_paths(os.path.join(DATASET_PATH, 'ad'), 0, AD_IMAGE_LIMIT)
+nonad_paths, nonad_labels = collect_image_paths(os.path.join(DATASET_PATH, 'nonAd'), 1, NONAD_IMAGE_LIMIT)
 
-# Combine the paths and labels
 file_paths = ad_paths + nonad_paths
 labels = ad_labels + nonad_labels
 
-# Split the data into training and validation sets
-train_paths, val_paths, train_labels, val_labels = train_test_split(file_paths, labels, test_size=0.2, random_state=42)
-
-# Split the data into training and validation sets
 train_paths, val_paths, train_labels, val_labels = train_test_split(file_paths, labels, test_size=0.2, random_state=42)
 
 train_generator = custom_generator(train_paths, train_labels, BATCH_SIZE, (IMAGE_SIZE, IMAGE_SIZE))
 val_generator = custom_generator(val_paths, val_labels, BATCH_SIZE, (IMAGE_SIZE, IMAGE_SIZE))
 
-# Assuming 'model' is your compiled model (e.g., based on ResNet50)
-# Define the number of steps per epoch for training and validation
 train_steps = len(train_paths) // BATCH_SIZE
 val_steps = len(val_paths) // BATCH_SIZE
 
@@ -174,10 +157,10 @@ tensorboard_callback = tf.keras.callbacks.TensorBoard(
 history = model.fit(
     train_generator,
     steps_per_epoch=train_steps,
-    epochs=EPOCHS,# Number of epochs
+    epochs=EPOCHS,
     validation_data=val_generator,
     validation_steps=val_steps,
-    verbose=VERBOSE_LEVEL,  # You can adjust the verbosity level
+    verbose=VERBOSE_LEVEL,
     callbacks=[
         tensorboard_callback,
         get_checkpoint_callback(current_model_folder_name),
