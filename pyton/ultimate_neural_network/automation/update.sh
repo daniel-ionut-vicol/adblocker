@@ -5,4 +5,4 @@ docker rm -f ad-detection-cnn || true
 docker rmi -f ad-detection-cnn || true
 
 # Step 2: build the docker image from current folder docker file
-docker build -t ad-detection-cnn .
+docker build --no-cache -t ad-detection-cnn ../

@@ -2,18 +2,14 @@ import os
 import datetime
 import numpy as np
 import tensorflow as tf
-from tensorflow.keras.models import Model
-from tensorflow.keras.layers import Input, Dense
-from tensorflow.keras.preprocessing.image import load_img, img_to_array
+
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras import backend as K
 from sklearn.model_selection import train_test_split
 from tensorflow.keras.callbacks import ModelCheckpoint
-from transformers import CLIPModel, CLIPProcessor
-
 # -----------
-from eval import eval
-from utils import is_image_corrupt
+from helpers.eval import eval
+from helpers.utils import is_image_corrupt
 
 IMAGE_SIZE = int(os.getenv("IMAGE_SIZE", 224))
 BATCH_SIZE = int(os.getenv("BATCH_SIZE", 32))
@@ -48,74 +44,8 @@ if gpus:
 strategy = tf.distribute.MirroredStrategy()
 print(f"Number of GPUs: {strategy.num_replicas_in_sync}")
 
-# Define CLIP model and processor
-with strategy.scope():
-    # Load the pre-trained CLIP model and processor
-    clip_model = CLIPModel.from_pretrained(
-        "./pretrained/clip-vit-base-patch32", from_tf=False
-    )
-    clip_processor = CLIPProcessor.from_pretrained("./pretrained/clip-vit-base-patch32")
-
-    # Define the input layers for images and text
-    image_input = Input(shape=(IMAGE_SIZE, IMAGE_SIZE, 3), name="image_input")
-    text_input = Input(shape=(TEXT_INPUT_SIZE,), dtype=tf.string, name="text_input")
-
-    # Process images and text
-    image_features = clip_model.pixel_values(image_input)
-    text_features = clip_model.embed_text(text_input)
-
-    # Combine image and text features
-    combined_features = tf.concat([image_features, text_features], axis=-1)
-
-    # Add a classification head for binary classification
-    predictions = Dense(1, activation="sigmoid")(combined_features)
-
-    # Create the model
-    model = Model(inputs=[image_input, text_input], outputs=predictions)
-
-    # Compile the model with binary cross-entropy loss
-    model.compile(
-        optimizer=Adam(learning_rate=0.001),
-        loss="binary_crossentropy",
-        metrics=["accuracy"],
-    )
 
 
-# Function to load and preprocess a single image
-def preprocess_image(image_path, target_size):
-    img = load_img(image_path, target_size=target_size)
-    img = img_to_array(img)
-    img = np.expand_dims(img, axis=0)
-    return img
-
-
-def custom_generator(
-    file_paths, labels, batch_size, target_size, processor, text_prompts
-):
-    num_samples = len(file_paths)
-    while True:
-        for offset in range(0, num_samples, batch_size):
-            batch_paths = file_paths[offset : offset + batch_size]
-            batch_labels = labels[offset : offset + batch_size]
-
-            images = [preprocess_image(path, target_size) for path in batch_paths]
-            images = np.vstack(images)
-
-            # Map each image to its corresponding text prompt
-            batch_texts = [text_prompts[label] for label in batch_labels]
-
-            # Process text inputs
-            text_inputs = processor(
-                text=batch_texts,
-                max_length=TEXT_INPUT_SIZE,
-                padding="max_length",
-                truncation=True,
-                return_tensors="tf",
-            ).input_ids
-
-            yield {"image_input": images, "text_input": text_inputs}, np.array(
-                batch_labels
-            )
 
 
 def collect_image_paths(root_dir, label):

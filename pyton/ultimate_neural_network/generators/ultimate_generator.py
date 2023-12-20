@@ -1,8 +1,10 @@
+import sys
+sys.path.append("..")
+
 import numpy as np
 import cv2
 import tensorflow as tf
 import config
-
 
 class Generator(tf.keras.utils.Sequence):
     def __init__(
@@ -33,6 +35,24 @@ class Generator(tf.keras.utils.Sequence):
         self.image_labels = image_labels
 
         self.create_image_groups()
+
+    def __len__(self):
+        """
+        Number of batches for generator.
+        """
+
+        return len(self.image_groups)
+
+    def __getitem__(self, index):
+        """
+        Keras sequence method for generating batches.
+        """
+        image_group = self.image_groups[index]
+        label_group = self.label_groups[index]
+        images = self.load_images(image_group)
+        image_batch = self.construct_image_batch(images)
+
+        return np.array(image_batch), np.array(label_group)
 
     def create_image_groups(self):
         if self.shuffle_images:
@@ -129,20 +149,3 @@ class Generator(tf.keras.utils.Sequence):
 
         return image_batch
 
-    def __len__(self):
-        """
-        Number of batches for generator.
-        """
-
-        return len(self.image_groups)
-
-    def __getitem__(self, index):
-        """
-        Keras sequence method for generating batches.
-        """
-        image_group = self.image_groups[index]
-        label_group = self.label_groups[index]
-        images = self.load_images(image_group)
-        image_batch = self.construct_image_batch(images)
-
-        return np.array(image_batch), np.array(label_group)

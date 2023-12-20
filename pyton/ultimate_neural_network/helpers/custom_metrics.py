@@ -23,3 +23,4 @@ def f1_score(y_true, y_pred):
     recall_val = recall(y_true, y_pred)
     f1_score = 2 * ((precision_val * recall_val) / (precision_val + recall_val + tf.keras.backend.epsilon()))
     return f1_score
+

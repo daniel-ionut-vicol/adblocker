@@ -5,7 +5,7 @@ IMAGE_SIZE=224
 BATCH_SIZE=32
 EPOCHS=10
 PATIENCE=20
-DATASET_PATH=/app/dataset
+DATASET_PATH=/home/dataset
 VERBOSE_LEVEL=1
 TEXT_INPUT_SIZE=1
 AD_IMAGE_LIMIT=all
@@ -87,4 +87,4 @@ while true; do
 done
 
 # Run the Docker command
-docker run --gpus all -v ~/adblock/pyton/ultimate_neural_network:/app -v ~/dataset:/home/dataset -v ~/cnn_training/models:/home/models -it -e IMAGE_SIZE=$IMAGE_SIZE -e BATCH_SIZE=$BATCH_SIZE -e EPOCHS=$EPOCHS -e PATIENCE=$PATIENCE -e DATASET_PATH=$DATASET_PATH -e VERBOSE_LEVEL=$VERBOSE_LEVEL -e TEXT_INPUT_SIZE=$TEXT_INPUT_SIZE -e AD_IMAGE_LIMIT=$AD_IMAGE_LIMIT -e NONAD_IMAGE_LIMIT=$NONAD_IMAGE_LIMIT ad-detection-cnn
+docker run -it --gpus all -v ~/adblock/pyton/ultimate_neural_network:/app -v ~/dataset:/home/dataset -v ~/cnn_training/models:/home/models -it -e IMAGE_SIZE=$IMAGE_SIZE -e BATCH_SIZE=$BATCH_SIZE -e EPOCHS=$EPOCHS -e PATIENCE=$PATIENCE -e DATASET_PATH=$DATASET_PATH -e VERBOSE_LEVEL=$VERBOSE_LEVEL -e TEXT_INPUT_SIZE=$TEXT_INPUT_SIZE -e AD_IMAGE_LIMIT=$AD_IMAGE_LIMIT -e NONAD_IMAGE_LIMIT=$NONAD_IMAGE_LIMIT ad-detection-cnn python /app/training/resnet50_training.py

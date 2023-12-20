@@ -9,9 +9,9 @@ from tensorflow.keras.callbacks import ModelCheckpoint
 from PIL import Image
 # ---------------
 import config
-from ultimate_generator import Generator
+from generators.ultimate_generator import Generator
 from resnet50_model import model
-from eval import eval
+from helpers.eval import eval
 
 def load_image_paths_labels(DATASET_PATH):
     classes = os.listdir(DATASET_PATH)

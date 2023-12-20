@@ -1,6 +1,6 @@
 import tensorflow as tf
 
-def FCN_model(len_classes=5, dropout_rate=0.2):
+def FCN_model(len_classes=2, dropout_rate=0.2):
     
     input = tf.keras.layers.Input(shape=(None, None, 3))
 
@@ -71,6 +71,3 @@ def FCN_model(len_classes=5, dropout_rate=0.2):
     print(f'Total number of layers: {len(model.layers)}')
 
     return model
-
-if __name__ == "__main__":
-    FCN_model(len_classes=2, dropout_rate=0.2)

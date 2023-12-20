@@ -1,9 +1,13 @@
+import sys
+sys.path.append("..")
+
 import os
 from matplotlib import pyplot as plt
 import tensorflow as tf
 import tensorflowjs as tfjs
+import config
 
-def eval(model, test_generator, history, start_datetime, finish_datetime, config):
+def eval(model, test_generator, history, start_datetime, finish_datetime):
     print("Starting evaluation...")
     current_model_folder_name = f'model_{start_datetime.strftime("%Y-%m-%d_%H-%M-%S")}'
 
@@ -11,7 +15,7 @@ def eval(model, test_generator, history, start_datetime, finish_datetime, config
     loss, accuracy, precision, recall, f1_score = model.evaluate(test_generator)
 
     # Define a file path where you want to save the metrics
-    output_file = f'models/{current_model_folder_name}/training_results.txt'
+    output_file = f'/home/models/{current_model_folder_name}/training_results.txt'
 
     # Open the file in write mode
     with open(output_file, 'w') as file:
@@ -40,7 +44,7 @@ def eval(model, test_generator, history, start_datetime, finish_datetime, config
     # Print a confirmation message
     print(f'Evaluation metrics saved to {output_file}')
 
-    os.makedirs(f'models/{current_model_folder_name}/metrics/', exist_ok=True)
+    os.makedirs(f'/home/models/{current_model_folder_name}/metrics/', exist_ok=True)
 
     def saveMetric(metric):
         # Plot the metric over epochs
@@ -49,17 +53,17 @@ def eval(model, test_generator, history, start_datetime, finish_datetime, config
         plt.plot(history.history[f'val_{metric}'], color='orange', label=f'val_{metric}')
         fig.suptitle(metric, fontsize=20)
         plt.legend(loc="upper left")
-        plt.savefig(f'models/{current_model_folder_name}/metrics/training_{metric}.png', bbox_inches='tight')
+        plt.savefig(f'/home/models/{current_model_folder_name}/metrics/training_{metric}.png', bbox_inches='tight')
 
     def saveModel(name='model'):
-        os.makedirs(f'models/{current_model_folder_name}/saved_model/keras/', exist_ok=True)
-        os.makedirs(f'models/{current_model_folder_name}/saved_model/tf/', exist_ok=True)
-        os.makedirs(f'models/{current_model_folder_name}/saved_model/h5/', exist_ok=True)
+        os.makedirs(f'/home/models/{current_model_folder_name}/saved_model/keras/', exist_ok=True)
+        os.makedirs(f'/home/models/{current_model_folder_name}/saved_model/tf/', exist_ok=True)
+        os.makedirs(f'/home/models/{current_model_folder_name}/saved_model/h5/', exist_ok=True)
         
-        tfjs.converters.save_keras_model(model, f'models/{current_model_folder_name}/saved_model/tfjs/' )
-        tf.keras.models.save_model(model, f'models/{current_model_folder_name}/saved_model/keras/{name}.keras')
-        tf.keras.models.save_model(model, f'models/{current_model_folder_name}/saved_model/tf/{name}', save_format='tf')
-        tf.keras.models.save_model(model, f'models/{current_model_folder_name}/saved_model/h5/{name}.h5', save_format='h5')
+        tfjs.converters.save_keras_model(model, f'/home/models/{current_model_folder_name}/saved_model/tfjs/' )
+        tf.keras.models.save_model(model, f'/home/models/{current_model_folder_name}/saved_model/keras/{name}.keras')
+        tf.keras.models.save_model(model, f'/home/models/{current_model_folder_name}/saved_model/tf/{name}', save_format='tf')
+        tf.keras.models.save_model(model, f'/home/models/{current_model_folder_name}/saved_model/h5/{name}.h5', save_format='h5')
 
     try:
         saveMetric('loss')
