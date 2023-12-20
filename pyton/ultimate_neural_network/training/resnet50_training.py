@@ -1,7 +1,8 @@
+import os
 import sys
 sys.path.append("..")
+sys.path.append(os.getcwd())
 
-import os
 import datetime
 import tensorflow as tf
 from sklearn.model_selection import train_test_split
