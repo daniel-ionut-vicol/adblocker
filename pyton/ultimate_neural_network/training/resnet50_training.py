@@ -57,7 +57,7 @@ history = model.fit(
     validation_steps=val_steps,
     verbose=config.VERBOSE_LEVEL,
     callbacks=[
-        tensorboard_callback,
+        tensorboard_callback(current_model_folder_name),
         checkpoint_callback(current_model_folder_name),
         early_stopping,
     ],

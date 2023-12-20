@@ -1,5 +1,6 @@
 import os
 
+WORK_DIR = os.environ.get("WORK_DIR", "/app")
 IMAGE_SIZE = int(os.environ.get("IMAGE_SIZE", 224))
 # TODO: Check if this works
 AD_IMAGE_LIMIT = os.environ.get("AD_IMAGE_LIMIT", "all")
