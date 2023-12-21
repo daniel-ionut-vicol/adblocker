@@ -10,6 +10,8 @@ RUN apt-get update && apt-get install ffmpeg libsm6 libxext6  -y
 RUN python3 -m pip install --upgrade pip
 COPY requirements.txt .
 RUN pip install -r requirements.txt
+RUN pip uninstall -y jax jaxlib
+RUN pip install jax==0.4.21 jaxlib==0.4.21
 
 # Expose any necessary ports if your project runs a service
 # For example, if your application listens on port 8080:
