@@ -18,6 +18,8 @@ def collect_image_paths(root_dir, label, image_limit):
     print(f"Scanning in directory: {root_dir}")  # Debugging print
     for subdir, dirs, files in os.walk(root_dir):
         for file in files:
+            if image_limit != "all" and len(file_paths) >= int(image_limit):
+                break
 
             if file.lower().endswith(('.png', '.jpg', '.jpeg')):
                 file_path = os.path.join(subdir, file)

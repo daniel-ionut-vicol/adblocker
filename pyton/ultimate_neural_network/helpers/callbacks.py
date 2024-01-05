@@ -9,7 +9,7 @@ import config
 # CALLBACKS -----------------------------------
 # Define a callback for dynamic checkpoint naming and specific folder
 def checkpoint_callback(folder_name):
-    checkpoint_dir = os.path.join("/home/models", folder_name, "checkpoints")
+    checkpoint_dir = os.path.join(f"{os.environ['DATA']}/cnn_training/models", folder_name, "checkpoints")
     os.makedirs(checkpoint_dir, exist_ok=True)
     checkpoint_callback = ModelCheckpoint(
         filepath=os.path.join(
@@ -33,5 +33,5 @@ early_stopping = tf.keras.callbacks.EarlyStopping(
 )
 
 def tensorboard_callback(current_model_folder_name):
-    return tf.keras.callbacks.TensorBoard(log_dir=f"/home/models/{current_model_folder_name}/logs"
+    return tf.keras.callbacks.TensorBoard(log_dir=f"{os.environ['DATA']}/cnn_training/models/{current_model_folder_name}/logs"
 )

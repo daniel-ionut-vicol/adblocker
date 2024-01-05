@@ -38,3 +38,24 @@ def visualise_model_layers(model, image_path):
             if i < num_feature_maps:
                 plt.imshow(feature_maps[0, :, :, i], cmap='viridis')  # Adjust the colormap as needed
         plt.savefig(f'layer_features_visualisation/{layer_names.index(layer_name)+1}. {layer_name}_{image_path}')
+
+def display_images(generator, num_batches):
+    for i in range(num_batches):
+        # Get the next batch of images and labels
+        images, labels = generator[i]
+
+        # Calculate the number of rows and columns for the plot
+        num_images = images.shape[0]
+        num_cols = int(np.ceil(np.sqrt(num_images)))  # Use ceiling function to ensure enough columns
+        num_rows = int(np.ceil(num_images / num_cols))  # Calculate rows based on columns
+
+        # Create a figure for the images
+        fig = plt.figure(figsize=(10, 10))
+
+        for j in range(num_images):
+            ax = fig.add_subplot(num_rows, num_cols, j+1)
+            ax.imshow(images[j])
+            ax.set_title(f'Label: {labels[j]}')
+            ax.axis('off')
+
+        plt.show()

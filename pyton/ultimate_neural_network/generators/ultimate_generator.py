@@ -92,6 +92,9 @@ class Generator(tf.keras.utils.Sequence):
         images = []
         for image_path in image_group:
             img = cv2.imread(image_path)
+            if img is None:
+                print(f"Failed to load image at {image_path}")
+                continue
             img_shape = len(img.shape)
             if img_shape == 2:
                 img = cv2.cvtColor(img, cv2.COLOR_GRAY2RGB)
@@ -99,38 +102,16 @@ class Generator(tf.keras.utils.Sequence):
                 img = cv2.cvtColor(img, cv2.COLOR_BGRA2RGB)
             elif img_shape == 3:
                 img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-
-            # Convert the image to grayscale[^1^][1]
-            gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-
-            # Threshold the image
-            _, threshed = cv2.threshold(gray, 240, 255, cv2.THRESH_BINARY_INV)
-
-            # Find the contours
-            contours, _ = cv2.findContours(
-                threshed, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE
-            )
-
-            # Get the bounding rectangle for each contour
-            rects = [cv2.boundingRect(cnt) for cnt in contours]
-
-            # Calculate the combined bounding rectangle points.
-            top_x = min([x for (x, y, w, h) in rects])
-            top_y = min([y for (x, y, w, h) in rects])
-            bottom_x = max([x + w for (x, y, w, h) in rects])
-            bottom_y = max([y + h for (x, y, w, h) in rects])
-
-            # Crop the image with the calculated coordinates
-            img = img[top_y:bottom_y, top_x:bottom_x]
-
+                
             img = self.resize_image(img, self.image_min_side)
-
+    
             # Normalize the image
             img = img / 255.0  # Assuming pixel values are in the range [0, 255]
-
+    
             images.append(img)
             
         return images
+
 
     def construct_image_batch(self, image_group):
         # get the max image shape
@@ -148,4 +129,3 @@ class Generator(tf.keras.utils.Sequence):
             ] = image
 
         return image_batch
-

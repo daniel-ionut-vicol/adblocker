@@ -1,21 +1,47 @@
-import sys
-sys.path.append("..")
-
 import os
-from matplotlib import pyplot as plt
+import matplotlib.pyplot as plt
 import tensorflow as tf
 import tensorflowjs as tfjs
 import config
 
-def eval(model, test_generator, history, start_datetime, finish_datetime):
+def saveMetric(epochs, metric_values, val_metric_values, metric_name, current_model_folder_name):
+    plt.figure(figsize=(10, 6))
+    plt.plot(epochs, metric_values, color='teal', marker='o', label=f'Training {metric_name}')
+    plt.plot(epochs, val_metric_values, color='orange', marker='o', label=f'Validation {metric_name}')
+    
+    plt.title(f'{metric_name} (Training vs Validation)', fontsize=20)
+    plt.xlabel('Epochs', fontsize=14)
+    plt.ylabel(metric_name, fontsize=14)
+    plt.legend()
+    plt.grid(True)
+    
+    save_path = os.path.join(os.environ["DATA"], 'cnn_training', 'models', current_model_folder_name, 'metrics', f'{metric_name}_plot.png')
+    plt.savefig(save_path, bbox_inches='tight')
+    plt.show()
+
+def saveModel(model, current_model_folder_name, name='model'):
+    keras_save_path = os.path.join(os.environ["DATA"], 'cnn_training', 'models', current_model_folder_name, 'saved_model', 'keras', f'{name}.keras')
+    tf_save_path = os.path.join(os.environ["DATA"], 'cnn_training', 'models', current_model_folder_name, 'saved_model', 'tf', name)
+    h5_save_path = os.path.join(os.environ["DATA"], 'cnn_training', 'models', current_model_folder_name, 'saved_model', 'h5', f'{name}.h5')
+
+    os.makedirs(os.path.dirname(keras_save_path), exist_ok=True)
+    os.makedirs(os.path.dirname(tf_save_path), exist_ok=True)
+    os.makedirs(os.path.dirname(h5_save_path), exist_ok=True)
+
+    tfjs.converters.save_keras_model(model, os.path.join(os.environ["DATA"], 'cnn_training', 'models', current_model_folder_name, 'saved_model', 'tfjs'))
+    tf.keras.models.save_model(model, keras_save_path)
+    tf.keras.models.save_model(model, tf_save_path, save_format='tf')
+    tf.keras.models.save_model(model, h5_save_path, save_format='h5')
+
+def eval(model, test_generator, test_steps, history, start_datetime, finish_datetime):
     print("Starting evaluation...")
     current_model_folder_name = f'model_{start_datetime.strftime("%Y-%m-%d_%H-%M-%S")}'
 
     # Evaluate the model on the test data
-    loss, accuracy, precision, recall, f1_score = model.evaluate(test_generator)
+    loss, accuracy, precision, recall, f1_score = model.evaluate(test_generator, steps=test_steps)
 
     # Define a file path where you want to save the metrics
-    output_file = f'/home/models/{current_model_folder_name}/training_results.txt'
+    output_file = os.path.join(os.environ["DATA"], 'cnn_training', 'models', current_model_folder_name, 'training_results.txt')
 
     # Open the file in write mode
     with open(output_file, 'w') as file:
@@ -44,31 +70,17 @@ def eval(model, test_generator, history, start_datetime, finish_datetime):
     # Print a confirmation message
     print(f'Evaluation metrics saved to {output_file}')
 
-    os.makedirs(f'/home/models/{current_model_folder_name}/metrics/', exist_ok=True)
-
-    def saveMetric(metric):
-        # Plot the metric over epochs
-        fig = plt.figure()
-        plt.plot(history.history[metric], color='teal', label=metric)
-        plt.plot(history.history[f'val_{metric}'], color='orange', label=f'val_{metric}')
-        fig.suptitle(metric, fontsize=20)
-        plt.legend(loc="upper left")
-        plt.savefig(f'/home/models/{current_model_folder_name}/metrics/training_{metric}.png', bbox_inches='tight')
-
-    def saveModel(name='model'):
-        os.makedirs(f'/home/models/{current_model_folder_name}/saved_model/keras/', exist_ok=True)
-        os.makedirs(f'/home/models/{current_model_folder_name}/saved_model/tf/', exist_ok=True)
-        os.makedirs(f'/home/models/{current_model_folder_name}/saved_model/h5/', exist_ok=True)
-        
-        tfjs.converters.save_keras_model(model, f'/home/models/{current_model_folder_name}/saved_model/tfjs/' )
-        tf.keras.models.save_model(model, f'/home/models/{current_model_folder_name}/saved_model/keras/{name}.keras')
-        tf.keras.models.save_model(model, f'/home/models/{current_model_folder_name}/saved_model/tf/{name}', save_format='tf')
-        tf.keras.models.save_model(model, f'/home/models/{current_model_folder_name}/saved_model/h5/{name}.h5', save_format='h5')
+    os.makedirs(os.path.join(os.environ["DATA"], 'cnn_training', 'models', current_model_folder_name, 'metrics'), exist_ok=True)
 
     try:
-        saveMetric('loss')
-        saveMetric('accuracy')
-        saveModel()
+        # Save metrics for loss and accuracy
+        saveMetric(range(1, config.EPOCHS + 1), history.history['loss'], history.history['val_loss'], 'Loss', current_model_folder_name)
+        saveMetric(range(1, config.EPOCHS + 1), history.history['accuracy'], history.history['val_accuracy'], 'Accuracy', current_model_folder_name)
+        # Save metrics for precision, recall, and f1_score
+        saveMetric(range(1, config.EPOCHS + 1), precision, recall, 'Precision', current_model_folder_name)
+        saveMetric(range(1, config.EPOCHS + 1), f1_score, f1_score, 'F1 Score', current_model_folder_name)
+        
+        saveModel(model, current_model_folder_name)
     except Exception as e:
         print(e)
 
