@@ -1,11 +1,39 @@
+# Server setup
+
+1. Check if NVIDIA driver is installed :
+```bash
+nvidia-smi
+```
+2. Upgrade pip
+```bash
+pip install --upgrade pip
+```
+3. Install latest virtual environment package for you python version
+ex.
+```bash
+sudo apt install python3.10-venv
+```
+4. Create and activate python venv
+```bash
+python3.10 -m venv /path/to/venv
+source /path/to/venv/bin/activate
+```
+5. Install tensorflow and cuda for GPU support
+```bash
+pip install tensorflow[and-cuda]
+```
+6. Verify the installation
+```bash
+python3 -c "import tensorflow as tf; print(tf.config.list_physical_devices('GPU'))"
+```
 # Environmental Variables
 
-DATA - this is the home directory of the server(~)
-IMAGE_SIZE - The size of the image sides in pixels
-AD_IMAGE_LIMIT - Limit the number of images for AD class
-NONAD_IMAGE_LIMIT - Limit the number of images for NONAD class
-BATCH_SIZE - The number of images per one batch
-EPOCHS - Number of iterations on all batches
-PATIENCE - How many epochs to wait with no improvement until stop
-DATASET_PATH - Where is the dataset located
-VERBOSE_LEVEL - Verbosity level
+- DATA - this is the home directory of the server(~)
+- IMAGE_SIZE - The size of the image sides in pixels
+- AD_IMAGE_LIMIT - Limit the number of images for AD class
+- NONAD_IMAGE_LIMIT - Limit the number of images for NONAD class
+- BATCH_SIZE - The number of images per one batch
+- EPOCHS - Number of iterations on all batches
+- PATIENCE - How many epochs to wait with no improvement until stop
+- DATASET_PATH - Where is the dataset located
+- VERBOSE_LEVEL - Verbosity level
