@@ -1,0 +1,23 @@
+---
+!include 'tests.yaml'
+
+---
+!include 'increment.yaml'
+
+---
+!include 'build.yaml'
+
+---
+!include 'deploy.yaml'
+
+---
+!include 'auto-release.yaml'
+
+---
+!include 'auto-publish.yaml'
+
+---
+!include 'permissions-deploy.yaml'
+
+---
+!include 'permissions-auto-publish.yaml'

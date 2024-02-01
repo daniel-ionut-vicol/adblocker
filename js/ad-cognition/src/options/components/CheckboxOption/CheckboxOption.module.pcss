@@ -1,0 +1,21 @@
+.optionItem {
+    display: flex;
+    padding: 13px 13px 13px 42px;
+    width: calc(100% + 26px);
+    transform: translateX(-13px);
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s ease background-color;
+    user-select: none;
+
+    &.disabled {
+        cursor: default;
+        pointer-events: none;
+    }
+
+    &:hover {
+        background-color: var(--gray4d);
+    }
+}

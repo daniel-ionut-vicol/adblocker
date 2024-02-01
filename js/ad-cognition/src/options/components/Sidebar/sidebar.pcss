@@ -1,0 +1,66 @@
+.sidebar {
+    position: fixed;
+    z-index: var(--z_4);
+    min-height: 100vh;
+    left: 0;
+    top: 0;
+    transform: translateX(-100%);
+    padding: 32px 16px 16px 40px;
+    background-color: var(--black);
+
+    &__menu {
+        display: block;
+        position: fixed;
+        left: 0;
+        top: 0;
+        height: 40px;
+        width: 100%;
+        background-color: var(--bg-main);
+        font-size: 0.87rem;
+        line-height: 1.12rem;
+    }
+
+    &__logo {
+        margin: 32px 92px 10px 0px;
+    }
+
+    &__open-button {
+        margin: 6px 9px;
+        border: 0;
+        background-color: transparent;
+    }
+
+    &__overlay {
+        height: 100%;
+        width: 100%;
+        position: fixed;
+        z-index: var(--z_3);
+        left: 0;
+        top: 0;
+        overflow-x: hidden;
+        animation-delay: 0.3s;
+        background-color: rgba(0, 0, 0, 0.5)
+    }
+
+    &--open {
+        transform: unset;
+    }
+
+    @media (min-width: 640px) {
+        min-width: 250px;
+        transform: unset;
+        position: relative;
+
+        &__menu {
+            display: none;
+        }
+
+        &__logo {
+            margin: 0 0 24px 0;
+        }
+
+        &__overlay {
+            display: none;
+        }
+    };
+}

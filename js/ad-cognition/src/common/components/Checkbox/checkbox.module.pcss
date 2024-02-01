@@ -1,0 +1,45 @@
+.checkboxContainer {
+    width: 40px;
+}
+
+.checkboxInput {
+    display: none;
+
+    &:checked ~ .checkboxLabel {
+        --translateX: 20px;
+        --bg-color: var(--green);
+    }
+}
+
+.checkboxLabel {
+    --translateX: 0;
+    --bg-color: var(--gray700);
+
+    display: inline-flex;
+    cursor: pointer;
+
+    &:after {
+        content: '';
+        width: 40px;
+        height: 20px;
+        background-color: var(--bg-color);
+        border-radius: 10px;
+        transform: translateX(-2px);
+        position: absolute;
+        transition: 0.3s ease background-color;
+    }
+
+    &:before {
+        --size: 16px;
+
+        z-index: var(--z_2);
+        content: '';
+        display: block;
+        width: var(--size);
+        height: var(--size);
+        border-radius: 50%;
+        background-color: var(--white);
+        transform: translate(var(--translateX), 2px);
+        transition: 0.3s ease transform;
+    }
+}

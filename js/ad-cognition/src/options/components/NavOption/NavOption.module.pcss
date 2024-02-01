@@ -1,0 +1,44 @@
+.optionItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 13px;
+    width: calc(100% + 26px);
+    transform: translateX(-13px);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s ease background-color;
+    align-items: center;
+    display: inline-flex;
+    user-select: none;
+
+    &:hover {
+        background-color: var(--gray4d);
+    }
+}
+
+.option {
+    display: flex;
+    align-items: center;
+}
+
+.optionLabel {
+    font-size: 1rem;
+    margin-left: 16px;
+    cursor: inherit;
+    padding-right: 16px;
+}
+
+.navLink {
+    text-decoration: none;
+}
+
+.optionLabelDesc {
+    font-size: 0.87rem;
+    color: var(--gray700);
+}
+
+.arrow {
+    width: 10px;
+    height: 15px;
+}

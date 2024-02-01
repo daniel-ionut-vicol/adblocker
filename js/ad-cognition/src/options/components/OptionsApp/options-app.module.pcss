@@ -1,0 +1,30 @@
+.section {
+    background-color: var(--bg-main);
+    display: flex;
+    min-height: 100vh;
+}
+
+.content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.inner {
+    width: 100%;
+    max-width: 100%;
+    padding: 48px 32px;
+
+    @media (min-width: 640px) {
+        margin-left: 12vw;
+    }
+
+    @media (min-width: 640px) {
+        max-width: 47vw;
+    };
+
+    &__btn {
+        margin-left: 15px;
+    }
+}
+

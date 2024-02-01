@@ -1,0 +1,60 @@
+{
+    "manifest_version": 3,
+    "name": "AdCognition",
+    "description": "Ad Recognition using Artificial Intelligence.",
+    "default_locale": "en",
+    "permissions": [
+        "tabs",
+        "alarms",
+        "contextMenus",
+        "scripting",
+        "storage",
+        "declarativeNetRequest",
+        "declarativeNetRequestFeedback",
+        "unlimitedStorage",
+        "webNavigation"
+    ],
+    "host_permissions": [
+        "<all_urls>"
+    ],
+    "icons": {
+        "16": "assets/icons/enabled-16.png",
+        "128": "assets/icons/enabled-128.png"
+    },
+    "action": {
+        "default_icon": {
+            "19": "assets/icons/enabled-19.png",
+            "38": "assets/icons/enabled-38.png"
+        },
+        "default_title": "AdCognition",
+        "default_popup": "popup.html"
+    },
+    "options_page": "options.html",
+    "devtools_page": "devtools.html",
+    "content_scripts": [
+        {
+            "match_about_blank": true,
+            "all_frames": true,
+            "js": [
+                "content-scripts.js"
+            ],
+            "run_at": "document_start",
+            "matches": [
+                "*://*/*"
+            ]
+        }
+    ],
+    "background": {
+        "service_worker": "background.js"
+    },
+    "web_accessible_resources": [
+        {
+            "resources": [ "web-accessible-resources/*"],
+            "matches": [
+                "http://*/*",
+                "https://*/*"
+            ],
+            "use_dynamic_url": true
+        }
+    ]
+}

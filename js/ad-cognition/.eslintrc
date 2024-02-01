@@ -1,0 +1,6 @@
+{
+    "extends": "./scripts/lint.js", 
+    "rules": {
+        "linebreak-style": 0
+      }
+}

@@ -1,0 +1,65 @@
+---
+version: 2
+plan:
+  project-key: ADGEXT
+  key: V3BETESTSPECS
+  name: browser extension mv3 - tests
+variables:
+  dockerPlaywright: adguard/playwright-runner:1.27.1--1
+
+stages:
+  - Test:
+      manual: 'false'
+      final: 'false'
+      jobs:
+        - Test
+
+Test:
+  key: TEST
+  other:
+    clean-working-dir: true
+  docker:
+    image: ${bamboo.dockerPlaywright}
+    volumes:
+      ${system.YARN_DIR}: "${bamboo.cacheYarn}"
+  tasks:
+    - checkout:
+        force-clean-build: 'true'
+    - script:
+        interpreter: SHELL
+        scripts:
+          - |-
+            set -x
+            set -e
+            # Fix mixed logs
+            exec 2>&1
+            ls -la
+
+            yarn install ${bamboo.varsYarn}
+            yarn lint
+            yarn test
+            yarn dev
+            yarn integration-test dev
+
+            rm -rf node_modules
+  artifacts:
+    - name: build.txt
+      location: build/dev
+      pattern: build.txt
+      required: true
+    - name: chrome.zip
+      location: build/dev
+      pattern: chrome.zip
+      required: true
+  requirements:
+    - adg-docker: 'true'
+
+branches:
+  create: for-pull-request
+  delete: never
+  link-to-jira: 'true'
+
+notifications: []
+labels: []
+other:
+  concurrent-build-plugin: system-default

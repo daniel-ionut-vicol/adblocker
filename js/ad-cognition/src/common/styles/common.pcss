@@ -1,0 +1,96 @@
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+    outline: none;
+    text-rendering: geometricPrecision;
+}
+
+:root {
+    color-scheme: dark;
+}
+
+html,
+body,
+#root {
+    height: 100%;
+    min-height: 100%;
+    width: 100%;
+    min-width: 320px;
+}
+
+html {
+    box-sizing: border-box;
+    font-size: 100%;
+}
+
+body {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.4;
+    font-family: var(--font-primary);
+    font-weight: 400;
+    background-color: var(--bg-main);
+    color: var(--white);
+    font-optical-sizing: none;
+}
+
+ul,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
+    padding: 0;
+}
+
+button,
+input,
+textarea {
+    font-family: inherit;
+    caret-color: var(--grayd8);
+}
+
+a {
+    color: currentColor;
+}
+
+button {
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    border: none;
+    outline: none;
+    background-color: transparent;
+
+    &[disabled] {
+        pointer-events: none;
+        user-select: none;
+        opacity: 0.5;
+        cursor: default;
+    }
+}
+
+label {
+    cursor: inherit;
+}
+
+legend {
+    padding: 0;
+    display: table;
+}
+fieldset {
+    border: 0;
+    padding: 0.01em 0 0 0;
+    margin: 0;
+    min-width: 0;
+}
+body:not(:-moz-handler-blocked) fieldset {
+    display: table-cell;
+}
+
+.hidden {
+    display: none;
+}

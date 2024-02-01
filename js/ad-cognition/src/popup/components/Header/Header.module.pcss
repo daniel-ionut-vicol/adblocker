@@ -1,0 +1,54 @@
+.popupHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+}
+
+.popupHeaderLogo {
+    width: 165px;
+    height: 25px;
+}
+
+.popupHeaderButtons {
+    display: flex;
+}
+
+.popupHeaderButton {
+    padding: 0;
+    margin: 1px 6px;
+    transition: 0.3s ease background-color;
+    border-radius: 4px;
+    width: 28px;
+    height: 28px;
+
+    &:hover {
+        background-color: var(--gray4d);
+    }
+
+    &:disabled {
+        cursor: default;
+    }
+}
+
+.item {
+    display: block;
+    padding: 7px 9px 9px;
+    user-select: none;
+    font-size: 1rem;
+    line-height: 1.25rem;
+    width: 100%;
+    text-align: left;
+    color: var(--grayf3);
+    letter-spacing: 0;
+    cursor: pointer;
+    text-decoration: none;
+
+    &:hover {
+        background: var(--gray4d);
+    }
+
+    &:disabled {
+        opacity: 0.5;
+    }
+}

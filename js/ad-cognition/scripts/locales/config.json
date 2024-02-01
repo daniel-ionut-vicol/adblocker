@@ -1,0 +1,29 @@
+{
+    "twosky_config_path": "../../.twosky.json",
+    "api_url": "https://twosky.int.agrd.dev/api/v1",
+    "source_relative_path": "../../src",
+    "supported_source_filename_extensions": [
+        ".ts",
+        ".tsx",
+        ".js",
+        ".html"
+    ],
+    "persistent_messages": [
+        "name",
+        "short_name",
+        "description"
+    ],
+    "locales_relative_path": "../../src/_locales",
+    "locales_data_format": "chrome",
+    "locales_data_filename": "messages.json",
+    "required_locales": [
+        "ru",
+        "de",
+        "fr",
+        "it",
+        "ja",
+        "ko",
+        "zh_CN"
+    ],
+    "threshold_percentage": 100
+}

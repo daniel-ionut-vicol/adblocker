@@ -1,0 +1,68 @@
+.container {
+    background-size: cover;
+    width: 100vw;
+    height: 100vh;
+
+    &.experiment {
+        background-image: url(./img/experiment.jpg);
+    }
+
+    &.newtech {
+        background-image: url(./img/new_tech.jpg);
+    }
+
+    &.fastwork {
+        background-image: url(./img/fast_work.jpg);
+    }
+
+    &.chromelogo {
+        background-image: url(./img/chrome_logo.jpg);
+    }
+}
+
+.inner {
+    display: flex;
+    align-self: center;
+    margin: 0 auto;
+    max-width: 260px;
+    height: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.header {
+    display: flex;
+    margin: 0 auto;
+    max-width: 260px;
+    justify-content: space-between;
+    padding-top: 16px;
+    padding-bottom: 56px;
+}
+
+.link {
+    text-decoration: none;
+    font-size: 0.87rem;
+    color: var(--grayf3);
+}
+
+.button {
+    width: 260px;
+}
+
+.info {
+    color: var(--white);
+    text-align: center;
+
+    &.main {
+        font-weight: 600;
+        font-size: 2rem
+    }
+
+    &.description {
+        font-size: 1rem;
+        padding-top: 16px;
+        padding-bottom: 28px;
+        max-width: 220px;
+    }
+}
