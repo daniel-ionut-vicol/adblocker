@@ -21,7 +21,7 @@
         "message": "Sperimentale"
     },
     "popup_steps_experimental_description": {
-        "message": "I nostri alchimisti conoscono i modi per domare le sfide MV3. Ora AdGuard funziona con Manifest V3."
+        "message": "I nostri alchimisti conoscono i modi per domare le sfide MV3. Ora AdCognition funziona con Manifest V3."
     },
     "popup_steps_new_tech_title": {
         "message": "Innovativo"
@@ -33,13 +33,13 @@
         "message": "Veloce"
     },
     "popup_steps_fast_work_description": {
-        "message": "Abbiamo aumentato le prestazioni di AdGuard rifattorizzando le nostre librerie di blocco dei contenuti e utilizzando le funzionalità di MV3."
+        "message": "Abbiamo aumentato le prestazioni di AdCognition rifattorizzando le nostre librerie di blocco dei contenuti e utilizzando le funzionalità di MV3."
     },
     "popup_steps_v3_manifest_title": {
         "message": "Manifesto V3"
     },
     "popup_steps_v3_manifest_description": {
-        "message": "Potreste notare un solo risultato del passaggio di AdGuard a MV3: prestazioni ancora migliori."
+        "message": "Potreste notare un solo risultato del passaggio di AdCognition a MV3: prestazioni ancora migliori."
     },
     "popup_learn_more_link": {
         "message": "Scopri di più"
@@ -84,13 +84,13 @@
         "message": "Italian"
     },
     "options_base_filter": {
-        "message": "Filtro AdGuard di Base"
+        "message": "Filtro AdCognition di Base"
     },
     "options_custom_filters_option": {
         "message": "Filtri personalizzati"
     },
     "options_custom_filters_option_desc": {
-        "message": "Aggiungi filtri personalizzati in base alle regole di filtraggio di AdGuard"
+        "message": "Aggiungi filtri personalizzati in base alle regole di filtraggio di AdCognition"
     },
     "options_user_rules_option": {
         "message": "Regole utente"
@@ -114,7 +114,7 @@
         "message": "Blocca annunci su questo sito web"
     },
     "options_open_settings": {
-        "message": "Impostazioni di AdGuard"
+        "message": "Impostazioni di AdCognition"
     },
     "options_settings_title": {
         "message": "Impostazioni"
@@ -138,13 +138,13 @@
         "message": "Sito web ufficiale"
     },
     "options_discuss": {
-        "message": "Discuti di AdGuard"
+        "message": "Discuti di AdCognition"
     },
     "options_about_rights_reserved": {
         "message": "Tutti i diritti riservati."
     },
     "options_notice_program": {
-        "message": "Questa estensione è un progetto sperimentale del team di AdGuard"
+        "message": "Questa estensione è un progetto sperimentale del team di AdCognition"
     },
     "options_notice_compare_link": {
         "message": "Scopri di più"
@@ -183,13 +183,13 @@
         "message": "Segnala un problema..."
     },
     "context_menu_open_options": {
-        "message": "Impostazioni di AdGuard..."
+        "message": "Impostazioni di AdCognition..."
     },
     "context_menu_disable_blocking": {
-        "message": "Sospendi protezione di AdGuard"
+        "message": "Sospendi protezione di AdCognition"
     },
     "context_menu_enable_blocking": {
-        "message": "Attiva protezione AdGuard"
+        "message": "Attiva protezione AdCognition"
     },
     "options_add_custom_filter": {
         "message": "Aggiungi un filtro personalizzato"
@@ -339,7 +339,7 @@
         "message": "Impossibile riattivare i filtri: il limite della regola è ancora superato."
     },
     "name": {
-        "message": "AdGuard AdBlocker MV3 Experimental"
+        "message": "AdCognition AdBlocker MV3 Experimental"
     },
     "description": {
         "message": "Experimental version of unmatched adblock extension built on Manifest V3."

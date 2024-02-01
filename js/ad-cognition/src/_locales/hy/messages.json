@@ -18,7 +18,7 @@
         "message": "Ծրագրի մասին"
     },
     "options_open_settings": {
-        "message": "AdGuard-ի կարգավորումներ"
+        "message": "AdCognition-ի կարգավորումներ"
     },
     "options_settings_title": {
         "message": "Կարգավորումներ"
@@ -42,10 +42,10 @@
         "message": "Արգելափակել գովազդը այս կայքում..."
     },
     "context_menu_open_options": {
-        "message": "AdGuard-ի կարգավորումներ..."
+        "message": "AdCognition-ի կարգավորումներ..."
     },
     "context_menu_disable_blocking": {
-        "message": "Դադարեցնել AdGuard-ի պաշտպանությունը"
+        "message": "Դադարեցնել AdCognition-ի պաշտպանությունը"
     },
     "options_add_custom_filter": {
         "message": "Ավելացնել հարմարեցված զտիչ"
@@ -105,7 +105,7 @@
         "message": "Չեղարկել"
     },
     "name": {
-        "message": "AdGuard AdBlocker MV3 Experimental"
+        "message": "AdCognition AdBlocker MV3 Experimental"
     },
     "description": {
         "message": "Experimental version of unmatched adblock extension built on Manifest V3."

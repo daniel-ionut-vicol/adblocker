@@ -18,7 +18,7 @@
         "message": "Swedish"
     },
     "options_base_filter": {
-        "message": "AdGuards grundfilter"
+        "message": "AdCognitions grundfilter"
     },
     "options_custom_filters_option": {
         "message": "Anpassade filter"
@@ -42,7 +42,7 @@
         "message": "Blockera annonser på den här webbplatsen"
     },
     "options_open_settings": {
-        "message": "AdGuardinställningar"
+        "message": "AdCognitioninställningar"
     },
     "options_settings_title": {
         "message": "Inställningar"
@@ -66,7 +66,7 @@
         "message": "Officiell webbplats"
     },
     "options_discuss": {
-        "message": "Diskutera AdGuard"
+        "message": "Diskutera AdCognition"
     },
     "options_about_rights_reserved": {
         "message": "Alla rättigheter förbehållna."
@@ -87,10 +87,10 @@
         "message": "Blockera annonser på denna webbplats..."
     },
     "context_menu_open_options": {
-        "message": "AdGuards inställningar"
+        "message": "AdCognitions inställningar"
     },
     "context_menu_disable_blocking": {
-        "message": "Pausa AdGuardskyddet"
+        "message": "Pausa AdCognitionskyddet"
     },
     "options_add_custom_filter": {
         "message": "Lägg till ett eget filter"
@@ -171,7 +171,7 @@
         "message": "%current% av %max%"
     },
     "name": {
-        "message": "AdGuard AdBlocker MV3 Experimental"
+        "message": "AdCognition AdBlocker MV3 Experimental"
     },
     "description": {
         "message": "Experimental version of unmatched adblock extension built on Manifest V3."

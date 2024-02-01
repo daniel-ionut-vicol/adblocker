@@ -1,6 +1,6 @@
 {
     "name": {
-        "message": "AdGuard AdBlocker MV3 Experimental"
+        "message": "AdCognition AdBlocker MV3 Experimental"
     },
     "description": {
         "message": "Versiune experimentală a extensiei neegalate de blocare a reclamelor, construită pe Manifest V3."
@@ -27,7 +27,7 @@
         "message": "Experimental"
     },
     "popup_steps_experimental_description": {
-        "message": "Alchimiștii noștri știu cum să îmblânzească provocările MV3. Acum AdGuard funcționează cu Manifest V3."
+        "message": "Alchimiștii noștri știu cum să îmblânzească provocările MV3. Acum AdCognition funcționează cu Manifest V3."
     },
     "popup_steps_new_tech_title": {
         "message": "Inovativ"
@@ -39,13 +39,13 @@
         "message": "Rapid"
     },
     "popup_steps_fast_work_description": {
-        "message": "Am crescut performanța AdGuard prin refactorizarea codului bibliotecilor noastre de blocare a conținutului și prin utilizarea caracteristicilor MV3."
+        "message": "Am crescut performanța AdCognition prin refactorizarea codului bibliotecilor noastre de blocare a conținutului și prin utilizarea caracteristicilor MV3."
     },
     "popup_steps_v3_manifest_title": {
         "message": "Manifest V3"
     },
     "popup_steps_v3_manifest_description": {
-        "message": "S-ar putea să observați un singur rezultat al tranziției AdGuard la MV3: o performanță și mai bună."
+        "message": "S-ar putea să observați un singur rezultat al tranziției AdCognition la MV3: o performanță și mai bună."
     },
     "popup_learn_more_link": {
         "message": "Aflați mai multe"
@@ -93,13 +93,13 @@
         "message": "Romanian"
     },
     "options_base_filter": {
-        "message": "Filtru de bază AdGuard"
+        "message": "Filtru de bază AdCognition"
     },
     "options_custom_filters_option": {
         "message": "Filtre personalizate"
     },
     "options_custom_filters_option_desc": {
-        "message": "Adăugați filtre personalizate pe baza regulilor de filtrare AdGuard"
+        "message": "Adăugați filtre personalizate pe baza regulilor de filtrare AdCognition"
     },
     "options_static_filters_limits_by_rules": {
         "message": "Ați atins limita de reguli încorporate active. Pentru a activa reguli noi, dezactivați unele filtre încorporate. <newline><\/newline> <link-to-limits>Limitele regulilor<\/link-to-limits>"
@@ -150,7 +150,7 @@
         "message": "Blocați pub pe acest site"
     },
     "options_open_settings": {
-        "message": "Setări AdGuard"
+        "message": "Setări AdCognition"
     },
     "options_settings_title": {
         "message": "Setări"
@@ -159,7 +159,7 @@
         "message": "Despre"
     },
     "options_about_product": {
-        "message": "Extensie AdGuard Browser MV3"
+        "message": "Extensie AdCognition Browser MV3"
     },
     "options_about_version": {
         "message": "Versiune"
@@ -177,13 +177,13 @@
         "message": "Pagină oficială"
     },
     "options_discuss": {
-        "message": "Discutați AdGuard"
+        "message": "Discutați AdCognition"
     },
     "options_about_rights_reserved": {
         "message": "Toate drepturile rezervate."
     },
     "options_notice_program": {
-        "message": "Această extensie este un proiect experimental al echipei AdGuard"
+        "message": "Această extensie este un proiect experimental al echipei AdCognition"
     },
     "options_notice_compare_link": {
         "message": "Aflați mai multe"
@@ -231,13 +231,13 @@
         "message": "Raportați o problemă..."
     },
     "context_menu_open_options": {
-        "message": "Setări AdGuard..."
+        "message": "Setări AdCognition..."
     },
     "context_menu_disable_blocking": {
-        "message": "Întrerupeți protecția AdGuard"
+        "message": "Întrerupeți protecția AdCognition"
     },
     "context_menu_enable_blocking": {
-        "message": "Activați protecția AdGuard"
+        "message": "Activați protecția AdCognition"
     },
     "options_add_custom_filter": {
         "message": "Nou filtru personalizat"
@@ -438,13 +438,13 @@
         "message": "Opțiunea 1. Ștergeți extensiile de blocare a reclamelor inutile din browser. Pentru a reactiva filtrele menționate în secțiunea „Filtre activate înainte de actualizare”, faceți clic pe <button>reactivați filtrele<\/button>."
     },
     "options_limits_warning_desc_app": {
-        "message": "Opțiunea 2. Instalați aplicația AdGuard Ad Blocker: aceasta nu are restricții în ceea ce privește regulile de filtrare. <link>Obțineți AdGuard Ad Blocker<\/link>"
+        "message": "Opțiunea 2. Instalați aplicația AdCognition Ad Blocker: aceasta nu are restricții în ceea ce privește regulile de filtrare. <link>Obțineți AdCognition Ad Blocker<\/link>"
     },
     "options_limits_warning_desc_close": {
         "message": "Opțiunea 3. Dacă sunteți mulțumit de filtrul \/ filtrele implicit(e) activat(e) în prezent, <button>închideți acest avertisment<\/button>."
     },
     "options_nav_better_than_extension": {
-        "message": "Spre deosebire de extensie, aplicația AdGuard blochează reclamele fără limitări."
+        "message": "Spre deosebire de extensie, aplicația AdCognition blochează reclamele fără limitări."
     },
     "options_nav_compare": {
         "message": "Comparați"

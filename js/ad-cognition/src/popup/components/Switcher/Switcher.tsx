@@ -33,6 +33,7 @@ export const Switcher = observer(({ disabled }: SwitcherProps) => {
 
     return (
         <button
+            title="button"
             type="button"
             className={className}
             onClick={onClick}

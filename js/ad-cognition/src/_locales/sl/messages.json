@@ -1,6 +1,6 @@
 {
     "name": {
-        "message": "Eksperimentalni AdGuard Zaviralec oglasov MV3"
+        "message": "Eksperimentalni AdCognition Zaviralec oglasov MV3"
     },
     "description": {
         "message": "Eksperimentalna različica neprimerljive razširitve za zaviranje oglasov, zgrajene na Manifest V3."
@@ -27,7 +27,7 @@
         "message": "Eksperimentalno"
     },
     "popup_steps_experimental_description": {
-        "message": "Naši alkimisti poznajo načine, kako ukrotiti izzive MV3. Zdaj AdGuard deluje z Manifest V3."
+        "message": "Naši alkimisti poznajo načine, kako ukrotiti izzive MV3. Zdaj AdCognition deluje z Manifest V3."
     },
     "popup_steps_new_tech_title": {
         "message": "Inovativno"
@@ -39,13 +39,13 @@
         "message": "Hitro"
     },
     "popup_steps_fast_work_description": {
-        "message": "Povečali smo učinkovitost AdGuarda s preoblikovanjem naših knjižnic za zaviranje vsebine in uporabo funkcij MV3."
+        "message": "Povečali smo učinkovitost AdCognitiona s preoblikovanjem naših knjižnic za zaviranje vsebine in uporabo funkcij MV3."
     },
     "popup_steps_v3_manifest_title": {
         "message": "Manifest V3"
     },
     "popup_steps_v3_manifest_description": {
-        "message": "Morda boste opazili le en rezultat AdGuardovega prehoda na MV3: še boljša zmogljivost."
+        "message": "Morda boste opazili le en rezultat AdCognitionovega prehoda na MV3: še boljša zmogljivost."
     },
     "popup_learn_more_link": {
         "message": "Več o tem"
@@ -93,13 +93,13 @@
         "message": "Slovenian"
     },
     "options_base_filter": {
-        "message": "AdGuard Osnovni filter"
+        "message": "AdCognition Osnovni filter"
     },
     "options_custom_filters_option": {
         "message": "Filtri po meri"
     },
     "options_custom_filters_option_desc": {
-        "message": "Dodajte filtre po meri na podlagi pravil filtriranja AdGuard"
+        "message": "Dodajte filtre po meri na podlagi pravil filtriranja AdCognition"
     },
     "options_static_filters_limits_by_rules": {
         "message": "Dosegli ste omejitev aktivnih vgrajenih pravil. Za aktiviranje novih pravil, onemogočite nekatere vgrajene filtre. <newline><\/newline> <link-to-limits>Omejitve pravil<\/link-to-limits>"
@@ -150,7 +150,7 @@
         "message": "Onemogoči oglase na tej spletni strani"
     },
     "options_open_settings": {
-        "message": "Nastavitve AdGuarda"
+        "message": "Nastavitve AdCognitiona"
     },
     "options_settings_title": {
         "message": "Nastavitve"
@@ -159,7 +159,7 @@
         "message": "Vizitka"
     },
     "options_about_product": {
-        "message": "AdGuard Razširitev brskalnika MV3"
+        "message": "AdCognition Razširitev brskalnika MV3"
     },
     "options_about_version": {
         "message": "Različica"
@@ -177,13 +177,13 @@
         "message": "Uradna spletna stran"
     },
     "options_discuss": {
-        "message": "Pogovor z AdGuardom"
+        "message": "Pogovor z AdCognitionom"
     },
     "options_about_rights_reserved": {
         "message": "Vse pravice so pridržane."
     },
     "options_notice_program": {
-        "message": "Ta razširitev je eksperimentalni projekt ekipe AdGuard"
+        "message": "Ta razširitev je eksperimentalni projekt ekipe AdCognition"
     },
     "options_notice_compare_link": {
         "message": "Več o tem"
@@ -231,13 +231,13 @@
         "message": "Prijavi težavo..."
     },
     "context_menu_open_options": {
-        "message": "Nastavitve AdGuarda..."
+        "message": "Nastavitve AdCognitiona..."
     },
     "context_menu_disable_blocking": {
-        "message": "Začasno zaustavi AdGuardovo zaščito"
+        "message": "Začasno zaustavi AdCognitionovo zaščito"
     },
     "context_menu_enable_blocking": {
-        "message": "Omogoči AdGuardovo zaščito"
+        "message": "Omogoči AdCognitionovo zaščito"
     },
     "options_add_custom_filter": {
         "message": "Dodaj filter po  meri"
@@ -438,13 +438,13 @@
         "message": "Možnost 1. Iz brskalnika izbrišite nepotrebne razširitve zaviralcev oglasov. Za ponovno aktiviranje filtrov, omenjene v razdelku 'Filtri, omogočeni pred posodobitvijo', kliknite <button>znova aktiviraj filtre<\/button>."
     },
     "options_limits_warning_desc_app": {
-        "message": "Možnost 2. Namestite aplikacijo AdGuard Zaviralec oglasov: ta nima omejitev glede pravil filtriranja. <link>Prenesi AdGuard Zaviralec oglasov<\/link>"
+        "message": "Možnost 2. Namestite aplikacijo AdCognition Zaviralec oglasov: ta nima omejitev glede pravil filtriranja. <link>Prenesi AdCognition Zaviralec oglasov<\/link>"
     },
     "options_limits_warning_desc_close": {
         "message": "Možnost 3. Če ste zadovoljni s trenutno omogočenimi privzetimi filtri, <button>zaprite to opozorilo<\/button>."
     },
     "options_nav_better_than_extension": {
-        "message": "Za razliko od razširitve aplikacija AdGuard onemogoča oglase brez omejitev."
+        "message": "Za razliko od razširitve aplikacija AdCognition onemogoča oglase brez omejitev."
     },
     "options_nav_compare": {
         "message": "Primerjaj"

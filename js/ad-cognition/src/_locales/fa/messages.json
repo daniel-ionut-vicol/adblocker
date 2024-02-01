@@ -21,7 +21,7 @@
         "message": "Persian"
     },
     "options_base_filter": {
-        "message": "فیلتر پایه AdGuard"
+        "message": "فیلتر پایه AdCognition"
     },
     "options_custom_filters_option": {
         "message": "فیلترهای دستی"
@@ -39,7 +39,7 @@
         "message": "مسدودسازی تبلیغات در این وب‌گاه"
     },
     "options_open_settings": {
-        "message": "تنظیمات AdGuard"
+        "message": "تنظیمات AdCognition"
     },
     "options_settings_title": {
         "message": "تنظیمات"
@@ -60,7 +60,7 @@
         "message": "GitHub"
     },
     "options_discuss": {
-        "message": "گفتگو درباره AdGuard"
+        "message": "گفتگو درباره AdCognition"
     },
     "options_about_rights_reserved": {
         "message": "همه حقوق محفوظ است."
@@ -81,13 +81,13 @@
         "message": "گزارش یک مشکل..."
     },
     "context_menu_open_options": {
-        "message": "تنظیمات AdGuard..."
+        "message": "تنظیمات AdCognition..."
     },
     "context_menu_disable_blocking": {
-        "message": "وقفه حفاظت AdGuard"
+        "message": "وقفه حفاظت AdCognition"
     },
     "context_menu_enable_blocking": {
-        "message": "فعالسازی حفاظت AdGuard"
+        "message": "فعالسازی حفاظت AdCognition"
     },
     "options_add_custom_filter": {
         "message": "افزودن فیلتر دستی"
@@ -156,7 +156,7 @@
         "message": "افزودن"
     },
     "name": {
-        "message": "AdGuard AdBlocker MV3 Experimental"
+        "message": "AdCognition AdBlocker MV3 Experimental"
     },
     "description": {
         "message": "Experimental version of unmatched adblock extension built on Manifest V3."

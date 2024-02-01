@@ -9,7 +9,7 @@
         "message": "Halang iklan di laman ini"
     },
     "options_open_settings": {
-        "message": "Tetapan AdGuard"
+        "message": "Tetapan AdCognition"
     },
     "options_github": {
         "message": "GitHub"
@@ -21,16 +21,16 @@
         "message": "Halang iklan di laman ini..."
     },
     "context_menu_open_options": {
-        "message": "Tetapan AdGuard..."
+        "message": "Tetapan AdCognition..."
     },
     "context_menu_disable_blocking": {
-        "message": "Henti sebentar perlindungan AdGuard"
+        "message": "Henti sebentar perlindungan AdCognition"
     },
     "options_custom_filter_add_label_description": {
         "message": "Penerangan"
     },
     "name": {
-        "message": "AdGuard AdBlocker MV3 Experimental"
+        "message": "AdCognition AdBlocker MV3 Experimental"
     },
     "description": {
         "message": "Experimental version of unmatched adblock extension built on Manifest V3."

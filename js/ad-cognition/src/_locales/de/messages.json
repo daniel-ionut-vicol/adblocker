@@ -21,25 +21,25 @@
         "message": "Experimentell"
     },
     "popup_steps_experimental_description": {
-        "message": "Unsere Spezialisten kennen die Wege, um die Herausforderungen von MV3 zu meistern. Jetzt funktioniert AdGuard mit Manifest V3."
+        "message": "Unsere Spezialisten kennen die Wege, um die Herausforderungen von MV3 zu meistern. Jetzt funktioniert AdCognition mit Manifest V3."
     },
     "popup_steps_new_tech_title": {
         "message": "Innovativ"
     },
     "popup_steps_new_tech_description": {
-        "message": "AdGuard verwendet erstklassige Ansätze zur Anpassung an das sich schnell entwickelnde und immer noch zu verbessernde MV3-Framework."
+        "message": "AdCognition verwendet erstklassige Ansätze zur Anpassung an das sich schnell entwickelnde und immer noch zu verbessernde MV3-Framework."
     },
     "popup_steps_fast_work_title": {
         "message": "Schnell"
     },
     "popup_steps_fast_work_description": {
-        "message": "Wir haben die Leistung von AdGuard erhöht, indem wir unsere Bibliotheken zum Sperren von Inhalten überarbeitet und MV3-Funktionen verwendet haben."
+        "message": "Wir haben die Leistung von AdCognition erhöht, indem wir unsere Bibliotheken zum Sperren von Inhalten überarbeitet und MV3-Funktionen verwendet haben."
     },
     "popup_steps_v3_manifest_title": {
         "message": "Manifest V3"
     },
     "popup_steps_v3_manifest_description": {
-        "message": "Sie werden vermutlich nur ein Ergebnis der Umstellung von AdGuard auf MV3 bemerken: eine noch bessere Leistung."
+        "message": "Sie werden vermutlich nur ein Ergebnis der Umstellung von AdCognition auf MV3 bemerken: eine noch bessere Leistung."
     },
     "popup_learn_more_link": {
         "message": "Mehr erfahren"
@@ -84,13 +84,13 @@
         "message": "German"
     },
     "options_base_filter": {
-        "message": "AdGuard — Basisfilter"
+        "message": "AdCognition — Basisfilter"
     },
     "options_custom_filters_option": {
         "message": "Benutzerdefinierte Filter"
     },
     "options_custom_filters_option_desc": {
-        "message": "Benutzerdefinierte Filter basierend auf AdGuard-Filterregeln hinzufügen"
+        "message": "Benutzerdefinierte Filter basierend auf AdCognition-Filterregeln hinzufügen"
     },
     "options_user_rules_option": {
         "message": "Benutzerregeln"
@@ -114,7 +114,7 @@
         "message": "Werbung auf dieser Website sperren"
     },
     "options_open_settings": {
-        "message": "AdGuard-Einstellungen"
+        "message": "AdCognition-Einstellungen"
     },
     "options_settings_title": {
         "message": "Einstellungen"
@@ -138,13 +138,13 @@
         "message": "Offizielle Website"
     },
     "options_discuss": {
-        "message": "AdGuard besprechen"
+        "message": "AdCognition besprechen"
     },
     "options_about_rights_reserved": {
         "message": "Alle Rechte vorbehalten."
     },
     "options_notice_program": {
-        "message": "Diese Erweiterung ist ein experimentelles Projekt des AdGuard-Teams"
+        "message": "Diese Erweiterung ist ein experimentelles Projekt des AdCognition-Teams"
     },
     "options_notice_compare_link": {
         "message": "Mehr erfahren"
@@ -183,13 +183,13 @@
         "message": "Problem melden…"
     },
     "context_menu_open_options": {
-        "message": "AdGuard-Einstellungen …"
+        "message": "AdCognition-Einstellungen …"
     },
     "context_menu_disable_blocking": {
-        "message": "AdGuard-Schutz anhalten"
+        "message": "AdCognition-Schutz anhalten"
     },
     "context_menu_enable_blocking": {
-        "message": "AdGuard-Schutz aktivieren"
+        "message": "AdCognition-Schutz aktivieren"
     },
     "options_add_custom_filter": {
         "message": "Eigenen Filter hinzufügen"
@@ -321,7 +321,7 @@
         "message": "Vergleichen"
     },
     "name": {
-        "message": "AdGuard AdBlocker MV3 Experimental"
+        "message": "AdCognition AdBlocker MV3 Experimental"
     },
     "description": {
         "message": "Experimental version of unmatched adblock extension built on Manifest V3."

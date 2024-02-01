@@ -1,9 +1,9 @@
 {
     "name": {
-        "message": "Phần mở rộng trình duyệt AdGuard v3"
+        "message": "Phần mở rộng trình duyệt AdCognition v3"
     },
     "description": {
-        "message": "Phần mở rộng trình duyệt AdGuard xây dựng trên manifest v3"
+        "message": "Phần mở rộng trình duyệt AdCognition xây dựng trên manifest v3"
     },
     "popup_protection_enabled_status": {
         "message": "Bảo vệ được kích hoạt"
@@ -27,7 +27,7 @@
         "message": "Thử nghiệm"
     },
     "popup_steps_experimental_description": {
-        "message": "Các nhà giả kim thuật của chúng tôi biết các cách để chế ngự các thử thách MV3. Bây giờ AdGuard hoạt động với Manifest V3."
+        "message": "Các nhà giả kim thuật của chúng tôi biết các cách để chế ngự các thử thách MV3. Bây giờ AdCognition hoạt động với Manifest V3."
     },
     "popup_steps_new_tech_title": {
         "message": "Sự đổi mới"
@@ -39,13 +39,13 @@
         "message": "Nhanh"
     },
     "popup_steps_fast_work_description": {
-        "message": "Chúng tôi đã tăng hiệu suất của AdGuard bằng cách tái cấu trúc các thư viện chặn nội dung và sử dụng các tính năng MV3."
+        "message": "Chúng tôi đã tăng hiệu suất của AdCognition bằng cách tái cấu trúc các thư viện chặn nội dung và sử dụng các tính năng MV3."
     },
     "popup_steps_v3_manifest_title": {
         "message": "Manifest V3"
     },
     "popup_steps_v3_manifest_description": {
-        "message": "Bạn có thể chỉ nhận thấy kết quả của quá trình chuyển đổi AdGuard sang MV3: hiệu suất thậm chí còn tốt hơn."
+        "message": "Bạn có thể chỉ nhận thấy kết quả của quá trình chuyển đổi AdCognition sang MV3: hiệu suất thậm chí còn tốt hơn."
     },
     "popup_learn_more_link": {
         "message": "Tìm hiểu thêm"
@@ -99,7 +99,7 @@
         "message": "Bộ lọc tuỳ chỉnh"
     },
     "options_custom_filters_option_desc": {
-        "message": "Thêm bộ lọc tùy chỉnh dựa trên quy tắc lọc AdGuard"
+        "message": "Thêm bộ lọc tùy chỉnh dựa trên quy tắc lọc AdCognition"
     },
     "options_static_filters_limits_by_rules": {
         "message": "Bạn đã đạt đến giới hạn của các quy tắc tích hợp sẵn đang hoạt động. Để kích hoạt các quy tắc mới, hãy tắt một số bộ lọc tích hợp sẵn. <newline><\/newline> <link-to-limits>Giới hạn quy tắc<\/link-to-limits>"
@@ -150,7 +150,7 @@
         "message": "Chặn quảng cáo trên website này"
     },
     "options_open_settings": {
-        "message": "Cài đặt AdGuard"
+        "message": "Cài đặt AdCognition"
     },
     "options_settings_title": {
         "message": "Cài đặt"
@@ -159,7 +159,7 @@
         "message": "Thông tin"
     },
     "options_about_product": {
-        "message": "Phần mở rộng trình duyệt AdGuard MV3"
+        "message": "Phần mở rộng trình duyệt AdCognition MV3"
     },
     "options_about_version": {
         "message": "Phiên bản"
@@ -177,13 +177,13 @@
         "message": "Trang chủ chính thức"
     },
     "options_discuss": {
-        "message": "Thảo luận AdGuard"
+        "message": "Thảo luận AdCognition"
     },
     "options_about_rights_reserved": {
-        "message": "adguard.com - Mọi quyền được bảo lưu"
+        "message": "AdCognition.com - Mọi quyền được bảo lưu"
     },
     "options_notice_program": {
-        "message": "Tiện ích mở rộng này là một dự án thử nghiệm của nhóm AdGuard"
+        "message": "Tiện ích mở rộng này là một dự án thử nghiệm của nhóm AdCognition"
     },
     "options_notice_compare_link": {
         "message": "Tìm hiểu thêm"
@@ -231,13 +231,13 @@
         "message": "Báo lỗi..."
     },
     "context_menu_open_options": {
-        "message": "Cài đặt AdGuard..."
+        "message": "Cài đặt AdCognition..."
     },
     "context_menu_disable_blocking": {
-        "message": "Tạm dừng bảo vệ của AdGuard"
+        "message": "Tạm dừng bảo vệ của AdCognition"
     },
     "context_menu_enable_blocking": {
-        "message": "Bật Trình bảo vệ Adguard"
+        "message": "Bật Trình bảo vệ AdCognition"
     },
     "options_add_custom_filter": {
         "message": "Thêm bộ lọc tuỳ chỉnh"
@@ -291,7 +291,7 @@
         "message": "Back"
     },
     "options_custom_filter_modal_retry_description": {
-        "message": "AdGuard không thể mở tập tin này. Vui lòng kiểm tra lại định dạng."
+        "message": "AdCognition không thể mở tập tin này. Vui lòng kiểm tra lại định dạng."
     },
     "options_custom_filter_modal_url_already_uploaded": {
         "message": "Bộ lọc tại URL này đã được tải lên."
@@ -438,13 +438,13 @@
         "message": "Tùy chọn 1. Xóa các tiện ích mở rộng chặn quảng cáo không cần thiết khỏi trình duyệt của bạn. Để kích hoạt lại các bộ lọc được đề cập trong phần \"Bộ lọc được bật trước khi cập nhật\", hãy nhấp vào <button>kích hoạt lại bộ lọc<\/button>."
     },
     "options_limits_warning_desc_app": {
-        "message": "Tùy chọn 2. Cài đặt ứng dụng AdGuard Ad Blocker: ứng dụng này không có hạn chế về quy tắc lọc. <link>Nhận AdGuard Ad Blocker<\/link>"
+        "message": "Tùy chọn 2. Cài đặt ứng dụng AdCognition Ad Blocker: ứng dụng này không có hạn chế về quy tắc lọc. <link>Nhận AdCognition Ad Blocker<\/link>"
     },
     "options_limits_warning_desc_close": {
         "message": "Tùy chọn 3. Nếu bạn hài lòng với (các) bộ lọc mặc định hiện được bật, <button>hãy đóng cảnh báo này<\/button>."
     },
     "options_nav_better_than_extension": {
-        "message": "Không giống như tiện ích mở rộng, ứng dụng AdGuard chặn quảng cáo không có giới hạn."
+        "message": "Không giống như tiện ích mở rộng, ứng dụng AdCognition chặn quảng cáo không có giới hạn."
     },
     "options_nav_compare": {
         "message": "Phân biệt hai chương trình"

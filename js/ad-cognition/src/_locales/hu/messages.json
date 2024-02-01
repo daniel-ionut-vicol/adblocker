@@ -1,6 +1,6 @@
 {
     "name": {
-        "message": "AdGuard AdBlocker MV3 Kísérleti"
+        "message": "AdCognition AdBlocker MV3 Kísérleti"
     },
     "description": {
         "message": "A Manifest V3-ra épülő, páratlan adblock kiegészítő kísérleti változata."
@@ -27,7 +27,7 @@
         "message": "Kísérleti"
     },
     "popup_steps_experimental_description": {
-        "message": "Mérnökeink tudják, hogyan lehet megbirkózni a MV3 kihívásaival. Mostmár az AdGuard működik a Manifest V3-mal is."
+        "message": "Mérnökeink tudják, hogyan lehet megbirkózni a MV3 kihívásaival. Mostmár az AdCognition működik a Manifest V3-mal is."
     },
     "popup_steps_new_tech_title": {
         "message": "Innovatív"
@@ -39,13 +39,13 @@
         "message": "Gyors"
     },
     "popup_steps_fast_work_description": {
-        "message": "Az AdGuard teljesítményét a tartalomblokkoló könyvtáraink átdolgozásával és az MV3 funkcióinak használatával növeltük."
+        "message": "Az AdCognition teljesítményét a tartalomblokkoló könyvtáraink átdolgozásával és az MV3 funkcióinak használatával növeltük."
     },
     "popup_steps_v3_manifest_title": {
         "message": "Manifest V3"
     },
     "popup_steps_v3_manifest_description": {
-        "message": "Előfordulhat, hogy az AdGuard MV3-ra való átállásának egyetlen eredményét észleli: még jobb teljesítményt."
+        "message": "Előfordulhat, hogy az AdCognition MV3-ra való átállásának egyetlen eredményét észleli: még jobb teljesítményt."
     },
     "popup_learn_more_link": {
         "message": "Tudjon meg többet"
@@ -93,13 +93,13 @@
         "message": "Hungarian"
     },
     "options_base_filter": {
-        "message": "AdGuard Alap szűrő"
+        "message": "AdCognition Alap szűrő"
     },
     "options_custom_filters_option": {
         "message": "Egyéni szűrők"
     },
     "options_custom_filters_option_desc": {
-        "message": "Egyéni szűrők hozzáadása AdGuard szűrési szabályai alapján"
+        "message": "Egyéni szűrők hozzáadása AdCognition szűrési szabályai alapján"
     },
     "options_static_filters_limits_by_rules": {
         "message": "Elérte az aktív beépített szabályok korlátját. Új szabályok aktiválásához kapcsoljon ki néhány beépített szűrőt. <newline><\/newline> <link-to-limits>Szabálykorlátok<\/link-to-limits>"
@@ -150,7 +150,7 @@
         "message": "Hirdetések blokkolása ezen az oldalon"
     },
     "options_open_settings": {
-        "message": "AdGuard beállítások"
+        "message": "AdCognition beállítások"
     },
     "options_settings_title": {
         "message": "Beállítások"
@@ -159,7 +159,7 @@
         "message": "Névjegy"
     },
     "options_about_product": {
-        "message": "AdGuard Böngészőkiegészítő v3"
+        "message": "AdCognition Böngészőkiegészítő v3"
     },
     "options_about_version": {
         "message": "Verzió"
@@ -183,7 +183,7 @@
         "message": "Minden jog fenntartva."
     },
     "options_notice_program": {
-        "message": "Ez a bővítmény az AdGuard csapatának kísérleti projektje"
+        "message": "Ez a bővítmény az AdCognition csapatának kísérleti projektje"
     },
     "options_notice_compare_link": {
         "message": "Tudjon meg többet"
@@ -231,13 +231,13 @@
         "message": "Probléma bejelentése..."
     },
     "context_menu_open_options": {
-        "message": "AdGuard beállítások..."
+        "message": "AdCognition beállítások..."
     },
     "context_menu_disable_blocking": {
-        "message": "AdGuard védelem szüneteltetése"
+        "message": "AdCognition védelem szüneteltetése"
     },
     "context_menu_enable_blocking": {
-        "message": "AdGuard védelem engedélyezése"
+        "message": "AdCognition védelem engedélyezése"
     },
     "options_add_custom_filter": {
         "message": "Egyéni szűrő hozzáadása"
@@ -438,13 +438,13 @@
         "message": "1. lehetőség: Törölje a szükségtelen hirdetésblokkoló bővítményeket a böngészőből. A „Frissítés előtt engedélyezett szűrők” részben említett szűrők újraaktiválásához kattintson a <button>szűrők újraaktiválása<\/button>elemre."
     },
     "options_limits_warning_desc_app": {
-        "message": "2. lehetőség. Telepítse az AdGuard alkalmazást: abban nincs korlátozás a szűrési szabályokra vonatkozóan. <link>Szerezze be az AdGuard hirdetésblokkolót<\/link>"
+        "message": "2. lehetőség. Telepítse az AdCognition alkalmazást: abban nincs korlátozás a szűrési szabályokra vonatkozóan. <link>Szerezze be az AdCognition hirdetésblokkolót<\/link>"
     },
     "options_limits_warning_desc_close": {
         "message": "3. lehetőség. Ha elégedett a jelenleg engedélyezett alapértelmezett szűrővel\/szűrőkkel, akkor a <button>zárja be ezt a figyelmeztetést<\/button>."
     },
     "options_nav_better_than_extension": {
-        "message": "A bővítménytől eltérően az AdGuard alkalmazás korlátozások nélkül blokkolja a hirdetéseket."
+        "message": "A bővítménytől eltérően az AdCognition alkalmazás korlátozások nélkül blokkolja a hirdetéseket."
     },
     "options_nav_compare": {
         "message": "Összehasonlítás"

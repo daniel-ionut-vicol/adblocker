@@ -18,7 +18,7 @@
         "message": "Blokeeri sellel veebisaidil reklaamid"
     },
     "options_open_settings": {
-        "message": "AdGuardi seaded"
+        "message": "AdCognitioni seaded"
     },
     "options_acknowledgment": {
         "message": "Tänuavaldused"
@@ -42,16 +42,16 @@
         "message": "Teavita probleemist..."
     },
     "context_menu_open_options": {
-        "message": "AdGuardi seaded..."
+        "message": "AdCognitioni seaded..."
     },
     "context_menu_disable_blocking": {
-        "message": "Peata AdGuardi kaitse"
+        "message": "Peata AdCognitioni kaitse"
     },
     "options_custom_filter_add_label_description": {
         "message": "Kirjeldus"
     },
     "name": {
-        "message": "AdGuard AdBlocker MV3 Experimental"
+        "message": "AdCognition AdBlocker MV3 Experimental"
     },
     "description": {
         "message": "Experimental version of unmatched adblock extension built on Manifest V3."

@@ -21,7 +21,7 @@
         "message": "实验性"
     },
     "popup_steps_experimental_description": {
-        "message": "我们的工程师知道如何解决 MV3 的相关问题。 现在 AdGuard 可与 Manifest V3 一起使用了。"
+        "message": "我们的工程师知道如何解决 MV3 的相关问题。 现在 AdCognition 可与 Manifest V3 一起使用了。"
     },
     "popup_steps_new_tech_title": {
         "message": "进阶"
@@ -33,13 +33,13 @@
         "message": "快速"
     },
     "popup_steps_fast_work_description": {
-        "message": "我们通过代码重构和使用 MV3 功能提高了 AdGuard 的性能。"
+        "message": "我们通过代码重构和使用 MV3 功能提高了 AdCognition 的性能。"
     },
     "popup_steps_v3_manifest_title": {
         "message": "Manifest V3"
     },
     "popup_steps_v3_manifest_description": {
-        "message": "您可能会注意到 AdGuard 过渡到 MV3 后，拥有更好的性能。"
+        "message": "您可能会注意到 AdCognition 过渡到 MV3 后，拥有更好的性能。"
     },
     "popup_learn_more_link": {
         "message": "了解更多"
@@ -84,13 +84,13 @@
         "message": "Chinese Simplified"
     },
     "options_base_filter": {
-        "message": "AdGuard 基础过滤器"
+        "message": "AdCognition 基础过滤器"
     },
     "options_custom_filters_option": {
         "message": "自定义过滤器"
     },
     "options_custom_filters_option_desc": {
-        "message": "根据 AdGuard 过滤规则添加自定义过滤器"
+        "message": "根据 AdCognition 过滤规则添加自定义过滤器"
     },
     "options_user_rules_option": {
         "message": "用户过滤器"
@@ -114,7 +114,7 @@
         "message": "拦截此网站上的广告"
     },
     "options_open_settings": {
-        "message": "AdGuard 设置"
+        "message": "AdCognition 设置"
     },
     "options_settings_title": {
         "message": "设置"
@@ -138,13 +138,13 @@
         "message": "官方网站"
     },
     "options_discuss": {
-        "message": "讨论 AdGuard"
+        "message": "讨论 AdCognition"
     },
     "options_about_rights_reserved": {
         "message": "保留所有版权。"
     },
     "options_notice_program": {
-        "message": "这个扩展是 AdGuard 团队的一个实验项目"
+        "message": "这个扩展是 AdCognition 团队的一个实验项目"
     },
     "options_notice_compare_link": {
         "message": "了解更多"
@@ -183,13 +183,13 @@
         "message": "报告问题 ..."
     },
     "context_menu_open_options": {
-        "message": "AdGuard 设置..."
+        "message": "AdCognition 设置..."
     },
     "context_menu_disable_blocking": {
-        "message": "暂停 AdGuard 保护"
+        "message": "暂停 AdCognition 保护"
     },
     "context_menu_enable_blocking": {
-        "message": "开启 AdGuard 防护"
+        "message": "开启 AdCognition 防护"
     },
     "options_add_custom_filter": {
         "message": "添加自定义过滤器"
@@ -321,7 +321,7 @@
         "message": "两者对比"
     },
     "name": {
-        "message": "AdGuard AdBlocker MV3 Experimental"
+        "message": "AdCognition AdBlocker MV3 Experimental"
     },
     "description": {
         "message": "Experimental version of unmatched adblock extension built on Manifest V3."

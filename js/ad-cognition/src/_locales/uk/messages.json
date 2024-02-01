@@ -1,6 +1,6 @@
 {
     "name": {
-        "message": "Блокувальник реклами AdGuard MV3 Експериментальний"
+        "message": "Блокувальник реклами AdCognition MV3 Експериментальний"
     },
     "popup_protection_enabled_status": {
         "message": "Захист увімкнено"
@@ -24,7 +24,7 @@
         "message": "Експериментальний"
     },
     "popup_steps_experimental_description": {
-        "message": "Зараз AdGuard вже працює над версією для Manifest v3."
+        "message": "Зараз AdCognition вже працює над версією для Manifest v3."
     },
     "popup_steps_new_tech_title": {
         "message": "Інноваційний"
@@ -36,13 +36,13 @@
         "message": "Швидкий"
     },
     "popup_steps_fast_work_description": {
-        "message": "Ми покращили продуктивність AdGuard завдяки рефакторингу наших бібліотек для блокування реклами та використання можливостей MV3."
+        "message": "Ми покращили продуктивність AdCognition завдяки рефакторингу наших бібліотек для блокування реклами та використання можливостей MV3."
     },
     "popup_steps_v3_manifest_title": {
         "message": "Маніфест v3"
     },
     "popup_steps_v3_manifest_description": {
-        "message": "Після переходу AdGuard на MV3 ви можете помітити різницю лише в одному — в кращій продуктивності."
+        "message": "Після переходу AdCognition на MV3 ви можете помітити різницю лише в одному — в кращій продуктивності."
     },
     "popup_learn_more_link": {
         "message": "Докладніше"
@@ -87,7 +87,7 @@
         "message": "Ukrainian"
     },
     "options_base_filter": {
-        "message": "Основний фільтр AdGuard"
+        "message": "Основний фільтр AdCognition"
     },
     "options_custom_filters_option": {
         "message": "Власні фільтри"
@@ -111,7 +111,7 @@
         "message": "Блокувати рекламу на цьому сайті"
     },
     "options_open_settings": {
-        "message": "Налаштування AdGuard"
+        "message": "Налаштування AdCognition"
     },
     "options_settings_title": {
         "message": "Налаштування"
@@ -135,7 +135,7 @@
         "message": "Офіційний сайт"
     },
     "options_discuss": {
-        "message": "Обговорення AdGuard"
+        "message": "Обговорення AdCognition"
     },
     "options_about_rights_reserved": {
         "message": "Усі права захищено."
@@ -165,13 +165,13 @@
         "message": "Повідомити про проблему..."
     },
     "context_menu_open_options": {
-        "message": "Налаштування AdGuard..."
+        "message": "Налаштування AdCognition..."
     },
     "context_menu_disable_blocking": {
-        "message": "Призупинити захист AdGuard"
+        "message": "Призупинити захист AdCognition"
     },
     "context_menu_enable_blocking": {
-        "message": "Увімкнути захист AdGuard"
+        "message": "Увімкнути захист AdCognition"
     },
     "options_add_custom_filter": {
         "message": "Додати власний фільтр"

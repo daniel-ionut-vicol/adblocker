@@ -24,7 +24,7 @@
         "message": "Japanese"
     },
     "options_base_filter": {
-        "message": "AdGuard ベースフィルタ"
+        "message": "AdCognition ベースフィルタ"
     },
     "options_custom_filters_option": {
         "message": "カスタムフィルタ"
@@ -36,19 +36,19 @@
         "message": "設定"
     },
     "options_nav_link_about": {
-        "message": "AdGuard について"
+        "message": "AdCognition について"
     },
     "options_block_ads_on_website": {
         "message": "このページで広告を手動ブロックする"
     },
     "options_open_settings": {
-        "message": "AdGuard 設定"
+        "message": "AdCognition 設定"
     },
     "options_settings_title": {
         "message": "設定"
     },
     "options_about_title": {
-        "message": "AdGuard について"
+        "message": "AdCognition について"
     },
     "options_about_version": {
         "message": "バージョン"
@@ -66,7 +66,7 @@
         "message": "公式ホームページ"
     },
     "options_discuss": {
-        "message": "AdGuardについての意見交換"
+        "message": "AdCognitionについての意見交換"
     },
     "options_about_rights_reserved": {
         "message": "All rights reserved."
@@ -87,13 +87,13 @@
         "message": "不具合・問題を報告する…"
     },
     "context_menu_open_options": {
-        "message": "AdGuard 設定"
+        "message": "AdCognition 設定"
     },
     "context_menu_disable_blocking": {
-        "message": "AdGuardの保護を一時的に停止する"
+        "message": "AdCognitionの保護を一時的に停止する"
     },
     "context_menu_enable_blocking": {
-        "message": "AdGuard保護をオンにする"
+        "message": "AdCognition保護をオンにする"
     },
     "options_add_custom_filter": {
         "message": "カスタムフィルタを追加"
@@ -165,7 +165,7 @@
         "message": "比較を見る"
     },
     "name": {
-        "message": "AdGuard AdBlocker MV3 Experimental"
+        "message": "AdCognition AdBlocker MV3 Experimental"
     },
     "description": {
         "message": "Experimental version of unmatched adblock extension built on Manifest V3."

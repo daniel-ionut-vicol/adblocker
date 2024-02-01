@@ -2,7 +2,7 @@
     "name": "browser-extension-v3",
     "version": "0.3.62",
     "private": true,
-    "description": "AdGuard browser extension",
+    "description": "AdCognition browser extension",
     "author": "adguard@adguard.com",
     "license": "GPL-3.0",
     "scripts": {

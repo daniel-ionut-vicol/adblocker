@@ -24,7 +24,7 @@
         "message": "Belarusian (Belarus)"
     },
     "options_base_filter": {
-        "message": "Базавы фільтр AdGuard"
+        "message": "Базавы фільтр AdCognition"
     },
     "options_custom_filters_option": {
         "message": "Уласныя фільтры"
@@ -42,7 +42,7 @@
         "message": "Блакаваць рэкламу на гэтым сайце"
     },
     "options_open_settings": {
-        "message": "Наладзіць AdGuard"
+        "message": "Наладзіць AdCognition"
     },
     "options_settings_title": {
         "message": "Налады"
@@ -66,7 +66,7 @@
         "message": "Афіцыйны сайт"
     },
     "options_discuss": {
-        "message": "Абмеркаваць AdGuard"
+        "message": "Абмеркаваць AdCognition"
     },
     "options_about_rights_reserved": {
         "message": "Усе правы захаваныя."
@@ -87,10 +87,10 @@
         "message": "Дадаць скаргу на гэты сайт…"
     },
     "context_menu_open_options": {
-        "message": "Наладзіць AdGuard..."
+        "message": "Наладзіць AdCognition..."
     },
     "context_menu_disable_blocking": {
-        "message": "Прыпыніць абарону AdGuard"
+        "message": "Прыпыніць абарону AdCognition"
     },
     "options_add_custom_filter": {
         "message": "Дадаць свой"
@@ -162,7 +162,7 @@
         "message": "Параўнаць"
     },
     "name": {
-        "message": "AdGuard AdBlocker MV3 Experimental"
+        "message": "AdCognition AdBlocker MV3 Experimental"
     },
     "description": {
         "message": "Experimental version of unmatched adblock extension built on Manifest V3."

@@ -9,13 +9,13 @@
         "message": "Bloca els anuncis en aquest lloc web"
     },
     "options_open_settings": {
-        "message": "Opcions d'AdGuard"
+        "message": "Opcions d'AdCognition"
     },
     "options_github": {
         "message": "GitHub"
     },
     "options_discuss": {
-        "message": "Parleu sobre AdGuard"
+        "message": "Parleu sobre AdCognition"
     },
     "popup_settings_report_issue": {
         "message": "Informar d’un problema"
@@ -24,13 +24,13 @@
         "message": "Filtreu els anuncis de publicitat en aquesta pàgina web..."
     },
     "context_menu_open_options": {
-        "message": "Opcions d'AdGuard..."
+        "message": "Opcions d'AdCognition..."
     },
     "context_menu_disable_blocking": {
-        "message": "Atureu la protecció d'AdGuard"
+        "message": "Atureu la protecció d'AdCognition"
     },
     "name": {
-        "message": "AdGuard AdBlocker MV3 Experimental"
+        "message": "AdCognition AdBlocker MV3 Experimental"
     },
     "description": {
         "message": "Experimental version of unmatched adblock extension built on Manifest V3."

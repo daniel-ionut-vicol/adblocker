@@ -115,22 +115,6 @@ export const Limits = observer(() => {
                 {reactTranslator.getMessage('options_limits_title')}
             </h2>
 
-            <div className={cn(theme.common.headingSecondary, styles.extraSpace)}>
-                <div>
-                    {reactTranslator.getMessage('options_limits_desc_specifications')}
-                </div>
-                <div>
-                    <a
-                        href={MV3}
-                        className={theme.common.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        {reactTranslator.getMessage('options_limits_link_about_mv3')}
-                    </a>
-                </div>
-            </div>
-
             {
                 showWarning && (
                     <Warning

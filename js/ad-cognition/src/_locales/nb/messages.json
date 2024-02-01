@@ -21,7 +21,7 @@
         "message": "Norwegian"
     },
     "options_base_filter": {
-        "message": "AdGuards hovedfilter"
+        "message": "AdCognitions hovedfilter"
     },
     "options_custom_filters_option": {
         "message": "Selvvalgte lister"
@@ -39,7 +39,7 @@
         "message": "Blokker reklamer på dette nettstedet"
     },
     "options_open_settings": {
-        "message": "AdGuard-innstillinger"
+        "message": "AdCognition-innstillinger"
     },
     "options_settings_title": {
         "message": "Innstillinger"
@@ -63,7 +63,7 @@
         "message": "Offisielt nettsted"
     },
     "options_discuss": {
-        "message": "Diskuter AdGuard"
+        "message": "Diskuter AdCognition"
     },
     "options_about_rights_reserved": {
         "message": "Alle rettigheter reservert."
@@ -84,13 +84,13 @@
         "message": "Meld inn et problem …"
     },
     "context_menu_open_options": {
-        "message": "AdGuard-innstillinger..."
+        "message": "AdCognition-innstillinger..."
     },
     "context_menu_disable_blocking": {
-        "message": "Pause AdGuard-beskyttelse"
+        "message": "Pause AdCognition-beskyttelse"
     },
     "context_menu_enable_blocking": {
-        "message": "Skru på AdGuard-beskyttelse"
+        "message": "Skru på AdCognition-beskyttelse"
     },
     "options_add_custom_filter": {
         "message": "Legg til egendefinert filter"
@@ -153,7 +153,7 @@
         "message": "Avbryt"
     },
     "name": {
-        "message": "AdGuard AdBlocker MV3 Experimental"
+        "message": "AdCognition AdBlocker MV3 Experimental"
     },
     "description": {
         "message": "Experimental version of unmatched adblock extension built on Manifest V3."

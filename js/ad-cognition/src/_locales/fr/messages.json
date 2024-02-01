@@ -1,9 +1,9 @@
 {
     "name": {
-        "message": "AdGuard AdBlocker MV3 Expérimental"
+        "message": "AdCognition AdBlocker MV3 Expérimental"
     },
     "description": {
-        "message": "Extension de navigateur AdGuard conçue sur le Manifeste V3."
+        "message": "Extension de navigateur AdCognition conçue sur le Manifeste V3."
     },
     "popup_protection_enabled_status": {
         "message": "La protection est activée"
@@ -27,7 +27,7 @@
         "message": "Expérimental"
     },
     "popup_steps_experimental_description": {
-        "message": "Nos alchimistes connaissent les moyens de dompter les défis du MV3. AdGuard fonctionne désormais avec le Manifeste V3."
+        "message": "Nos alchimistes connaissent les moyens de dompter les défis du MV3. AdCognition fonctionne désormais avec le Manifeste V3."
     },
     "popup_steps_new_tech_title": {
         "message": "Innovant"
@@ -39,13 +39,13 @@
         "message": "Rapide"
     },
     "popup_steps_fast_work_description": {
-        "message": "Nous avons augmenté les performances d'AdGuard en remaniant nos bibliothèques de blocage de contenu et en utilisant les fonctionnalités MV3."
+        "message": "Nous avons augmenté les performances d'AdCognition en remaniant nos bibliothèques de blocage de contenu et en utilisant les fonctionnalités MV3."
     },
     "popup_steps_v3_manifest_title": {
         "message": "Manifeste V3"
     },
     "popup_steps_v3_manifest_description": {
-        "message": "Vous ne remarquerez peut-être qu’un seul résultat de la transition d’AdGuard vers le MV3 : des performances encore meilleures."
+        "message": "Vous ne remarquerez peut-être qu’un seul résultat de la transition d’AdCognition vers le MV3 : des performances encore meilleures."
     },
     "popup_learn_more_link": {
         "message": "En savoir plus"
@@ -93,13 +93,13 @@
         "message": "French"
     },
     "options_base_filter": {
-        "message": "Filtre de base AdGuard"
+        "message": "Filtre de base AdCognition"
     },
     "options_custom_filters_option": {
         "message": "Filtres personnalisés"
     },
     "options_custom_filters_option_desc": {
-        "message": "Ajouter des filtres personnalisés basés sur les règles de filtrage d’AdGuard"
+        "message": "Ajouter des filtres personnalisés basés sur les règles de filtrage d’AdCognition"
     },
     "options_static_filters_limits_by_rules": {
         "message": "Vous avez atteint la limite des règles intégrées actives. Pour activer de nouvelles règles, désactivez certains filtres intégrés. <newline><\/newline> <link-to-limits>Limites des règles<\/link-to-limits>"
@@ -150,7 +150,7 @@
         "message": "Bloquer les publicités sur ce site"
     },
     "options_open_settings": {
-        "message": "Paramètres d'AdGuard"
+        "message": "Paramètres d'AdCognition"
     },
     "options_settings_title": {
         "message": "Paramètres"
@@ -159,7 +159,7 @@
         "message": "À propos"
     },
     "options_about_product": {
-        "message": "Extension de navigateur AdGuard MV3"
+        "message": "Extension de navigateur AdCognition MV3"
     },
     "options_about_version": {
         "message": "Version"
@@ -183,7 +183,7 @@
         "message": "Tous droits réservés."
     },
     "options_notice_program": {
-        "message": "Cette extension est un projet expérimental de l’équipe AdGuard"
+        "message": "Cette extension est un projet expérimental de l’équipe AdCognition"
     },
     "options_notice_compare_link": {
         "message": "En savoir plus"
@@ -231,13 +231,13 @@
         "message": "Signaler un problème..."
     },
     "context_menu_open_options": {
-        "message": "Paramètres d'AdGuard..."
+        "message": "Paramètres d'AdCognition..."
     },
     "context_menu_disable_blocking": {
-        "message": "Mettre en pause la protection d'AdGuard"
+        "message": "Mettre en pause la protection d'AdCognition"
     },
     "context_menu_enable_blocking": {
-        "message": "Activer la protection AdGuard"
+        "message": "Activer la protection AdCognition"
     },
     "options_add_custom_filter": {
         "message": "Ajouter un filtre personnalisé"

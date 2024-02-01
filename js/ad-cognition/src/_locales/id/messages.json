@@ -21,7 +21,7 @@
         "message": "Indonesian"
     },
     "options_base_filter": {
-        "message": "Penyaring dasar AdGuard"
+        "message": "Penyaring dasar AdCognition"
     },
     "options_custom_filters_option": {
         "message": "Kustom filter"
@@ -39,7 +39,7 @@
         "message": "Blok iklan di website ini"
     },
     "options_open_settings": {
-        "message": "Pengaturan AdGuard"
+        "message": "Pengaturan AdCognition"
     },
     "options_settings_title": {
         "message": "Pengaturan"
@@ -63,7 +63,7 @@
         "message": "Situs resmi"
     },
     "options_discuss": {
-        "message": "Diskusikan AdGuard"
+        "message": "Diskusikan AdCognition"
     },
     "options_about_rights_reserved": {
         "message": "Hak cipta dilindungi oleh undang-undag"
@@ -84,13 +84,13 @@
         "message": "Lapor masalah..."
     },
     "context_menu_open_options": {
-        "message": "Pengaturan AdGuard..."
+        "message": "Pengaturan AdCognition..."
     },
     "context_menu_disable_blocking": {
-        "message": "Jeda perlindungan AdGuard"
+        "message": "Jeda perlindungan AdCognition"
     },
     "context_menu_enable_blocking": {
-        "message": "Aktifkan perlindungan AdGuard"
+        "message": "Aktifkan perlindungan AdCognition"
     },
     "options_add_custom_filter": {
         "message": "Tambah filter kustom"
@@ -153,7 +153,7 @@
         "message": "Batal"
     },
     "name": {
-        "message": "AdGuard AdBlocker MV3 Experimental"
+        "message": "AdCognition AdBlocker MV3 Experimental"
     },
     "description": {
         "message": "Experimental version of unmatched adblock extension built on Manifest V3."

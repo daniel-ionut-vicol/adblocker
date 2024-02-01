@@ -24,7 +24,7 @@
         "message": "वेबसाइट पर विज्ञापनों को अवरुद्ध करें"
     },
     "options_open_settings": {
-        "message": "AdGuard सेटिंग्स"
+        "message": "AdCognition सेटिंग्स"
     },
     "options_settings_title": {
         "message": "सेटिंग्स"
@@ -57,7 +57,7 @@
         "message": "मामले का विवरण करें..."
     },
     "context_menu_open_options": {
-        "message": "AdGuard सेटिंग्स..."
+        "message": "AdCognition सेटिंग्स..."
     },
     "context_menu_disable_blocking": {
         "message": "एडगार्ड सुरक्षा रोकें"
@@ -69,7 +69,7 @@
         "message": "खोज"
     },
     "name": {
-        "message": "AdGuard AdBlocker MV3 Experimental"
+        "message": "AdCognition AdBlocker MV3 Experimental"
     },
     "description": {
         "message": "Experimental version of unmatched adblock extension built on Manifest V3."

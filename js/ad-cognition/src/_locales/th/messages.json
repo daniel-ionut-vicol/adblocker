@@ -9,7 +9,7 @@
         "message": "ข้าม"
     },
     "options_base_filter": {
-        "message": "AdGuard ตัวกรองพื้นฐาน"
+        "message": "AdCognition ตัวกรองพื้นฐาน"
     },
     "options_custom_filters_option": {
         "message": "ตัวกรองที่กำหนดเอง"
@@ -21,7 +21,7 @@
         "message": "ปิดกั้นโฆษณาบนเว็บไซต์นี้"
     },
     "options_open_settings": {
-        "message": "การตั้งค่า AdGuard"
+        "message": "การตั้งค่า AdCognition"
     },
     "options_settings_title": {
         "message": "การตั้งค่า"
@@ -33,7 +33,7 @@
         "message": "GitHub"
     },
     "options_discuss": {
-        "message": "พูดคุย AdGuard"
+        "message": "พูดคุย AdCognition"
     },
     "options_about_rights_reserved": {
         "message": "สงวนลิขสิทธิ์"
@@ -48,10 +48,10 @@
         "message": "ปิดกั้นโฆษณาบนเว็บไซต์"
     },
     "context_menu_open_options": {
-        "message": "AdGuard การตั้งค่า..."
+        "message": "AdCognition การตั้งค่า..."
     },
     "context_menu_disable_blocking": {
-        "message": "หยุดการปกป้องจาก AdGuard ชั่วคราว"
+        "message": "หยุดการปกป้องจาก AdCognition ชั่วคราว"
     },
     "options_custom_filter_modal_remove_button": {
         "message": "ลบ"
@@ -75,7 +75,7 @@
         "message": "เพิ่ม"
     },
     "name": {
-        "message": "AdGuard AdBlocker MV3 Experimental"
+        "message": "AdCognition AdBlocker MV3 Experimental"
     },
     "description": {
         "message": "Experimental version of unmatched adblock extension built on Manifest V3."

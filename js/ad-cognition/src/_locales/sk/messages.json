@@ -21,7 +21,7 @@
         "message": "Experimentálny"
     },
     "popup_steps_experimental_description": {
-        "message": "Naši alchymisti poznajú spôsoby, ako skrotiť výzvy MV3. Teraz AdGuard spolupracuje s manifestom v3."
+        "message": "Naši alchymisti poznajú spôsoby, ako skrotiť výzvy MV3. Teraz AdCognition spolupracuje s manifestom v3."
     },
     "popup_steps_new_tech_title": {
         "message": "Inovatívny"
@@ -33,13 +33,13 @@
         "message": "Rýchly"
     },
     "popup_steps_fast_work_description": {
-        "message": "Výkon AdGuard sme zvýšili prepracovaním našich knižníc na blokovanie obsahu a použitím funkcií MV3."
+        "message": "Výkon AdCognition sme zvýšili prepracovaním našich knižníc na blokovanie obsahu a použitím funkcií MV3."
     },
     "popup_steps_v3_manifest_title": {
         "message": "Manifest v3"
     },
     "popup_steps_v3_manifest_description": {
-        "message": "Môžete si všimnúť iba jeden výsledok prechodu AdGuard na MV3: ešte lepší výkon."
+        "message": "Môžete si všimnúť iba jeden výsledok prechodu AdCognition na MV3: ešte lepší výkon."
     },
     "popup_learn_more_link": {
         "message": "Viac informácií"
@@ -84,13 +84,13 @@
         "message": "Slovak"
     },
     "options_base_filter": {
-        "message": "AdGuard základný filter"
+        "message": "AdCognition základný filter"
     },
     "options_custom_filters_option": {
         "message": "Vlastné filtre"
     },
     "options_custom_filters_option_desc": {
-        "message": "Pridajte vlastné filtre založené na pravidlách filtrovania AdGuard"
+        "message": "Pridajte vlastné filtre založené na pravidlách filtrovania AdCognition"
     },
     "options_static_filters_limits_by_rules": {
         "message": "Dosiahli ste limit počtu aktívnych vstavaných pravidiel. Ak chcete aktivovať nové pravidlá, vypnite niektoré vstavané filtre. <newline><\/newline> <link-to-limits>Limity počtu pravidiel<\/link-to-limits>"
@@ -138,7 +138,7 @@
         "message": "Blokovať reklamy na tejto stránke"
     },
     "options_open_settings": {
-        "message": "Nastavenia AdGuard"
+        "message": "Nastavenia AdCognition"
     },
     "options_settings_title": {
         "message": "Nastavenia"
@@ -147,7 +147,7 @@
         "message": "O aplikácii"
     },
     "options_about_product": {
-        "message": "AdGuard rozšírenie prehliadača MV3"
+        "message": "AdCognition rozšírenie prehliadača MV3"
     },
     "options_about_version": {
         "message": "Verzia"
@@ -165,7 +165,7 @@
         "message": "Oficiálna stránka"
     },
     "options_discuss": {
-        "message": "Prediskutovať s AdGuard"
+        "message": "Prediskutovať s AdCognition"
     },
     "options_about_rights_reserved": {
         "message": "Všetky práva vyhradené."
@@ -195,13 +195,13 @@
         "message": "Nahlásiť problém..."
     },
     "context_menu_open_options": {
-        "message": "Nastavenia AdGuard..."
+        "message": "Nastavenia AdCognition..."
     },
     "context_menu_disable_blocking": {
-        "message": "Pozastaviť ochranu AdGuard"
+        "message": "Pozastaviť ochranu AdCognition"
     },
     "context_menu_enable_blocking": {
-        "message": "Zapnúť AdGuard ochranu"
+        "message": "Zapnúť AdCognition ochranu"
     },
     "options_add_custom_filter": {
         "message": "Pridať vlastný filter"
@@ -303,13 +303,13 @@
         "message": "Možnosť 1. Odstráňte z prehliadača nepotrebné rozšírenia na blokovanie reklám. Ak chcete znova aktivovať filtre uvedené v časti „Filtre zapnuté pred aktualizáciou“, kliknite na položku <button>znova aktivovať filtre<\/button>."
     },
     "options_limits_warning_desc_app": {
-        "message": "Možnosť 2. Nainštalujte si aplikáciu AdGuard blokovač reklamy: nemá žiadne obmedzenia na počet pravidiel filtrácie. <link>Získajte AdGuard blokovač reklamy<\/link>"
+        "message": "Možnosť 2. Nainštalujte si aplikáciu AdCognition blokovač reklamy: nemá žiadne obmedzenia na počet pravidiel filtrácie. <link>Získajte AdCognition blokovač reklamy<\/link>"
     },
     "options_limits_warning_desc_close": {
         "message": "Možnosť 3. Ak ste spokojný s aktuálne zapnutými predvolenými filtrami, <button>zatvorte toto upozornenie<\/button>."
     },
     "options_nav_better_than_extension": {
-        "message": "Na rozdiel od rozšírenia aplikácia AdGuard blokuje reklamy bez obmedzení."
+        "message": "Na rozdiel od rozšírenia aplikácia AdCognition blokuje reklamy bez obmedzení."
     },
     "options_nav_compare": {
         "message": "Porovnať"
@@ -354,7 +354,7 @@
         "message": "Opätovná aktivácia filtrov nie je možná: stále je prekročený limit pravidiel."
     },
     "name": {
-        "message": "AdGuard AdBlocker MV3 Experimental"
+        "message": "AdCognition AdBlocker MV3 Experimental"
     },
     "description": {
         "message": "Experimental version of unmatched adblock extension built on Manifest V3."

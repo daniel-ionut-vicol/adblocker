@@ -21,7 +21,7 @@
         "message": "Αποκλεισμός γνωστών ιχνηλατών"
     },
     "options_base_filter": {
-        "message": "AdGuard Βασικό φίλτρο"
+        "message": "AdCognition Βασικό φίλτρο"
     },
     "options_custom_filters_option": {
         "message": "Προσαρμοσμένα φίλτρα"
@@ -39,7 +39,7 @@
         "message": "Αποκλεισμός διαφημίσεων σε αυτόν τον ιστότοπο"
     },
     "options_open_settings": {
-        "message": "Ρυθμίσεις AdGuard"
+        "message": "Ρυθμίσεις AdCognition"
     },
     "options_settings_title": {
         "message": "Ρυθμίσεις"
@@ -63,7 +63,7 @@
         "message": "Επίσημη ιστοσελίδα"
     },
     "options_discuss": {
-        "message": "Συζητήστε για το AdGuard"
+        "message": "Συζητήστε για το AdCognition"
     },
     "options_about_rights_reserved": {
         "message": "Όλα τα δικαιώματα διατηρούνται."
@@ -84,13 +84,13 @@
         "message": "Υποβολή καταγγελίας για αυτόν τον ιστότοπο..."
     },
     "context_menu_open_options": {
-        "message": "Ρυθμίσεις AdGuard..."
+        "message": "Ρυθμίσεις AdCognition..."
     },
     "context_menu_disable_blocking": {
-        "message": "Παύση προστασίας AdGuard"
+        "message": "Παύση προστασίας AdCognition"
     },
     "context_menu_enable_blocking": {
-        "message": "Ενεργοποίηση προστασίας AdGuard"
+        "message": "Ενεργοποίηση προστασίας AdCognition"
     },
     "options_add_custom_filter": {
         "message": "Προσθήκη προσαρμοσμένου φίλτρου"
@@ -156,7 +156,7 @@
         "message": "Σύγκριση μεταξύ τους"
     },
     "name": {
-        "message": "AdGuard AdBlocker MV3 Experimental"
+        "message": "AdCognition AdBlocker MV3 Experimental"
     },
     "description": {
         "message": "Experimental version of unmatched adblock extension built on Manifest V3."

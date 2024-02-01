@@ -1,6 +1,6 @@
 {
     "name": {
-        "message": "AdGuard Reklam Engelleyici MV3 Deneysel"
+        "message": "AdCognition Reklam Engelleyici MV3 Deneysel"
     },
     "description": {
         "message": "Manifest V3 üzerine inşa edilmiş eşsiz reklam engelleme uzantısının deneysel sürümü."
@@ -27,7 +27,7 @@
         "message": "Deneysel"
     },
     "popup_steps_experimental_description": {
-        "message": "Yazılımcılarımız MV3'ün zorluklarını aşmanın yollarını biliyor. AdGuard artık Manifest V3 ile çalışıyor."
+        "message": "Yazılımcılarımız MV3'ün zorluklarını aşmanın yollarını biliyor. AdCognition artık Manifest V3 ile çalışıyor."
     },
     "popup_steps_new_tech_title": {
         "message": "Yenilikçi"
@@ -39,13 +39,13 @@
         "message": "Hızlı"
     },
     "popup_steps_fast_work_description": {
-        "message": "İçerik engelleme kütüphanelerimizi yeniden düzenleyerek ve MV3 özelliklerini kullanarak AdGuard'ın performansını artırdık."
+        "message": "İçerik engelleme kütüphanelerimizi yeniden düzenleyerek ve MV3 özelliklerini kullanarak AdCognition'ın performansını artırdık."
     },
     "popup_steps_v3_manifest_title": {
         "message": "Manifest V3"
     },
     "popup_steps_v3_manifest_description": {
-        "message": "AdGuard'ın MV3'e geçişinin tek bir sonucunu fark edebilirsiniz: daha da iyi performans."
+        "message": "AdCognition'ın MV3'e geçişinin tek bir sonucunu fark edebilirsiniz: daha da iyi performans."
     },
     "popup_learn_more_link": {
         "message": "Daha fazla bilgi edinin"
@@ -93,13 +93,13 @@
         "message": "Turkish"
     },
     "options_base_filter": {
-        "message": "AdGuard Temel filtresi"
+        "message": "AdCognition Temel filtresi"
     },
     "options_custom_filters_option": {
         "message": "Özel filtreler"
     },
     "options_custom_filters_option_desc": {
-        "message": "AdGuard filtreleme kurallarına dayalı özel filtreler ekleyin"
+        "message": "AdCognition filtreleme kurallarına dayalı özel filtreler ekleyin"
     },
     "options_static_filters_limits_by_rules": {
         "message": "Etkin yerleşik kuralların sınırına ulaştınız. Yeni kuralları etkinleştirmek için bazı yerleşik filtreleri devre dışı bırakın. <newline><\/newline> <link-to-limits>Kural sınırları<\/link-to-limits>"
@@ -150,7 +150,7 @@
         "message": "Bu sitede reklam engelle"
     },
     "options_open_settings": {
-        "message": "AdGuard ayarları"
+        "message": "AdCognition ayarları"
     },
     "options_settings_title": {
         "message": "Ayarlar"
@@ -159,7 +159,7 @@
         "message": "Hakkında"
     },
     "options_about_product": {
-        "message": "AdGuard Tarayıcı uzantısı MV3"
+        "message": "AdCognition Tarayıcı uzantısı MV3"
     },
     "options_about_version": {
         "message": "Sürüm"
@@ -177,13 +177,13 @@
         "message": "Resmi site"
     },
     "options_discuss": {
-        "message": "AdGuard'ı Tartışın"
+        "message": "AdCognition'ı Tartışın"
     },
     "options_about_rights_reserved": {
         "message": "Tüm hakları saklıdır."
     },
     "options_notice_program": {
-        "message": "Bu uzantı, AdGuard ekibinin deneysel bir projesidir"
+        "message": "Bu uzantı, AdCognition ekibinin deneysel bir projesidir"
     },
     "options_notice_compare_link": {
         "message": "Daha fazla bilgi edinin"
@@ -231,13 +231,13 @@
         "message": "Bir sorun bildir..."
     },
     "context_menu_open_options": {
-        "message": "AdGuard ayarları..."
+        "message": "AdCognition ayarları..."
     },
     "context_menu_disable_blocking": {
-        "message": "AdGuard korumasını duraklat"
+        "message": "AdCognition korumasını duraklat"
     },
     "context_menu_enable_blocking": {
-        "message": "AdGuard korumasını etkinleştir"
+        "message": "AdCognition korumasını etkinleştir"
     },
     "options_add_custom_filter": {
         "message": "Özel filtre ekle"
@@ -435,13 +435,13 @@
         "message": "1. Seçenek: Gereksiz reklam engelleme uzantılarını tarayıcınızdan silin. \"Güncellemeden önce etkin olan filtreler\" bölümünde belirtilen filtreleri yeniden etkinleştirmek için <button>filtreleri yeniden etkinleştir<\/button> düğmesine tıklayın."
     },
     "options_limits_warning_desc_app": {
-        "message": "2. Seçenek: AdGuard Reklam Engelleyici uygulamasını yükleyin: filtreleme kurallarında herhangi bir kısıtlama yoktur. <link>AdGuard Reklam Engelleyiciyi edinin<\/link>"
+        "message": "2. Seçenek: AdCognition Reklam Engelleyici uygulamasını yükleyin: filtreleme kurallarında herhangi bir kısıtlama yoktur. <link>AdCognition Reklam Engelleyiciyi edinin<\/link>"
     },
     "options_limits_warning_desc_close": {
         "message": "3. Seçenek: Şu anda etkin olan varsayılan filtrelerden memnunsanız, <button>bu uyarıyı kapatın<\/button>."
     },
     "options_nav_better_than_extension": {
-        "message": "Uzantının aksine, AdGuard uygulaması reklamları hiçbir sınırlama olmaksızın engeller."
+        "message": "Uzantının aksine, AdCognition uygulaması reklamları hiçbir sınırlama olmaksızın engeller."
     },
     "options_nav_compare": {
         "message": "Karşılaştır"

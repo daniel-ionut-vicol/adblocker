@@ -18,7 +18,7 @@
         "message": "Lithuanian (Lithuania)"
     },
     "options_base_filter": {
-        "message": "AdGuard bazinis filtras"
+        "message": "AdCognition bazinis filtras"
     },
     "options_custom_filters_option": {
         "message": "Pasirinktiniai filtrai"
@@ -33,7 +33,7 @@
         "message": "Blokuoti reklamą šioje svetainėje"
     },
     "options_open_settings": {
-        "message": "AdGuard nustatymai"
+        "message": "AdCognition nustatymai"
     },
     "options_settings_title": {
         "message": "Nustatymai"
@@ -51,7 +51,7 @@
         "message": "GitHub"
     },
     "options_discuss": {
-        "message": "Aptarti AdGuard"
+        "message": "Aptarti AdCognition"
     },
     "options_about_rights_reserved": {
         "message": "Visos teisės saugomos."
@@ -69,10 +69,10 @@
         "message": "Pranešti apie problemą..."
     },
     "context_menu_open_options": {
-        "message": "AdGuard nustatymai..."
+        "message": "AdCognition nustatymai..."
     },
     "context_menu_disable_blocking": {
-        "message": "Pristabdyti AdGuard apsaugą"
+        "message": "Pristabdyti AdCognition apsaugą"
     },
     "options_custom_filter_modal_remove_button": {
         "message": "Ištrinti"
@@ -123,7 +123,7 @@
         "message": "Atšaukti"
     },
     "name": {
-        "message": "AdGuard AdBlocker MV3 Experimental"
+        "message": "AdCognition AdBlocker MV3 Experimental"
     },
     "description": {
         "message": "Experimental version of unmatched adblock extension built on Manifest V3."

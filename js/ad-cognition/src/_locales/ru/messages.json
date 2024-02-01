@@ -21,7 +21,7 @@
         "message": "Экспериментальный"
     },
     "popup_steps_experimental_description": {
-        "message": "Наши алхимики знают, как справиться с испытаниями MV3. Теперь AdGuard работает с Манифестом V3."
+        "message": "Наши алхимики знают, как справиться с испытаниями MV3. Теперь AdCognition работает с Манифестом V3."
     },
     "popup_steps_new_tech_title": {
         "message": "Инновационный"
@@ -33,13 +33,13 @@
         "message": "Быстрый"
     },
     "popup_steps_fast_work_description": {
-        "message": "Мы переработали библиотеки блокировки контента и использовали функции MV3, чтобы AdGuard работал ещё лучше."
+        "message": "Мы переработали библиотеки блокировки контента и использовали функции MV3, чтобы AdCognition работал ещё лучше."
     },
     "popup_steps_v3_manifest_title": {
         "message": "Manifest V3"
     },
     "popup_steps_v3_manifest_description": {
-        "message": "После перехода AdGuard на MV3 вы, скорее всего, ничего не заметите — кроме ещё большей производительности."
+        "message": "После перехода AdCognition на MV3 вы, скорее всего, ничего не заметите — кроме ещё большей производительности."
     },
     "popup_learn_more_link": {
         "message": "Узнать больше"
@@ -84,13 +84,13 @@
         "message": "Russian"
     },
     "options_base_filter": {
-        "message": "Базовый фильтр AdGuard"
+        "message": "Базовый фильтр AdCognition"
     },
     "options_custom_filters_option": {
         "message": "Собственные фильтры"
     },
     "options_custom_filters_option_desc": {
-        "message": "Добавить собственные фильтры на основе правил фильтрации AdGuard"
+        "message": "Добавить собственные фильтры на основе правил фильтрации AdCognition"
     },
     "options_user_rules_option": {
         "message": "Пользовательские правила"
@@ -114,7 +114,7 @@
         "message": "Блокировать рекламу на этом сайте"
     },
     "options_open_settings": {
-        "message": "Настройки AdGuard"
+        "message": "Настройки AdCognition"
     },
     "options_settings_title": {
         "message": "Настройки"
@@ -138,13 +138,13 @@
         "message": "Официальный сайт"
     },
     "options_discuss": {
-        "message": "Обсудить AdGuard"
+        "message": "Обсудить AdCognition"
     },
     "options_about_rights_reserved": {
         "message": "Все права защищены. "
     },
     "options_notice_program": {
-        "message": "Это расширение — экспериментальный проект команды AdGuard"
+        "message": "Это расширение — экспериментальный проект команды AdCognition"
     },
     "options_notice_compare_link": {
         "message": "Узнать больше"
@@ -183,13 +183,13 @@
         "message": "Сообщить о проблеме..."
     },
     "context_menu_open_options": {
-        "message": "Настроить AdGuard..."
+        "message": "Настроить AdCognition..."
     },
     "context_menu_disable_blocking": {
-        "message": "Приостановить защиту AdGuard"
+        "message": "Приостановить защиту AdCognition"
     },
     "context_menu_enable_blocking": {
-        "message": "Включить защиту AdGuard"
+        "message": "Включить защиту AdCognition"
     },
     "options_add_custom_filter": {
         "message": "Добавить свой"
@@ -315,7 +315,7 @@
         "message": "Сравнить"
     },
     "name": {
-        "message": "AdGuard AdBlocker MV3 Experimental"
+        "message": "AdCognition AdBlocker MV3 Experimental"
     },
     "description": {
         "message": "Experimental version of unmatched adblock extension built on Manifest V3."

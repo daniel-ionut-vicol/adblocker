@@ -1,6 +1,6 @@
 {
     "name": {
-        "message": "AdGuard AdBlocker MV3 Experimental"
+        "message": "AdCognition AdBlocker MV3 Experimental"
     },
     "description": {
         "message": "Eksperimentel version af uovertruffen adblock-udvidelse bygget på Manifest V3."
@@ -27,7 +27,7 @@
         "message": "Eksperimentel"
     },
     "popup_steps_experimental_description": {
-        "message": "Vores alkymister kender måderne til at tæmme MV3-udfordringerne på. Nu fungerer AdGuard med Manifest V3."
+        "message": "Vores alkymister kender måderne til at tæmme MV3-udfordringerne på. Nu fungerer AdCognition med Manifest V3."
     },
     "popup_steps_new_tech_title": {
         "message": "Innovativ"
@@ -39,13 +39,13 @@
         "message": "Hurtig"
     },
     "popup_steps_fast_work_description": {
-        "message": "Vi har øget AdGuards ydeevne ved at omstrukturere vores indholdsblokerende biblioteker og bruge MV3-funktioner."
+        "message": "Vi har øget AdCognitions ydeevne ved at omstrukturere vores indholdsblokerende biblioteker og bruge MV3-funktioner."
     },
     "popup_steps_v3_manifest_title": {
         "message": "Manifest V3"
     },
     "popup_steps_v3_manifest_description": {
-        "message": "Du bemærker måske kun ét resultat af AdGuards overgang til MV3: Endnu bedre ydeevne."
+        "message": "Du bemærker måske kun ét resultat af AdCognitions overgang til MV3: Endnu bedre ydeevne."
     },
     "popup_learn_more_link": {
         "message": "Få mere at vide"
@@ -93,13 +93,13 @@
         "message": "Danish"
     },
     "options_base_filter": {
-        "message": "AdGuard Basisfilter"
+        "message": "AdCognition Basisfilter"
     },
     "options_custom_filters_option": {
         "message": "Tilpassede filtre"
     },
     "options_custom_filters_option_desc": {
-        "message": "Tilføj tilpassede filtre baseret på AdGuard-filtreringsregler"
+        "message": "Tilføj tilpassede filtre baseret på AdCognition-filtreringsregler"
     },
     "options_static_filters_limits_by_rules": {
         "message": "Grænsen for aktive indbyggede regler nået. Deaktivér nogle indbyggede filtre for at aktivere nye regler. <newline><\/newline> <link-to-limits>Regelgrænser<\/link-to-limits>"
@@ -150,7 +150,7 @@
         "message": "Blokér annoncer på dette websted"
     },
     "options_open_settings": {
-        "message": "AdGuard-indstillinger"
+        "message": "AdCognition-indstillinger"
     },
     "options_settings_title": {
         "message": "Indstillinger"
@@ -159,7 +159,7 @@
         "message": "Om"
     },
     "options_about_product": {
-        "message": "AdGuard Browser-udvidelse MV3"
+        "message": "AdCognition Browser-udvidelse MV3"
     },
     "options_about_version": {
         "message": "Version"
@@ -177,13 +177,13 @@
         "message": "Officiel webside"
     },
     "options_discuss": {
-        "message": "Debattér AdGuard"
+        "message": "Debattér AdCognition"
     },
     "options_about_rights_reserved": {
         "message": "Alle rettigheder forbeholdes."
     },
     "options_notice_program": {
-        "message": "Denne udvidelse er et eksperimentelt projekt fra AdGuard-teamet"
+        "message": "Denne udvidelse er et eksperimentelt projekt fra AdCognition-teamet"
     },
     "options_notice_compare_link": {
         "message": "Få mere at vide"
@@ -231,13 +231,13 @@
         "message": "Rapportér et problem..."
     },
     "context_menu_open_options": {
-        "message": "AdGuard-indstillinger..."
+        "message": "AdCognition-indstillinger..."
     },
     "context_menu_disable_blocking": {
-        "message": "Sæt AdGuard-beskyttelse på pause"
+        "message": "Sæt AdCognition-beskyttelse på pause"
     },
     "context_menu_enable_blocking": {
-        "message": "Aktivér AdGuard-beskyttelsen"
+        "message": "Aktivér AdCognition-beskyttelsen"
     },
     "options_add_custom_filter": {
         "message": "Tilføj tilpasset filter"
@@ -438,13 +438,13 @@
         "message": "Mulighed 1. Slet unødvendige adblock-udvidelser fra browseren. Klik på <button>genaktivér filtre<\/button> for at genaktivere filtre nævnt i afsnittet \"Filtre aktiveret før opdateringen\"."
     },
     "options_limits_warning_desc_app": {
-        "message": "Mulighed 2. Installér AdGuard Ad Blocker-appen, den har ingen grænse for filtreringsregler. <link>Hent AdGuard Ad Blocker<\/link>"
+        "message": "Mulighed 2. Installér AdCognition Ad Blocker-appen, den har ingen grænse for filtreringsregler. <link>Hent AdCognition Ad Blocker<\/link>"
     },
     "options_limits_warning_desc_close": {
         "message": "Mulighed 3. Er det\/de aktuelt aktiverede standardfiltre tilstrækkelige, <button>luk denne advarsel<\/button>."
     },
     "options_nav_better_than_extension": {
-        "message": "Modsat udvidelsen, blokerer AdGuard-appen annoncer uden begrænsninger."
+        "message": "Modsat udvidelsen, blokerer AdCognition-appen annoncer uden begrænsninger."
     },
     "options_nav_compare": {
         "message": "Sammenlign"

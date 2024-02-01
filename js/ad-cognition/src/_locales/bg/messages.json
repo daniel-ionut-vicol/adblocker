@@ -30,7 +30,7 @@
         "message": "Блокирай рекламите на този сайт"
     },
     "options_open_settings": {
-        "message": "AdGuard настройки"
+        "message": "AdCognition настройки"
     },
     "options_settings_title": {
         "message": "Настройки"
@@ -63,10 +63,10 @@
         "message": "Блокирай рекламата на този сайт..."
     },
     "context_menu_open_options": {
-        "message": "AdGuard настройки..."
+        "message": "AdCognition настройки..."
     },
     "context_menu_disable_blocking": {
-        "message": "Пауза на защитата AdGuard"
+        "message": "Пауза на защитата AdCognition"
     },
     "options_add_custom_filter": {
         "message": "Добави персонализиран филтър"
@@ -129,7 +129,7 @@
         "message": "Отказ"
     },
     "name": {
-        "message": "AdGuard AdBlocker MV3 Experimental"
+        "message": "AdCognition AdBlocker MV3 Experimental"
     },
     "description": {
         "message": "Experimental version of unmatched adblock extension built on Manifest V3."

@@ -1,6 +1,6 @@
 {
     "name": {
-        "message": "AdGuard 광고 차단기 MV3 실험적"
+        "message": "AdCognition 광고 차단기 MV3 실험적"
     },
     "description": {
         "message": "Manifest V3로 빌드된 타의 추종을 불허하는 광고차단 확장프로그램"
@@ -27,10 +27,10 @@
         "message": "실험"
     },
     "popup_steps_experimental_description": {
-        "message": "개발자들이 MV3 관련 문제를 다루는 방법을 터득했습니다. 이제 AdGuard는 매니페스트 V3로 작동됩니다."
+        "message": "개발자들이 MV3 관련 문제를 다루는 방법을 터득했습니다. 이제 AdCognition는 매니페스트 V3로 작동됩니다."
     },
     "popup_steps_v3_manifest_description": {
-        "message": "AdGuard가 MV3로 전환되었을 때 달라지는 점은 더 나은 성능 하나밖에 없습니다."
+        "message": "AdCognition가 MV3로 전환되었을 때 달라지는 점은 더 나은 성능 하나밖에 없습니다."
     },
     "popup_learn_more_link": {
         "message": "자세히 알아보기"
@@ -57,7 +57,7 @@
         "message": "Korean"
     },
     "options_base_filter": {
-        "message": "AdGuard 베이스 필터"
+        "message": "AdCognition 베이스 필터"
     },
     "options_custom_filters_option": {
         "message": "시용자 지정 필터"
@@ -75,7 +75,7 @@
         "message": "이 웹사이트에서 광고 차단"
     },
     "options_open_settings": {
-        "message": "AdGuard 설정"
+        "message": "AdCognition 설정"
     },
     "options_settings_title": {
         "message": "설정"
@@ -99,7 +99,7 @@
         "message": "공식 웹사이트"
     },
     "options_discuss": {
-        "message": "AdGuard 의견 나눔"
+        "message": "AdCognition 의견 나눔"
     },
     "options_about_rights_reserved": {
         "message": "All rights reserved."
@@ -120,13 +120,13 @@
         "message": "문제 제보하기..."
     },
     "context_menu_open_options": {
-        "message": "AdGuard 설정..."
+        "message": "AdCognition 설정..."
     },
     "context_menu_disable_blocking": {
-        "message": "AdGuard 보호 일시 정지"
+        "message": "AdCognition 보호 일시 정지"
     },
     "context_menu_enable_blocking": {
-        "message": "AdGuard 보호 활성화"
+        "message": "AdCognition 보호 활성화"
     },
     "options_add_custom_filter": {
         "message": "사용자 지정 필터 추가"

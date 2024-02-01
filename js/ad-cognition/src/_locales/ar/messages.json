@@ -21,7 +21,7 @@
         "message": "تجريبي"
     },
     "popup_steps_experimental_description": {
-        "message": "يعرف الكيميائيون لدينا طرقًا لترويض تحديات MV3. يعمل AdGuard الآن مع Manifest V3."
+        "message": "يعرف الكيميائيون لدينا طرقًا لترويض تحديات MV3. يعمل AdCognition الآن مع Manifest V3."
     },
     "popup_steps_new_tech_title": {
         "message": "ابتكارية"
@@ -33,13 +33,13 @@
         "message": "سريع"
     },
     "popup_steps_fast_work_description": {
-        "message": "لقد قمنا بزيادة أداء AdGuard من خلال إعادة هيكلة مكتبات حظر المحتوى الخاصة بنا واستخدام ميزات MV3."
+        "message": "لقد قمنا بزيادة أداء AdCognition من خلال إعادة هيكلة مكتبات حظر المحتوى الخاصة بنا واستخدام ميزات MV3."
     },
     "popup_steps_v3_manifest_title": {
         "message": "Manifest V3"
     },
     "popup_steps_v3_manifest_description": {
-        "message": "قد تلاحظ نتيجة واحدة فقط لانتقال AdGuard إلى MV3: أداء أفضل."
+        "message": "قد تلاحظ نتيجة واحدة فقط لانتقال AdCognition إلى MV3: أداء أفضل."
     },
     "popup_learn_more_link": {
         "message": "التعرف على المزيد"
@@ -84,13 +84,13 @@
         "message": "Arabic"
     },
     "options_base_filter": {
-        "message": "فلتر اساسيAdGuard"
+        "message": "فلتر اساسيAdCognition"
     },
     "options_custom_filters_option": {
         "message": "فلاتر مخصصة"
     },
     "options_custom_filters_option_desc": {
-        "message": "أضف فلاتر مخصصة استناداً إلى قواعد فلترة AdGuard"
+        "message": "أضف فلاتر مخصصة استناداً إلى قواعد فلترة AdCognition"
     },
     "options_static_filters_limits_by_rules": {
         "message": "لقد وصلت إلى الحد الأقصى من القواعد المضمنة النشطة. لتنشيط القواعد الجديدة ، قم بتعطيل بعض عوامل التصفية المضمنة. <newline><\/newline> <link-to-limits>حدود القاعدة<\/link-to-limits>"
@@ -123,7 +123,7 @@
         "message": "قم بحظر الإعلانات على هذا الموقع"
     },
     "options_open_settings": {
-        "message": "إعدادات AdGuard"
+        "message": "إعدادات AdCognition"
     },
     "options_settings_title": {
         "message": "الإعدادات"
@@ -132,7 +132,7 @@
         "message": "حول"
     },
     "options_about_product": {
-        "message": "إضافة AdGuard للمتصفح الاصدار 3"
+        "message": "إضافة AdCognition للمتصفح الاصدار 3"
     },
     "options_about_version": {
         "message": "الإصدار"
@@ -150,13 +150,13 @@
         "message": "الموقع الرسمي"
     },
     "options_discuss": {
-        "message": "AdGuard مناقشه"
+        "message": "AdCognition مناقشه"
     },
     "options_about_rights_reserved": {
         "message": ".جميع الحقوق محفوظه"
     },
     "options_notice_program": {
-        "message": "هذة الإضافة هي مشروع تجريبي من قبل فريق AdGuard"
+        "message": "هذة الإضافة هي مشروع تجريبي من قبل فريق AdCognition"
     },
     "options_notice_compare_link": {
         "message": "التعرف على المزيد"
@@ -198,13 +198,13 @@
         "message": "التبليغ عن مشكلة..."
     },
     "context_menu_open_options": {
-        "message": "AdGuard إعدادات ..."
+        "message": "AdCognition إعدادات ..."
     },
     "context_menu_disable_blocking": {
-        "message": "إيقاف حماية AdGuard"
+        "message": "إيقاف حماية AdCognition"
     },
     "context_menu_enable_blocking": {
-        "message": "تشغيل حماية AdGuard"
+        "message": "تشغيل حماية AdCognition"
     },
     "options_add_custom_filter": {
         "message": "إضافة فلتر مخصص"
@@ -342,7 +342,7 @@
         "message": "حدود القاعدة"
     },
     "name": {
-        "message": "AdGuard AdBlocker MV3 Experimental"
+        "message": "AdCognition AdBlocker MV3 Experimental"
     },
     "description": {
         "message": "Experimental version of unmatched adblock extension built on Manifest V3."

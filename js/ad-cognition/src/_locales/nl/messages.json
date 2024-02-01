@@ -1,6 +1,6 @@
 {
     "name": {
-        "message": "AdGuard AdBlocker MV3 Experimenteel"
+        "message": "AdCognition AdBlocker MV3 Experimenteel"
     },
     "description": {
         "message": "Experimentele versie van ongeëvenaarde advertentieblokker-uitbreiding gebouwd op Manifest V3."
@@ -27,7 +27,7 @@
         "message": "Experimenteel"
     },
     "popup_steps_experimental_description": {
-        "message": "Onze alchemisten kennen de manieren om de MV3-uitdagingen te temmen. Nu werkt AdGuard met Manifest V3."
+        "message": "Onze alchemisten kennen de manieren om de MV3-uitdagingen te temmen. Nu werkt AdCognition met Manifest V3."
     },
     "popup_steps_new_tech_title": {
         "message": "Innovatief"
@@ -39,13 +39,13 @@
         "message": "Snel"
     },
     "popup_steps_fast_work_description": {
-        "message": "We hebben de prestaties van AdGuard verbeterd door onze bibliotheken voor het blokkeren van inhoud te herstructureren en MV3-functies te gebruiken."
+        "message": "We hebben de prestaties van AdCognition verbeterd door onze bibliotheken voor het blokkeren van inhoud te herstructureren en MV3-functies te gebruiken."
     },
     "popup_steps_v3_manifest_title": {
         "message": "Manifest V3"
     },
     "popup_steps_v3_manifest_description": {
-        "message": "Je merkt misschien maar één resultaat van de overgang van AdGuard naar MV3: nog betere prestaties."
+        "message": "Je merkt misschien maar één resultaat van de overgang van AdCognition naar MV3: nog betere prestaties."
     },
     "popup_learn_more_link": {
         "message": "Meer weten"
@@ -93,13 +93,13 @@
         "message": "Dutch"
     },
     "options_base_filter": {
-        "message": "AdGuard-basisfilter"
+        "message": "AdCognition-basisfilter"
     },
     "options_custom_filters_option": {
         "message": "Aangepaste filters"
     },
     "options_custom_filters_option_desc": {
-        "message": "Aangepaste filters toevoegen op basis van AdGuard-filterregels"
+        "message": "Aangepaste filters toevoegen op basis van AdCognition-filterregels"
     },
     "options_static_filters_limits_by_rules": {
         "message": "Je hebt de limiet van actieve ingebouwde regels bereikt. Schakel enkele ingebouwde filters uit om nieuwe regels te activeren. <newline><\/newline> <link-to-limits>Regellimieten<\/link-to-limits>"
@@ -150,7 +150,7 @@
         "message": "Advertenties blokkeren op deze website"
     },
     "options_open_settings": {
-        "message": "AdGuard-instellingen"
+        "message": "AdCognition-instellingen"
     },
     "options_settings_title": {
         "message": "Instellingen"
@@ -159,7 +159,7 @@
         "message": "Over"
     },
     "options_about_product": {
-        "message": "AdGuard browseruitbreiding MV3"
+        "message": "AdCognition browseruitbreiding MV3"
     },
     "options_about_version": {
         "message": "Versie"
@@ -177,13 +177,13 @@
         "message": "Officiële website"
     },
     "options_discuss": {
-        "message": "AdGuard discussie"
+        "message": "AdCognition discussie"
     },
     "options_about_rights_reserved": {
         "message": "Alle rechten voorbehouden."
     },
     "options_notice_program": {
-        "message": "Deze uitbreiding is een experimenteel project van het AdGuard-team"
+        "message": "Deze uitbreiding is een experimenteel project van het AdCognition-team"
     },
     "options_notice_compare_link": {
         "message": "Meer weten"
@@ -231,13 +231,13 @@
         "message": "Rapporteer een probleem..."
     },
     "context_menu_open_options": {
-        "message": "AdGuard-instellingen"
+        "message": "AdCognition-instellingen"
     },
     "context_menu_disable_blocking": {
-        "message": "AdGuard-bescherming pauzeren"
+        "message": "AdCognition-bescherming pauzeren"
     },
     "context_menu_enable_blocking": {
-        "message": "AdGuard bescherming inschakelen"
+        "message": "AdCognition bescherming inschakelen"
     },
     "options_add_custom_filter": {
         "message": "Aangepast filter toevoegen"
@@ -438,13 +438,13 @@
         "message": "Optie 1. Verwijder onnodige uitbreidingen voor het blokkeren van advertenties uit je browser. Om de filters die worden vermeld in de sectie \"Ingeschakelde filters vóór de update\" opnieuw te activeren, klik je op <button>filters opnieuw activeren<\/button>."
     },
     "options_limits_warning_desc_app": {
-        "message": "Optie 2. Installeer de AdGuard advertentieblokkeerder-app: deze heeft geen beperkingen op filterregels. <link>AdGuard advertentieblokkeerder downloaden<\/link>"
+        "message": "Optie 2. Installeer de AdCognition advertentieblokkeerder-app: deze heeft geen beperkingen op filterregels. <link>AdCognition advertentieblokkeerder downloaden<\/link>"
     },
     "options_limits_warning_desc_close": {
         "message": "Optie 3. Als je tevreden bent met de momenteel ingeschakelde standaardfilter(s), <button>deze waarschuwing sluiten<\/button>."
     },
     "options_nav_better_than_extension": {
-        "message": "In tegenstelling tot de uitbreiding blokkeert de AdGuard-app advertenties zonder beperkingen."
+        "message": "In tegenstelling tot de uitbreiding blokkeert de AdCognition-app advertenties zonder beperkingen."
     },
     "options_nav_compare": {
         "message": "Vergelijken"

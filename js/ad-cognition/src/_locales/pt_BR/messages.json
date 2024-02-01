@@ -1,6 +1,6 @@
 {
     "name": {
-        "message": "Bloqueador de anúncio do AdGuard MV3 Experimental"
+        "message": "Bloqueador de anúncio do AdCognition MV3 Experimental"
     },
     "description": {
         "message": "Versão experimental da extensão de bloqueador de anúncios incomparável criada no Manifest V3."
@@ -27,7 +27,7 @@
         "message": "Experimental"
     },
     "popup_steps_experimental_description": {
-        "message": "Nossos alquimistas conhecem as maneiras de domar os desafios do MV3. Agora o AdGuard funciona com o Manifesto V3."
+        "message": "Nossos alquimistas conhecem as maneiras de domar os desafios do MV3. Agora o AdCognition funciona com o Manifesto V3."
     },
     "popup_steps_new_tech_title": {
         "message": "Inovativa"
@@ -39,13 +39,13 @@
         "message": "Rápido"
     },
     "popup_steps_fast_work_description": {
-        "message": "Aumentamos o desempenho do AdGuard refatorando nossas bibliotecas de bloqueio de conteúdo e usando recursos do MV3."
+        "message": "Aumentamos o desempenho do AdCognition refatorando nossas bibliotecas de bloqueio de conteúdo e usando recursos do MV3."
     },
     "popup_steps_v3_manifest_title": {
         "message": "Manifesto V3"
     },
     "popup_steps_v3_manifest_description": {
-        "message": "Você pode notar apenas um resultado da transição do AdGuard para o MV3: desempenho ainda melhor."
+        "message": "Você pode notar apenas um resultado da transição do AdCognition para o MV3: desempenho ainda melhor."
     },
     "popup_learn_more_link": {
         "message": "Saiba mais"
@@ -93,13 +93,13 @@
         "message": "Portuguese (Brazil)"
     },
     "options_base_filter": {
-        "message": "Filtro base do AdGuard"
+        "message": "Filtro base do AdCognition"
     },
     "options_custom_filters_option": {
         "message": "Filtros personalizados"
     },
     "options_custom_filters_option_desc": {
-        "message": "Adicionar filtros personalizados com base nas regras de filtragem do AdGuard"
+        "message": "Adicionar filtros personalizados com base nas regras de filtragem do AdCognition"
     },
     "options_static_filters_limits_by_rules": {
         "message": "Você atingiu o limite de regras internas ativas. Para ativar novas regras, desative alguns filtros integrados. <newline><\/newline> <link-to-limits>Limites de regra<\/link-to-limits>"
@@ -150,7 +150,7 @@
         "message": "Bloquear anúncios neste site"
     },
     "options_open_settings": {
-        "message": "Configurações do AdGuard"
+        "message": "Configurações do AdCognition"
     },
     "options_settings_title": {
         "message": "Configurações"
@@ -159,7 +159,7 @@
         "message": "Sobre"
     },
     "options_about_product": {
-        "message": "Extensão do AdGuard para navegador MV3"
+        "message": "Extensão do AdCognition para navegador MV3"
     },
     "options_about_version": {
         "message": "Versão"
@@ -177,13 +177,13 @@
         "message": "Site oficial"
     },
     "options_discuss": {
-        "message": "Discussão do AdGuard"
+        "message": "Discussão do AdCognition"
     },
     "options_about_rights_reserved": {
         "message": "Todos os direitos reservados."
     },
     "options_notice_program": {
-        "message": "Esta extensão é um projeto experimental da equipe do AdGuard"
+        "message": "Esta extensão é um projeto experimental da equipe do AdCognition"
     },
     "options_notice_compare_link": {
         "message": "Saiba mais"
@@ -231,13 +231,13 @@
         "message": "Reportar um problema..."
     },
     "context_menu_open_options": {
-        "message": "Configurações do AdGuard..."
+        "message": "Configurações do AdCognition..."
     },
     "context_menu_disable_blocking": {
-        "message": "Pausar proteção do AdGuard"
+        "message": "Pausar proteção do AdCognition"
     },
     "context_menu_enable_blocking": {
-        "message": "Ativar proteção do AdGuard"
+        "message": "Ativar proteção do AdCognition"
     },
     "options_add_custom_filter": {
         "message": "Adicionar filtro personalizado"
@@ -438,13 +438,13 @@
         "message": "Opção 1. Exclua extensões de bloqueio de anúncios desnecessárias do seu navegador. Para reativar os filtros mencionados na seção \"Filtros habilitados antes da atualização\", clique em <button>reativar filtros<\/button>."
     },
     "options_limits_warning_desc_app": {
-        "message": "Opção 2. Instale o aplicativo Bloqueador de anúncios do AdGuard: ele não tem restrições nas regras de filtragem. <link>Obter Bloqueador de anúncios do AdGuard<\/link>"
+        "message": "Opção 2. Instale o aplicativo Bloqueador de anúncios do AdCognition: ele não tem restrições nas regras de filtragem. <link>Obter Bloqueador de anúncios do AdCognition<\/link>"
     },
     "options_limits_warning_desc_close": {
         "message": "Opção 3. Se você estiver satisfeito com o(s) filtro(s) padrão(s) atualmente ativados, <button>feche este aviso<\/button>."
     },
     "options_nav_better_than_extension": {
-        "message": "Ao contrário da extensão, o aplicativo do AdGuard bloqueia anúncios sem limitações."
+        "message": "Ao contrário da extensão, o aplicativo do AdCognition bloqueia anúncios sem limitações."
     },
     "options_nav_compare": {
         "message": "Comparar"

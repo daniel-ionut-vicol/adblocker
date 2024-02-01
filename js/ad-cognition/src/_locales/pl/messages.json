@@ -21,7 +21,7 @@
         "message": "Polish"
     },
     "options_base_filter": {
-        "message": "Podstawowy filtr AdGuard"
+        "message": "Podstawowy filtr AdCognition"
     },
     "options_custom_filters_option": {
         "message": "Niestandardowe filtry"
@@ -39,7 +39,7 @@
         "message": "Blokuj reklamy na tej stronie"
     },
     "options_open_settings": {
-        "message": "Ustawienia AdGuard"
+        "message": "Ustawienia AdCognition"
     },
     "options_settings_title": {
         "message": "Ustawienia"
@@ -63,7 +63,7 @@
         "message": "Oficjalna strona"
     },
     "options_discuss": {
-        "message": "Dyskusja AdGuard"
+        "message": "Dyskusja AdCognition"
     },
     "options_about_rights_reserved": {
         "message": "Wszelkie prawa zastrzeżone."
@@ -84,13 +84,13 @@
         "message": "Zgłoś problem..."
     },
     "context_menu_open_options": {
-        "message": "Ustawienia AdGuard..."
+        "message": "Ustawienia AdCognition..."
     },
     "context_menu_disable_blocking": {
-        "message": "Wstrzymaj ochronę AdGuard"
+        "message": "Wstrzymaj ochronę AdCognition"
     },
     "context_menu_enable_blocking": {
-        "message": "Uruchom ochronę AdGuard"
+        "message": "Uruchom ochronę AdCognition"
     },
     "options_add_custom_filter": {
         "message": "Dodaj niestandardowy filtr"
@@ -159,7 +159,7 @@
         "message": "Dodaj"
     },
     "name": {
-        "message": "AdGuard AdBlocker MV3 Experimental"
+        "message": "AdCognition AdBlocker MV3 Experimental"
     },
     "description": {
         "message": "Experimental version of unmatched adblock extension built on Manifest V3."
