@@ -12,7 +12,6 @@ import { theme } from 'Common/styles';
 import { SETTINGS_NAMES } from 'Common/constants/settings-constants';
 import { FiltersGroupId } from 'Common/constants/common';
 import { reactTranslator } from 'Common/translators/reactTranslator';
-import { MV3 } from 'Common/constants/urls';
 import { IconId } from 'Common/components/ui';
 
 import { rootStore } from '../../stores';
