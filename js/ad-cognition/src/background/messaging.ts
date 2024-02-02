@@ -49,6 +49,7 @@ export const extensionMessageHandler = async (
                 ruleSetsCounters: tsWebExtensionWrapper.ruleSetsCounters,
             };
 
+            log.debug("OPTIONS DATA SENT TO OPTIONS",optionsData);
             return optionsData;
         }
         case MESSAGE_TYPES.OPEN_OPTIONS: {

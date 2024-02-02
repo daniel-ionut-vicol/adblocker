@@ -60,7 +60,7 @@
         "message": "Shields up!"
     },
     "options_block_ads_option": {
-        "message": "Block ads"
+        "message": "Block ads using RegEx and Rules"
     },
     "options_block_annoyances_option": {
         "message": "Block annoyances"
@@ -76,6 +76,24 @@
     },
     "options_block_social_widgets_option": {
         "message": "Block social widgets"
+    },
+    "options_block_with_cnn_option": {
+        "message": "Block ads using CNN"
+    },
+    "options_block_with_cnn_option_desc": {
+        "message": "Use a ResNet50 based model to detect ads"
+    },
+    "options_block_with_clip_option_desc": {
+        "message": "Use a CLIP Prediction model to detect ads"
+    },
+    "options_block_with_clip_option": {
+        "message": "Block ads using Clip"
+    },
+    "debug_mode": {
+        "message": "Debug mode"
+    },
+    "debug_mode_desc": {
+        "message": "See insights about ad blocking"
     },
     "options_block_social_widgets_option_desc": {
         "message": "Remove social widget buttons"

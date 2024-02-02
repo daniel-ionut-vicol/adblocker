@@ -36,6 +36,21 @@ export const FILTERS_TRANSLATIONS = {
         title: translator.getMessage('options_block_social_widgets_option'),
         description: translator.getMessage('options_block_social_widgets_option_desc'),
     },
+    [FILTER_RULESET[RulesetType.RULESET_225].id]: {
+        id: FILTER_RULESET[RulesetType.RULESET_225].id,
+        title: translator.getMessage('debug_mode'),
+        description: translator.getMessage('debug_mode_desc'),
+    },
+    [FILTER_RULESET[RulesetType.RULESET_226].id]: {
+        id: FILTER_RULESET[RulesetType.RULESET_226].id,
+        title: translator.getMessage('options_block_with_cnn_option'),
+        description: translator.getMessage('options_block_with_cnn_option_desc'),
+    },
+    [FILTER_RULESET[RulesetType.RULESET_227].id]: {
+        id: FILTER_RULESET[RulesetType.RULESET_227].id,
+        title: translator.getMessage('options_block_with_clip_option'),
+        description: translator.getMessage('options_block_with_clip_option_desc'),
+    },
 };
 
 export const Settings = observer(() => {
@@ -121,17 +136,6 @@ export const Settings = observer(() => {
             <Section
                 title={translator.getMessage('options_settings_title')}
             >
-                <SwitcherOption
-                    key={1}
-                    iconId={IconId.CUSTOM_FILTERS}
-                    id="1"
-                    message="Resnet50 based CNN blocking"
-                    checked
-                    messageDesc="Disable the regular CNN AdBlocking"
-                    title="Resnet50 Toggle Button"
-                    className={styles.optionLabel}
-                    onChange={() => {}}
-                />
                 <StaticRulelistsLimitation />
                 {mainFilters.map((filter) => (
                     <SwitcherOption

@@ -13,6 +13,9 @@ export enum RulesetType {
     RULESET_14 = 'ruleset_14',
     RULESET_16 = 'ruleset_16',
     RULESET_224 = 'ruleset_224',
+    RULESET_225 = 'ruleset_225',
+    RULESET_226 = 'ruleset_226',
+    RULESET_227 = 'ruleset_227',
 }
 
 export const FILTER_RULESET = {
@@ -28,6 +31,9 @@ export const FILTER_RULESET = {
     [RulesetType.RULESET_14]: { id: 14, enabled: false },
     [RulesetType.RULESET_16]: { id: 16, enabled: false },
     [RulesetType.RULESET_224]: { id: 224, enabled: false },
+    [RulesetType.RULESET_225]: { id: 225, enabled: true },
+    [RulesetType.RULESET_226]: { id: 226, enabled: true },
+    [RulesetType.RULESET_227]: { id: 227, enabled: true },
 };
 
 export const ADGUARD_FILTERS_IDS = Object.values(FILTER_RULESET);
