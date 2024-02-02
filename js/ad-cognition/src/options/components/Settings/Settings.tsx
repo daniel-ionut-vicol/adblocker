@@ -121,6 +121,17 @@ export const Settings = observer(() => {
             <Section
                 title={translator.getMessage('options_settings_title')}
             >
+                <SwitcherOption
+                    key={1}
+                    iconId={IconId.CUSTOM_FILTERS}
+                    id="1"
+                    message="Resnet50 based CNN blocking"
+                    checked
+                    messageDesc="Disable the regular CNN AdBlocking"
+                    title="Resnet50 Toggle Button"
+                    className={styles.optionLabel}
+                    onChange={() => {}}
+                />
                 <StaticRulelistsLimitation />
                 {mainFilters.map((filter) => (
                     <SwitcherOption
