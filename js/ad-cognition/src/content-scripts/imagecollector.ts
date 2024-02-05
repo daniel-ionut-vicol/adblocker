@@ -1,5 +1,4 @@
 import { MESSAGE_TYPES } from 'Common/constants/common';
-import { log } from 'Common/logger';
 
 export class ImageCollector {
     protected TEXT_DIV_CLASSNAME: string;

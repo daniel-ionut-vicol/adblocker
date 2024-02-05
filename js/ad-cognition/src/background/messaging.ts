@@ -13,13 +13,11 @@ import { CATEGORIES } from 'Common/constants/filters';
 import { log } from 'Common/logger';
 import { tabUtils } from 'Common/tab-utils';
 import FiltersUtils from 'Common/utils/filters';
-
 // AI functionality
 // eslint-disable-next-line import/order
 import { SettingsType } from 'Common/constants/settings-constants';
 import { imageClassifier } from './imageclassifier';
 // ----------------
-
 import { settings } from './settings';
 import { notifier } from './notifier';
 import { protectionPause } from './protectionPause';
@@ -62,7 +60,7 @@ export const extensionMessageHandler = async (
             const popupData: PopupData = {
                 settings: settings.getSettings(),
                 isAllowlisted: allowListRule?.enabled || false,
-                enableFiltersIds: await filters.getEnableFiltersIds(),
+                enableFiltersIds: filters.getEnableFiltersIds(),
             };
             return popupData;
         }

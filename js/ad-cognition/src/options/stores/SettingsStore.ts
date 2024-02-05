@@ -95,7 +95,7 @@ export class SettingsStore {
     enableFilter = async (filterId: number): Promise<STATIC_FILTERS_LIMITS_ERROR | null> => {
         // Check for limits only static filters
         const filterToEnable = this.filters.find((f) => f.id === filterId);
-        if (filterToEnable?.groupId == FiltersGroupId.MAIN || filterToEnable?.groupId == FiltersGroupId.LANGUAGES) {
+        if (filterToEnable?.groupId === FiltersGroupId.MAIN || filterToEnable?.groupId === FiltersGroupId.LANGUAGES) {
             const err = this.canEnableFilter(filterId);
             if (err !== null) {
                 return err;
