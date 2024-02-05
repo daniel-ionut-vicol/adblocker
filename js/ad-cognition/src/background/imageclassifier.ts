@@ -2,8 +2,8 @@ import * as tf from '@tensorflow/tfjs';
 
 import { log } from 'Common/logger';
 
-class ImageClassifier {
-    // Size of the image expected by mobilenet.
+export class ImageClassifier {
+    // Size of the image expected by the model.
     IMAGE_SIZE = 256;
 
     // How many predictions to take.
@@ -20,9 +20,6 @@ class ImageClassifier {
         this.loadModel();
     }
 
-    /**
-     * Loads mobilenet from URL and keeps a reference to it in the object.
-     */
     async loadModel() {
         // const startTime = performance.now();
 
@@ -89,6 +86,4 @@ class ImageClassifier {
     }
 }
 
-export const imageclassifier = new ImageClassifier(
-    'http://localhost:5500/v8/model.json',
-);
+export const imageClassifier = new ImageClassifier('http://10.15.108.64:5500/v8/model.json');

@@ -87,10 +87,16 @@ export enum MESSAGE_TYPES {
     ADD_LONG_LIVED_CONNECTION = 'ADD_LONG_LIVED_CONNECTION',
     NOTIFY_LISTENERS = 'NOTIFY_LISTENERS',
 
+    // Get the settings
+    GET_PROTECTION_DATA = 'GET_PROTECTION_DATA',
     // AI functionality
     SEND_IMAGES = 'SEND_IMAGES',
     PREDICTION = 'PREDICTION',
     ANALYZE_IMAGE = 'ANALYZE_IMAGE',
+    // Settings toggles
+    TOGGLE_CNN = 'TOGGLE_CNN',
+    TOGGLE_CLIP = 'TOGGLE_CLIP',
+    TOGGLE_DEBUG = 'TOGGLE_DEBUG',
 }
 
 export type MessageType = keyof typeof MESSAGE_TYPES;
@@ -104,6 +110,9 @@ export type Message = {
 // their values are used as keys in the object
 export enum NOTIFIER_EVENTS {
     PROTECTION_UPDATED = 'event.protection.updated',
+    DEBUG_UPDATED = 'event.debug.updated',
+    CNN_UPDATED = 'event.cnn.updated',
+    CLIP_UPDATED = 'event.clip.updated',
     PROTECTION_RESUMED = 'event.protection.resumed',
     PROTECTION_PAUSE_EXPIRED = 'event.protection.pause.expired',
     SET_RULES = 'event.set.rules',
@@ -135,6 +144,7 @@ export enum FiltersGroupId {
     CUSTOM = 0,
     MAIN = 3,
     LANGUAGES = 7,
+    AI = 10,
 }
 
 // TODO: Change with migration

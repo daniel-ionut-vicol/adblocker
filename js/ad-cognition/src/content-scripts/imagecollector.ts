@@ -1,6 +1,7 @@
 import { MESSAGE_TYPES } from 'Common/constants/common';
+import { log } from 'Common/logger';
 
-class ImageCollector {
+export class ImageCollector {
     protected TEXT_DIV_CLASSNAME: string;
 
     protected MIN_IMG_SIZE: number;
@@ -9,10 +10,13 @@ class ImageCollector {
 
     protected images: HTMLImageElement[] = [];
 
-    constructor() {
+    public DEBUG_MODE: boolean;
+
+    constructor(debug_mode: boolean) {
         this.IMAGE_SIZE = 100;
         this.MIN_IMG_SIZE = 100;
         this.TEXT_DIV_CLASSNAME = '';
+        this.DEBUG_MODE = debug_mode;
     }
 
     public send() {
@@ -155,8 +159,11 @@ class ImageCollector {
                             url: img.src,
                         },
                     });
-                    this.markImage(prediction);
-                    // this.removeImage(prediction, img.src);
+                    if (this.DEBUG_MODE) {
+                        this.markImage(prediction);
+                    } else {
+                        this.removeImage(prediction, img.src);
+                    }
                 }
             }
             // Fail out if either dimension is less than MIN_IMG_SIZE.
@@ -185,5 +192,3 @@ class ImageCollector {
         });
     }
 }
-
-export const imagecollector = new ImageCollector();

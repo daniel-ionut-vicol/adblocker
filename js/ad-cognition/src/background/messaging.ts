@@ -16,7 +16,8 @@ import FiltersUtils from 'Common/utils/filters';
 
 // AI functionality
 // eslint-disable-next-line import/order
-import { imageclassifier } from './imageclassifier';
+import { SettingsType } from 'Common/constants/settings-constants';
+import { imageClassifier } from './imageclassifier';
 // ----------------
 
 import { settings } from './settings';
@@ -49,7 +50,6 @@ export const extensionMessageHandler = async (
                 ruleSetsCounters: tsWebExtensionWrapper.ruleSetsCounters,
             };
 
-            log.debug('OPTIONS DATA SENT TO OPTIONS', optionsData);
             return optionsData;
         }
         case MESSAGE_TYPES.OPEN_OPTIONS: {
@@ -73,6 +73,7 @@ export const extensionMessageHandler = async (
         case MESSAGE_TYPES.SET_SETTING: {
             const { update } = data;
             await settings.setSetting(update);
+            log.debug('UPDATED SETTINGS ON BACKGROUND', settings.getSettings());
             break;
         }
         case MESSAGE_TYPES.REPORT_SITE: {
@@ -135,6 +136,33 @@ export const extensionMessageHandler = async (
             }
 
             await settings.setProtection(value);
+
+            break;
+        }
+        case MESSAGE_TYPES.GET_PROTECTION_DATA: {
+            const protectionData: SettingsType = settings.getSettings();
+            return { protectionData };
+        }
+        case MESSAGE_TYPES.TOGGLE_CNN: {
+            const { value } = data;
+
+            log.debug('TOGGLE_CNN', value);
+            await settings.setCnn(value);
+
+            break;
+        }
+        case MESSAGE_TYPES.TOGGLE_CLIP: {
+            const { value } = data;
+
+            log.debug('TOGGLE_CLIP', value);
+            await settings.setClip(value);
+
+            break;
+        }
+        case MESSAGE_TYPES.TOGGLE_DEBUG: {
+            const { value } = data;
+            log.debug('TOGGLE_DEBUG', value);
+            await settings.setDebugMode(value);
 
             break;
         }
@@ -255,7 +283,7 @@ export const extensionMessageHandler = async (
 
             let messageToSend: Object = {};
 
-            const result = await imageclassifier.analyzeImage(
+            const result = await imageClassifier.analyzeImage(
                 imageData,
                 data.url,
             );

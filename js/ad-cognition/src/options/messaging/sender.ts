@@ -39,6 +39,30 @@ class Sender {
         return sendMessage(MESSAGE_TYPES.DISABLE_FILTER, { filterId });
     };
 
+    enableDebug = (): Promise<FilterInfo[]> => {
+        return sendMessage(MESSAGE_TYPES.TOGGLE_DEBUG, true);
+    };
+
+    enableCnn = (): Promise<FilterInfo[]> => {
+        return sendMessage(MESSAGE_TYPES.TOGGLE_CNN, true);
+    };
+
+    enableClip = (): Promise<FilterInfo[]> => {
+        return sendMessage(MESSAGE_TYPES.TOGGLE_CLIP, true);
+    };
+
+    disableDebug = (): Promise<FilterInfo[]> => {
+        return sendMessage(MESSAGE_TYPES.TOGGLE_DEBUG, false);
+    };
+
+    disableCnn = (): Promise<FilterInfo[]> => {
+        return sendMessage(MESSAGE_TYPES.TOGGLE_CNN, false);
+    };
+
+    disableClip = (): Promise<FilterInfo[]> => {
+        return sendMessage(MESSAGE_TYPES.TOGGLE_CLIP, false);
+    };
+
     updateFilterTitle = (filterId: number, filterTitle: string): Promise<FilterInfo[]> => {
         return sendMessage(MESSAGE_TYPES.UPDATE_FILTER_TITLE, { filterId, filterTitle });
     };

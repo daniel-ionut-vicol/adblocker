@@ -83,6 +83,24 @@ class Settings {
     };
 
     /**
+     * Sets protections and notifies UI via NOTIFIER_EVENTS.DEBUG_UPDATED
+     */
+    public setDebugMode = async (value: boolean) => {
+        await this.setSetting({ [SETTINGS_NAMES.DEBUG_ENABLED]: value });
+        notifier.notify(NOTIFIER_EVENTS.DEBUG_UPDATED, { value });
+    };
+
+    public setCnn = async (value: boolean) => {
+        await this.setSetting({ [SETTINGS_NAMES.CNN_PROTECTION_ENABLED]: value });
+        notifier.notify(NOTIFIER_EVENTS.CNN_UPDATED, { value });
+    };
+
+    public setClip = async (value: boolean) => {
+        await this.setSetting({ [SETTINGS_NAMES.CLIP_PROTECTION_ENABLED]: value });
+        notifier.notify(NOTIFIER_EVENTS.CLIP_UPDATED, { value });
+    };
+
+    /**
      * Sets protection pause expires
      */
     public setProtectionPauseExpires = async (value: number) => {

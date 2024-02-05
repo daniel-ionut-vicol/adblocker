@@ -95,7 +95,7 @@ export class SettingsStore {
     enableFilter = async (filterId: number): Promise<STATIC_FILTERS_LIMITS_ERROR | null> => {
         // Check for limits only static filters
         const filterToEnable = this.filters.find((f) => f.id === filterId);
-        if (filterToEnable?.groupId !== FiltersGroupId.CUSTOM) {
+        if (filterToEnable?.groupId == FiltersGroupId.MAIN || filterToEnable?.groupId == FiltersGroupId.LANGUAGES) {
             const err = this.canEnableFilter(filterId);
             if (err !== null) {
                 return err;
@@ -198,6 +198,20 @@ export class SettingsStore {
 
         runInAction(() => {
             this.settings[SETTINGS_NAMES.FILTERS_CHANGED] = value;
+        });
+    };
+
+    @action
+    setSetting = async (settingName: SETTINGS_NAMES, value: any) => {
+        try {
+            await sender.setSetting({ [settingName]: value });
+        } catch (e) {
+            log.error(e);
+            return;
+        }
+
+        runInAction(() => {
+            this.settings[settingName as keyof OPTION_SETTINGS] = value;
         });
     };
 

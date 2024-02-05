@@ -11,7 +11,6 @@ import { useEventListener } from 'Common/hooks/useEventListener';
 import { rootStore } from '../../stores';
 import { Header } from '../Header';
 // import { Footer } from '../Footer';
-import { Wizard } from '../Wizard';
 import { Loader as InitialLoader } from '../Loader';
 import { LoaderOverlay } from '../LoaderOverlay';
 // import { LimitsExceed } from '../LimitsExceed';
@@ -22,7 +21,6 @@ import styles from './PopupApp.module.pcss';
 
 enum CONTENT_KEYS {
     LOADER,
-    WIZARD,
     CONTENT,
 }
 
@@ -33,7 +31,6 @@ export const PopupApp = observer(() => {
         setLoader,
         getPopupData,
         popupDataReady,
-        wizardEnabled,
         protectionEnabled,
         setProtectionValue,
         setProtectionPauseExpiresValue,
@@ -77,10 +74,6 @@ export const PopupApp = observer(() => {
             return CONTENT_KEYS.LOADER;
         }
 
-        if (wizardEnabled) {
-            return CONTENT_KEYS.WIZARD;
-        }
-
         return CONTENT_KEYS.CONTENT;
     };
 
@@ -92,14 +85,6 @@ export const PopupApp = observer(() => {
                         {popupDataReady}
                         <Icons />
                         <InitialLoader />
-                    </div>
-                );
-            }
-            case CONTENT_KEYS.WIZARD: {
-                return (
-                    <div className={styles.popup} key={CONTENT_KEYS.WIZARD}>
-                        <Icons />
-                        <Wizard />
                     </div>
                 );
             }

@@ -6,6 +6,8 @@ import { FilterInfo, FiltersGroupId } from 'Common/constants/common';
 import { Section } from 'Common/components/Section';
 import { IconId } from 'Common/components/ui';
 import { FILTER_RULESET, RulesetType } from 'Common/constants/filters';
+import { log } from 'Common/logger';
+import { OPTION_SETTINGS, SETTINGS_NAMES } from 'Common/constants/settings-constants';
 
 import { useNotifyStaticFiltersLimitError } from '../../hooks/useNotifyStaticFiltersLimitError';
 import { rootStore } from '../../stores';
@@ -63,6 +65,8 @@ export const Settings = observer(() => {
         ruleSetsCounters,
         enableFilter,
         disableFilter,
+        setSetting,
+        settings,
     } = settingsStore;
 
     const OPTIONS = {
@@ -96,6 +100,37 @@ export const Settings = observer(() => {
         OPTIONS.USER_RULES,
     ];
 
+    type AISetting = Partial<FilterInfo> & {
+        settingName: SETTINGS_NAMES;
+    };
+
+    const aiSettings: AISetting[] = [
+        {
+            id: FILTER_RULESET[RulesetType.RULESET_225].id,
+            iconId: IconId.AD_BLOCKING,
+            title: translator.getMessage('debug_mode'),
+            description: translator.getMessage('debug_mode_desc'),
+            groupId: FiltersGroupId.AI,
+            settingName: SETTINGS_NAMES.DEBUG_ENABLED,
+        },
+        {
+            id: FILTER_RULESET[RulesetType.RULESET_226].id,
+            iconId: IconId.AD_BLOCKING,
+            title: translator.getMessage('options_block_with_cnn_option'),
+            description: translator.getMessage('options_block_with_cnn_option_desc'),
+            groupId: FiltersGroupId.AI,
+            settingName: SETTINGS_NAMES.CNN_PROTECTION_ENABLED,
+        },
+        {
+            id: FILTER_RULESET[RulesetType.RULESET_227].id,
+            iconId: IconId.AD_BLOCKING,
+            title: translator.getMessage('options_block_with_clip_option'),
+            description: translator.getMessage('options_block_with_clip_option_desc'),
+            groupId: FiltersGroupId.AI,
+            settingName: SETTINGS_NAMES.CLIP_PROTECTION_ENABLED,
+        },
+    ];
+
     const tryEnableFilter = async (filterId: number) => {
         const err = await enableFilter(filterId);
         checkAndNotifyStaticFiltersError(err);
@@ -107,6 +142,11 @@ export const Settings = observer(() => {
         } else {
             await tryEnableFilter(filter.id);
         }
+    };
+
+    const onAiSettingChange = async (setting: AISetting) => {
+        log.debug('TRYING TO CHANGE THE SETTING', setting);
+        setSetting(setting.settingName, !settings[setting.settingName as keyof OPTION_SETTINGS]);
     };
 
     const mainFilters = filters
@@ -137,6 +177,18 @@ export const Settings = observer(() => {
                 title={translator.getMessage('options_settings_title')}
             >
                 <StaticRulelistsLimitation />
+                {aiSettings.map((setting) => (
+                    <SwitcherOption
+                        key={setting.id}
+                        iconId={setting.iconId}
+                        id={setting.id!.toString()}
+                        className={styles.optionLabel}
+                        message={setting.title}
+                        messageDesc={setting.description ? setting.description : ''}
+                        checked={(settings as Record<string, unknown>)[setting.settingName] as boolean}
+                        onChange={() => { onAiSettingChange(setting); }}
+                    />
+                ))}
                 {mainFilters.map((filter) => (
                     <SwitcherOption
                         key={filter.id}
