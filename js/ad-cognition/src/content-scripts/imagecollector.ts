@@ -1,4 +1,5 @@
 import { MESSAGE_TYPES } from 'Common/constants/common';
+import { log } from 'Common/logger';
 
 export class ImageCollector {
     protected TEXT_DIV_CLASSNAME: string;
@@ -9,13 +10,33 @@ export class ImageCollector {
 
     protected images: HTMLImageElement[] = [];
 
+    protected MIN_CONFIDENCE: number;
+
     public DEBUG_MODE: boolean;
 
-    constructor(debug_mode: boolean) {
+    public CNN_ENABLED: boolean;
+
+    public CLIP_ENABLED: boolean;
+
+    constructor(debug_mode: boolean, cnn_enabled: boolean, clip_enabled: boolean) {
         this.IMAGE_SIZE = 100;
         this.MIN_IMG_SIZE = 100;
         this.TEXT_DIV_CLASSNAME = '';
+
         this.DEBUG_MODE = debug_mode;
+        this.CNN_ENABLED = cnn_enabled;
+        this.CLIP_ENABLED = clip_enabled;
+        this.MIN_CONFIDENCE = 0.2;
+    }
+
+    getAdTextContent(prediction: [number, number]) {
+        let text;
+        if (prediction[0] >= this.MIN_CONFIDENCE || prediction[1] >= this.MIN_CONFIDENCE) {
+            text = '';
+        } else {
+            text = 'NOT SURE';
+        }
+        return `${text}\n${(prediction[0] * 100).toFixed(1)}% AD\n${(prediction[1] * 100).toFixed(1)}% NOT AD`;
     }
 
     public send() {
@@ -46,6 +67,26 @@ export class ImageCollector {
         loadNextImage(0); // Start loading the first image
     }
 
+    isAd(prediction: [number, number]) {
+        return prediction[0] > prediction[1];
+    }
+
+    public removeClipImage(prediction: [number, number], url: string) {
+        const imgNode = this.getImageBySrc(url);
+        if (imgNode && this.isAd(prediction)) {
+            let { parentElement } = imgNode;
+
+            // Keep deleting parent elements as long as the child is the only element
+            while (parentElement && parentElement.children.length === 1) {
+                parentElement = parentElement.parentElement;
+            }
+
+            if (parentElement) {
+                parentElement.remove(); // Remove the parent element
+            }
+        }
+    }
+
     public removeImage(prediction: number, url: string) {
         const imgNode = this.getImageBySrc(url);
         if (imgNode && prediction === 0) {
@@ -71,6 +112,58 @@ export class ImageCollector {
         return Array.from(document.querySelectorAll('img')).find(
             (img) => img.src === src,
         );
+    }
+
+    markClipImage(prediction: [number, number], src: string) {
+        if (!Array.isArray(prediction)) {
+            return;
+        }
+        // Create a div element to wrap the img and overlay
+        const container = document.createElement('div');
+        container.style.position = 'relative';
+        container.style.display = 'inline-block';
+
+        // Create a clone of the img element
+        const imgClone: any = this.getImageBySrc(src)?.cloneNode(true);
+
+        // Create an overlay div for the white square background
+        const overlay = document.createElement('div');
+        overlay.style.position = 'absolute';
+        overlay.style.top = '0';
+        overlay.style.left = '0';
+        overlay.style.width = '100%';
+        overlay.style.height = '100%';
+
+        if (prediction[0] >= this.MIN_CONFIDENCE || prediction[1] >= this.MIN_CONFIDENCE) {
+            overlay.style.backgroundColor = prediction[0] > prediction[1] ? 'red' : 'green'; // White with 0.5 opacity
+        } else {
+            overlay.style.backgroundColor = 'white';
+        }
+        overlay.style.opacity = '0.6'; // White with 0.5 opacity
+
+        // Create the 'AD' text element
+        const adText = document.createElement('div');
+        adText.style.position = 'absolute';
+        adText.style.top = '50%'; // Adjust as needed to center vertically
+        adText.style.left = '50%'; // Adjust as needed to center horizontally
+        adText.style.transform = 'translate(-50%, -50%)';
+        adText.style.fontSize = '16px'; // Adjust the font size as needed
+        adText.style.color = prediction[0] > prediction[1] ? 'white' : 'black'; // Text color
+        adText.style.fontWeight = 'bold'; // Font weight
+        // log.info('PREDICTION', prediction)
+        adText.textContent = this.getAdTextContent(prediction);
+        // adText.textContent = prediction[0] > prediction[1] ? 'AD' : 'NOT AD';
+
+        // Append the elements to the container
+        if (imgClone) {
+            container.appendChild(imgClone);
+            container.appendChild(overlay);
+            overlay.appendChild(adText);
+        }
+
+        // Replace the original img element with the container
+        const img: any = this.getImageBySrc(src);
+        img.parentNode.replaceChild(container, img);
     }
 
     markImage(prediction: any) {
@@ -148,9 +241,10 @@ export class ImageCollector {
                     img.width,
                     img.height,
                 );
-                if (imageData !== undefined) {
+
+                if (imageData !== undefined && this.CNN_ENABLED) {
                     const prediction = await chrome.runtime.sendMessage({
-                        type: MESSAGE_TYPES.SEND_IMAGES,
+                        type: MESSAGE_TYPES.SEND_IMAGES_CNN,
                         data: {
                             rawImageData: Array.from(imageData.data),
                             width: img.width,
@@ -162,6 +256,21 @@ export class ImageCollector {
                         this.markImage(prediction);
                     } else {
                         this.removeImage(prediction, img.src);
+                    }
+                }
+
+                if (this.CLIP_ENABLED) {
+                    const clip_prediction = await chrome.runtime.sendMessage({
+                        type: MESSAGE_TYPES.SEND_IMAGES_CLIP,
+                        data: {
+                            src: img.src,
+                        },
+                    });
+                    log.debug('CLIP PREDICTION', clip_prediction);
+                    if (this.DEBUG_MODE) {
+                        this.markClipImage(clip_prediction, img.src);
+                    } else {
+                        this.removeClipImage(clip_prediction, img.src);
                     }
                 }
             }

@@ -18,10 +18,15 @@ if (window.top === window && (document.documentElement instanceof HTMLElement)) 
     // TODO: HERE WE SEND A MESSAGE TO CHECK IF THE OPTIONS ARE ENABLED
     // SOMETHING LIKE GET_PROTECTION_SETTINGS
     chrome.runtime.sendMessage({ type: MESSAGE_TYPES.GET_PROTECTION_DATA }).then(({ protectionData }) => {
+        const debug_enabled = protectionData[SETTINGS_NAMES.DEBUG_ENABLED];
+        const cnn_enabled = protectionData[SETTINGS_NAMES.CNN_PROTECTION_ENABLED];
+        const clip_enabled = protectionData[SETTINGS_NAMES.CLIP_PROTECTION_ENABLED];
+
         log.debug('GOT THE SETTINGS FROM BACKGROUND', protectionData);
-        if (protectionData[SETTINGS_NAMES.CNN_PROTECTION_ENABLED]) {
+
+        if (cnn_enabled || clip_enabled) {
             try {
-                const imageCollector = new ImageCollector(protectionData[SETTINGS_NAMES.DEBUG_ENABLED]);
+                const imageCollector = new ImageCollector(debug_enabled, cnn_enabled, clip_enabled);
                 imageCollector.init();
                 // eslint-disable-next-line no-empty
             } catch (e) {

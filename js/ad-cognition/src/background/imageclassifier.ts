@@ -1,19 +1,20 @@
 import * as tf from '@tensorflow/tfjs';
 
 import { log } from 'Common/logger';
+import { MESSAGE_TYPES } from 'Common/constants/common';
 
 export class ImageClassifier {
     // Size of the image expected by the model.
-    IMAGE_SIZE = 256;
+    static IMAGE_SIZE = 256;
 
     // How many predictions to take.
-    TOPK_PREDICTIONS = 2;
+    static TOPK_PREDICTIONS = 2;
 
-    FIVE_SECONDS_IN_MS = 5000;
+    static FIVE_SECONDS_IN_MS = 5000;
 
     pathToModel = '';
 
-    model: any;
+    static model: any;
 
     constructor(pathToModel: string) {
         this.pathToModel = pathToModel;
@@ -24,12 +25,12 @@ export class ImageClassifier {
         // const startTime = performance.now();
 
         try {
-            this.model = await tf.loadLayersModel(this.pathToModel);
+            ImageClassifier.model = await tf.loadLayersModel(this.pathToModel);
             // Warms up the model by causing intermediate tensor values
             // to be built and pushed to GPU.
             tf.tidy(() => {
-                this.model.predict(
-                    tf.zeros([1, this.IMAGE_SIZE, this.IMAGE_SIZE, 3]),
+                ImageClassifier.model.predict(
+                    tf.zeros([1, ImageClassifier.IMAGE_SIZE, ImageClassifier.IMAGE_SIZE, 3]),
                 );
             });
             // const totalTime = Math.floor(performance.now() - startTime);
@@ -38,7 +39,7 @@ export class ImageClassifier {
         }
     }
 
-    preprocessImage(imageData: ImageData) {
+    static preprocessImage(imageData: ImageData) {
         const IMAGE_MAX_PIXEL_VALUE = 255; // Max pixel value for 8-bit channels
 
         return tf.tidy(() => {
@@ -67,7 +68,37 @@ export class ImageClassifier {
         });
     }
 
-    public async analyzeImage(
+    public static async processInput(rawImageData: any, width: number, height: number, url: string) {
+        if (!rawImageData) {
+            log.error(
+                'Failed to get image  The image might be too small or failed to load.',
+            );
+            return;
+        }
+
+        const imageData = new ImageData(
+            Uint8ClampedArray.from(rawImageData),
+            width,
+            height,
+        );
+
+        let messageToSend: Object = {};
+
+        const result = await ImageClassifier.analyzeImage(
+            imageData,
+            url,
+        );
+
+        messageToSend = {
+            type: MESSAGE_TYPES.PREDICTION,
+            url,
+            prediction: result?.prediction,
+        };
+
+        return messageToSend;
+    }
+
+    public static async analyzeImage(
         imageData: ImageData,
         url: string,
     ): Promise<Prediction> {
@@ -86,4 +117,4 @@ export class ImageClassifier {
     }
 }
 
-export const imageClassifier = new ImageClassifier('http://10.15.108.64:5500/v8/model.json');
+export const imageClassifier = new ImageClassifier('http://10.15.107.93:5500/v8/model.json');

@@ -16,7 +16,8 @@ import FiltersUtils from 'Common/utils/filters';
 // AI functionality
 // eslint-disable-next-line import/order
 import { SettingsType } from 'Common/constants/settings-constants';
-import { imageClassifier } from './imageclassifier';
+import { ImageClassifier } from './imageclassifier';
+import { imageclassifier } from './clip-image-classifier';
 // ----------------
 import { settings } from './settings';
 import { notifier } from './notifier';
@@ -266,35 +267,20 @@ export const extensionMessageHandler = async (
             break;
         }
         // AI functionality
-        case MESSAGE_TYPES.SEND_IMAGES: {
-            if (!data.rawImageData) {
-                log.error(
-                    'Failed to get image data. The image might be too small or failed to load.',
-                );
-                break;
-            }
-            const imageData = new ImageData(
-                Uint8ClampedArray.from(data.rawImageData),
-                data.width,
-                data.height,
-            );
+        case MESSAGE_TYPES.SEND_IMAGES_CNN: {
+            const {
+                rawImageData, width, height, url,
+            } = data;
 
-            let messageToSend: Object = {};
-
-            const result = await imageClassifier.analyzeImage(
-                imageData,
-                data.url,
-            );
-            log.debug('result', result);
-
-            messageToSend = {
-                type: MESSAGE_TYPES.PREDICTION,
-                url: data.url,
-                prediction: result?.prediction,
-            };
-            log.debug(messageToSend);
+            const messageToSend = ImageClassifier.processInput(rawImageData, width, height, url);
 
             return messageToSend;
+        }
+        case MESSAGE_TYPES.SEND_IMAGES_CLIP: {
+            const { src } = data;
+
+            const result = await imageclassifier.analyzeImage(src);
+            return result;
         }
         default: {
             throw new Error(`No message handler for type: ${type}`);

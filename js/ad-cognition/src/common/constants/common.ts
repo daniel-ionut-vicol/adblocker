@@ -90,7 +90,8 @@ export enum MESSAGE_TYPES {
     // Get the settings
     GET_PROTECTION_DATA = 'GET_PROTECTION_DATA',
     // AI functionality
-    SEND_IMAGES = 'SEND_IMAGES',
+    SEND_IMAGES_CNN = 'SEND_IMAGES_CNN',
+    SEND_IMAGES_CLIP = 'SEND_IMAGES_CLIP',
     PREDICTION = 'PREDICTION',
     ANALYZE_IMAGE = 'ANALYZE_IMAGE',
     // Settings toggles

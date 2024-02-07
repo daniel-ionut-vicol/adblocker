@@ -17,12 +17,6 @@
         "increment": "yarn version --patch --no-git-tag-version",
         "integration-test": "rimraf tmp && ts-node ./scripts/browser-test/index.ts"
     },
-    "husky": {
-        "hooks": {
-            "pre-commit": "yarn lint",
-            "pre-push": "yarn test"
-        }
-    },
     "dependencies": {
         "@adguard/assistant": "^4.3.57",
         "@adguard/filters-downloader": "^1.1.13",
