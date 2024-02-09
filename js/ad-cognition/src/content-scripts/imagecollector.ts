@@ -1,4 +1,4 @@
-import { MESSAGE_TYPES } from 'Common/constants/common';
+import { MESSAGE_TYPES, PROTECTION_TYPE, Prediction } from 'Common/constants/common';
 import { log } from 'Common/logger';
 
 export class ImageCollector {
@@ -29,14 +29,12 @@ export class ImageCollector {
         this.MIN_CONFIDENCE = 0.2;
     }
 
-    getAdTextContent(prediction: [number, number]) {
-        let text;
-        if (prediction[0] >= this.MIN_CONFIDENCE || prediction[1] >= this.MIN_CONFIDENCE) {
-            text = '';
+    getAdTextContent(prediction: Prediction) {
+        if (typeof prediction === 'number') {
+            return `CNN:------\n${Math.floor(Math.abs(prediction - 1) * 100)}% AD\n`;
         } else {
-            text = 'NOT SURE';
+            return `CLIP:------\n${(prediction[0]*100).toFixed(1)}% AD\n${(prediction[1]*100).toFixed(1)}% NON AD\n`;
         }
-        return `${text}\n${(prediction[0] * 100).toFixed(1)}% AD\n${(prediction[1] * 100).toFixed(1)}% NOT AD`;
     }
 
     public send() {
@@ -67,29 +65,17 @@ export class ImageCollector {
         loadNextImage(0); // Start loading the first image
     }
 
-    isAd(prediction: [number, number]) {
-        return prediction[0] > prediction[1];
-    }
-
-    public removeClipImage(prediction: [number, number], url: string) {
-        const imgNode = this.getImageBySrc(url);
-        if (imgNode && this.isAd(prediction)) {
-            let { parentElement } = imgNode;
-
-            // Keep deleting parent elements as long as the child is the only element
-            while (parentElement && parentElement.children.length === 1) {
-                parentElement = parentElement.parentElement;
-            }
-
-            if (parentElement) {
-                parentElement.remove(); // Remove the parent element
-            }
+    isAd(prediction: Prediction) {
+        if (typeof prediction === 'number') {
+            return prediction < 0.5;
+        } else {
+            return prediction[0] > prediction[1];
         }
     }
 
-    public removeImage(prediction: number, url: string) {
+    public removeImage(prediction: Prediction, url: string) {
         const imgNode = this.getImageBySrc(url);
-        if (imgNode && prediction === 0) {
+        if (imgNode && this.isAd(prediction)) {
             let { parentElement } = imgNode;
 
             // Keep deleting parent elements as long as the child is the only element
@@ -114,106 +100,75 @@ export class ImageCollector {
         );
     }
 
-    markClipImage(prediction: [number, number], src: string) {
-        if (!Array.isArray(prediction)) {
-            return;
-        }
-        // Create a div element to wrap the img and overlay
-        const container = document.createElement('div');
-        container.style.position = 'relative';
-        container.style.display = 'inline-block';
+    markImage(prediction: Prediction, url: string) {
 
-        // Create a clone of the img element
-        const imgClone: any = this.getImageBySrc(src)?.cloneNode(true);
-
-        // Create an overlay div for the white square background
-        const overlay = document.createElement('div');
-        overlay.style.position = 'absolute';
-        overlay.style.top = '0';
-        overlay.style.left = '0';
-        overlay.style.width = '100%';
-        overlay.style.height = '100%';
-
-        if (prediction[0] >= this.MIN_CONFIDENCE || prediction[1] >= this.MIN_CONFIDENCE) {
-            overlay.style.backgroundColor = prediction[0] > prediction[1] ? 'red' : 'green'; // White with 0.5 opacity
-        } else {
-            overlay.style.backgroundColor = 'white';
-        }
-        overlay.style.opacity = '0.6'; // White with 0.5 opacity
-
-        // Create the 'AD' text element
-        const adText = document.createElement('div');
-        adText.style.position = 'absolute';
-        adText.style.top = '50%'; // Adjust as needed to center vertically
-        adText.style.left = '50%'; // Adjust as needed to center horizontally
-        adText.style.transform = 'translate(-50%, -50%)';
-        adText.style.fontSize = '16px'; // Adjust the font size as needed
-        adText.style.color = prediction[0] > prediction[1] ? 'white' : 'black'; // Text color
-        adText.style.fontWeight = 'bold'; // Font weight
-        // log.info('PREDICTION', prediction)
-        adText.textContent = this.getAdTextContent(prediction);
-        // adText.textContent = prediction[0] > prediction[1] ? 'AD' : 'NOT AD';
-
-        // Append the elements to the container
-        if (imgClone) {
-            container.appendChild(imgClone);
-            container.appendChild(overlay);
-            overlay.appendChild(adText);
-        }
-
-        // Replace the original img element with the container
-        const img: any = this.getImageBySrc(src);
-        img.parentNode.replaceChild(container, img);
-    }
-
-    markImage(prediction: any) {
         if (!prediction) {
             return;
         }
+
+        const overlayCreated = document.querySelector('.debugOverlay'+url.replace(/[^a-zA-Z0-9_-]/g, ''));
+        const containerCreated = document.querySelector('.debugContainer'+url.replace(/[^a-zA-Z0-9_-]/g, ''));
+        const adTextCreated: HTMLDivElement | null = document.querySelector('.adText'+url.replace(/[^a-zA-Z0-9_-]/g, ''));
+
         // Create a div element to wrap the img and overlay
         const container = document.createElement('div');
-        container.style.position = 'relative';
-        container.style.display = 'inline-block';
-
-        // Create a clone of the img element
-        const imgClone: any = this.getImageBySrc(prediction.url)?.cloneNode(
-            true,
-        );
+        if (!containerCreated) {
+            container.className = 'debugContainer'+url.replace(/[^a-zA-Z0-9_-]/g, '');
+            Object.assign(container.style, {
+                position: 'relative',
+                display: 'inline-block',
+            });
+        }
 
         // Create an overlay div for the white square background
         const overlay = document.createElement('div');
-        overlay.style.position = 'absolute';
-        overlay.style.top = '0';
-        overlay.style.left = '0';
-        overlay.style.width = '100%';
-        overlay.style.height = '100%';
-        overlay.style.backgroundColor = prediction.prediction < 0.5 ? 'red' : 'white'; // White with 0.5 opacity
-        overlay.style.opacity = '0.7'; // White with 0.5 opacity
+        if (!overlayCreated) {
+            overlay.className = 'debugOverlay'+url.replace(/[^a-zA-Z0-9_-]/g, '');
+            Object.assign(overlay.style, {
+                position: 'absolute',
+                top: '0',
+                left: '0',
+                width: '100%',
+                height: '100%',
+                backgroundColor: 'white',
+                opacity: '0.7',
+            });
+        }
 
-        // Create the 'AD' text element
         const adText = document.createElement('div');
-        adText.style.position = 'absolute';
-        adText.style.top = '50%'; // Adjust as needed to center vertically
-        adText.style.left = '50%'; // Adjust as needed to center horizontally
-        adText.style.transform = 'translate(-50%, -50%)';
-        adText.style.fontSize = '24px'; // Adjust the font size as needed
-        adText.style.color = prediction.prediction < 0.5 ? 'white' : 'black'; // Text color
-        adText.style.fontWeight = 'bold'; // Font weight
-        adText.textContent = `${Math.floor(
-            Math.abs(prediction.prediction - 1) * 100,
-        )}% AD`;
-        // adText.textContent = prediction.prediction < 0.5 ? 'AD' : 'NOT AD';
+        if (!adTextCreated) {
+            adText.className = 'adText'+url.replace(/[^a-zA-Z0-9_-]/g, '');
+            Object.assign(adText.style, {
+                position: 'absolute',
+                fontSize: '16px',
+                color: 'black',
+            });
+            adText.innerText = this.getAdTextContent(prediction);
+        } else {
+            adTextCreated.innerText += this.getAdTextContent(prediction);
+        }
+
+
+        // Create a clone of the img element
+        const imgClone: any = this.getImageBySrc(url)?.cloneNode(
+            true,
+        );
 
         // Append the elements to the container
         if (imgClone) {
-            container.appendChild(imgClone);
-            container.appendChild(overlay);
+            if (!containerCreated) container.appendChild(imgClone);
+            if (!overlayCreated) container.appendChild(overlay);
+        }
+
+        if (overlayCreated) {
+            overlayCreated.appendChild(adText);
+        } else {
             overlay.appendChild(adText);
         }
 
         // Replace the original img element with the container
-        const img: any = this.getImageBySrc(prediction.url);
-        img.parentNode.replaceChild(container, img);
+        const img: any = this.getImageBySrc(url);
+        !containerCreated && img.parentNode.replaceChild(container, img);
     }
 
     analyzeImage(src: string) {
@@ -243,7 +198,7 @@ export class ImageCollector {
                 );
 
                 if (imageData !== undefined && this.CNN_ENABLED) {
-                    const prediction = await chrome.runtime.sendMessage({
+                    const predictionInfo = await chrome.runtime.sendMessage({
                         type: MESSAGE_TYPES.SEND_IMAGES_CNN,
                         data: {
                             rawImageData: Array.from(imageData.data),
@@ -253,9 +208,9 @@ export class ImageCollector {
                         },
                     });
                     if (this.DEBUG_MODE) {
-                        this.markImage(prediction);
+                        this.markImage(predictionInfo.prediction, predictionInfo.url);
                     } else {
-                        this.removeImage(prediction, img.src);
+                        this.removeImage(predictionInfo.prediction, img.src);
                     }
                 }
 
@@ -266,11 +221,10 @@ export class ImageCollector {
                             src: img.src,
                         },
                     });
-                    log.debug('CLIP PREDICTION', clip_prediction);
                     if (this.DEBUG_MODE) {
-                        this.markClipImage(clip_prediction, img.src);
+                        this.markImage(clip_prediction, img.src);
                     } else {
-                        this.removeClipImage(clip_prediction, img.src);
+                        this.removeImage(clip_prediction, img.src);
                     }
                 }
             }

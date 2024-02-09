@@ -49,6 +49,12 @@ export interface OptionsData {
     ruleSetsCounters: RuleSetCounters[],
 }
 
+export type Prediction = [number, number] | number;
+
+export enum PROTECTION_TYPE {
+    CLIP,
+    CNN
+}
 // These enum must have string values because
 // we need to fast identify message in the log
 export enum MESSAGE_TYPES {

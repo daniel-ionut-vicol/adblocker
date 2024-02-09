@@ -117,4 +117,4 @@ export class ImageClassifier {
     }
 }
 
-export const imageClassifier = new ImageClassifier('http://10.15.107.93:5500/v8/model.json');
+export const imageClassifier = new ImageClassifier('http://127.0.0.1:5500/v8/model.json');
