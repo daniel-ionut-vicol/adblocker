@@ -31,9 +31,9 @@ export class ImageCollector {
 
     getAdTextContent(prediction: Prediction) {
         if (typeof prediction === 'number') {
-            return `CNN:------\n${Math.floor(Math.abs(prediction - 1) * 100)}% AD\n`;
+            return `CNN: ${Math.floor(Math.abs(prediction - 1) * 100)}% AD\n`;
         } else {
-            return `CLIP:------\n${(prediction[0]*100).toFixed(1)}% AD\n${(prediction[1]*100).toFixed(1)}% NON AD\n`;
+            return `CLIP: ${(prediction[0]*100).toFixed(1)}% AD, ${(prediction[1]*100).toFixed(1)}% NON AD\n`;
         }
     }
 
@@ -66,10 +66,12 @@ export class ImageCollector {
     }
 
     isAd(prediction: Prediction) {
+        if (!prediction) return;
+
         if (typeof prediction === 'number') {
             return prediction < 0.5;
         } else {
-            return prediction[0] > prediction[1];
+            return (prediction[0] > this.MIN_CONFIDENCE) && (prediction[0] > prediction[1]);
         }
     }
 
