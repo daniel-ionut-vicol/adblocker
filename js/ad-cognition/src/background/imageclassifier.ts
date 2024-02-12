@@ -22,21 +22,30 @@ export class ImageClassifier {
     }
 
     async loadModel() {
-        // const startTime = performance.now();
+      try {
+        ImageClassifier.model = await tf.loadLayersModel('indexeddb://my-model-1');
+          log.debug('Model loaded from IndexedDB');
+      } catch (e) {
+        log.debug('Model not found in IndexedDB, loading from server');
+      }
 
+      if (!ImageClassifier.model) {
         try {
-            ImageClassifier.model = await tf.loadLayersModel(this.pathToModel);
-            // Warms up the model by causing intermediate tensor values
-            // to be built and pushed to GPU.
-            tf.tidy(() => {
-                ImageClassifier.model.predict(
-                    tf.zeros([1, ImageClassifier.IMAGE_SIZE, ImageClassifier.IMAGE_SIZE, 3]),
-                );
-            });
-            // const totalTime = Math.floor(performance.now() - startTime);
+          ImageClassifier.model = await tf.loadLayersModel(this.pathToModel);
+
+        await ImageClassifier.model.save('indexeddb://my-model-1');
         } catch (e) {
-            log.error('Unable to load model', e);
+          log.error('Unable to load model from server', e);
+          return;
         }
+      }
+
+      // Warm up the model
+      tf.tidy(() => {
+        ImageClassifier.model.predict(
+          tf.zeros([1, ImageClassifier.IMAGE_SIZE, ImageClassifier.IMAGE_SIZE, 3]),
+        );
+      });
     }
 
     static preprocessImage(imageData: ImageData) {
