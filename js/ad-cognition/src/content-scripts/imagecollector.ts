@@ -1,4 +1,4 @@
-import { MESSAGE_TYPES, PROTECTION_TYPE, Prediction } from 'Common/constants/common';
+import { MESSAGE_TYPES, Prediction } from 'Common/constants/common';
 import { log } from 'Common/logger';
 
 export class ImageCollector {
@@ -76,19 +76,16 @@ export class ImageCollector {
     }
 
     public removeImage(prediction: Prediction, url: string) {
-        const imgNode = this.getImageBySrc(url);
-        if (imgNode && this.isAd(prediction)) {
-            let { parentElement } = imgNode;
+      const imgNode = this.getImageBySrc(url);
+      if (imgNode && this.isAd(prediction)) {
+        const parentElement = imgNode.parentElement;
 
-            // Keep deleting parent elements as long as the child is the only element
-            while (parentElement && parentElement.children.length === 1) {
-                parentElement = parentElement.parentElement;
-            }
-
-            if (parentElement) {
-                parentElement.remove(); // Remove the parent element
-            }
+        if (parentElement && parentElement.children.length === 1) {
+          parentElement.remove(); // Remove the parent element
+        } else {
+          log.error('No parent element found or condition not met.');
         }
+      }
     }
 
     static getImagesElements() {
