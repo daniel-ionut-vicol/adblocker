@@ -18,7 +18,7 @@ export class ImageCollector {
 
     public CLIP_ENABLED: boolean;
 
-    constructor(debug_mode: boolean, cnn_enabled: boolean, clip_enabled: boolean) {
+    constructor(debug_mode: boolean, cnn_enabled: boolean, clip_enabled: boolean, imgArray: HTMLImageElement[]) {
         this.IMAGE_SIZE = 100;
         this.MIN_IMG_SIZE = 100;
         this.TEXT_DIV_CLASSNAME = '';
@@ -27,6 +27,7 @@ export class ImageCollector {
         this.CNN_ENABLED = cnn_enabled;
         this.CLIP_ENABLED = clip_enabled;
         this.MIN_CONFIDENCE = 0.2;
+        this.images = imgArray;
     }
 
     getAdTextContent(prediction: Prediction) {
@@ -38,31 +39,35 @@ export class ImageCollector {
     }
 
     public send() {
-        this.images = ImageCollector.getImagesElements();
 
-        const loadNextImage = (index: number) => {
-            if (index >= this.images.length) {
-                // All images have been loaded
-                return;
-            }
+      const loadNextImage = (index: number) => {
+        if (index >= this.images.length) {
+          // All images have been loaded
+          return;
+        }
 
-            const image = this.images[index];
-            if (image !== null) {
-                if (image.complete) {
-                    this.analyzeImage(image.src);
-                    loadNextImage(index + 1); // Load the next image
-                } else {
-                    image.addEventListener('load', () => {
-                        this.analyzeImage(image.src);
-                        loadNextImage(index + 1); // Load the next image
-                    });
-                }
-            } else {
-                loadNextImage(index + 1); // Load the next image
-            }
-        };
+        const image = this.images[index];
+        if (image !== null) {
+          const source = image.getAttribute('src') || image.getAttribute('data-src');
 
-        loadNextImage(0); // Start loading the first image
+          // Check if the image has the 'loading' attribute set to 'lazy'
+          const isLazyLoading = image.getAttribute('loading') === 'lazy';
+
+        if (source && (image.complete || isLazyLoading)) {
+          this.analyzeImage(source);
+          loadNextImage(index + 1); // Load the next image
+        } else {
+          image.addEventListener('load', () => {
+            if (source) this.analyzeImage(source);
+            loadNextImage(index + 1); // Load the next image
+          });
+        }
+        } else {
+          loadNextImage(index + 1); // Load the next image
+        }
+      };
+
+      loadNextImage(0); // Start loading the first image
     }
 
     isAd(prediction: Prediction) {
@@ -82,8 +87,6 @@ export class ImageCollector {
 
         if (parentElement && parentElement.children.length === 1) {
           parentElement.remove(); // Remove the parent element
-        } else {
-          log.error('No parent element found or condition not met.');
         }
       }
     }
