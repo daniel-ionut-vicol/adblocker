@@ -104,6 +104,7 @@ export enum MESSAGE_TYPES {
     TOGGLE_CNN = 'TOGGLE_CNN',
     TOGGLE_CLIP = 'TOGGLE_CLIP',
     TOGGLE_DEBUG = 'TOGGLE_DEBUG',
+    UPDATE_MODEL = 'UPDATE_MODEL',
 }
 
 export type MessageType = keyof typeof MESSAGE_TYPES;

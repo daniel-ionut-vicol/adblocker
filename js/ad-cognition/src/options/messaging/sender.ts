@@ -22,6 +22,10 @@ class Sender {
         MESSAGE_TYPES.SET_SETTING, { update },
     );
 
+    updateModel = (url: string) => sendMessage(
+        MESSAGE_TYPES.UPDATE_MODEL, { url },
+    );
+
     /** Retrieves options data from background service worker */
     getOptionsData = () => sendMessage<OptionsData>(MESSAGE_TYPES.GET_OPTIONS_DATA);
 

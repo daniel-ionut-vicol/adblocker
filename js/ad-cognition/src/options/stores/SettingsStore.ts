@@ -215,6 +215,16 @@ export class SettingsStore {
         });
     };
 
+    @action
+    updateModel = async (url: any) => {
+        try {
+            await sender.updateModel(url);
+        } catch (e) {
+            log.error(e);
+            return;
+        }
+    };
+
     @computed
     get noticeHidden() {
         return this.settings[SETTINGS_NAMES.NOTICE_HIDDEN];

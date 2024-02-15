@@ -21,31 +21,61 @@ export class ImageClassifier {
         this.loadModel();
     }
 
-    async loadModel() {
-      try {
-        ImageClassifier.model = await tf.loadLayersModel('indexeddb://my-model-1');
-          log.debug('Model loaded from IndexedDB');
-      } catch (e) {
-        log.debug('Model not found in IndexedDB, loading from server');
-      }
-
-      if (!ImageClassifier.model) {
+    static async updateModel(pathToModel: string) {
         try {
-          ImageClassifier.model = await tf.loadLayersModel(this.pathToModel);
+            if (ImageClassifier.model) {
+                await ImageClassifier.model.save('indexeddb://cnn-model-bak');
+            }
 
-        await ImageClassifier.model.save('indexeddb://my-model-1');
+                ImageClassifier.model = await tf.loadLayersModel(pathToModel);
+
+                if (!ImageClassifier.model) {
+                    throw new Error('Failed to update the model from the server');
+                }
+
+                await ImageClassifier.model.save('indexeddb://cnn-model');
+                    log.debug('Model successfully updated');
+
         } catch (e) {
-          log.error('Unable to load model from server', e);
-          return;
+            try {
+                ImageClassifier.model = await tf.loadLayersModel('indexeddb://cnn-model-bak');
+                    log.debug('Couldn\'t update the model. Backup loaded from IndexedDB');
+            } catch (e) {
+                log.error('Unable to load model from the server or backup', e);
+            }
         }
-      }
+    }
 
-      // Warm up the model
-      tf.tidy(() => {
-        ImageClassifier.model.predict(
-          tf.zeros([1, ImageClassifier.IMAGE_SIZE, ImageClassifier.IMAGE_SIZE, 3]),
-        );
-      });
+    async loadModel() {
+        try {
+            ImageClassifier.model = await tf.loadLayersModel('indexeddb://cnn-model');
+                log.debug('Model loaded from IndexedDB');
+        } catch (e) {
+            log.debug('Model not found in IndexedDB, loading from server');
+        }
+
+        if (!ImageClassifier.model) {
+            try {
+                ImageClassifier.model = await tf.loadLayersModel(this.pathToModel);
+                await ImageClassifier.model.save('indexeddb://cnn-model');
+                log.debug('Model loaded from server and saved to IndexedDB');
+            } catch (e) {
+                log.error('Unable to load model from server', e);
+                return;
+            }
+        }
+
+        if (!ImageClassifier.model) {
+            log.error('Model is still undefined after loading attempts');
+            return;
+        }
+
+        // Warm up the model
+        tf.tidy(() => {
+            ImageClassifier.model.predict(
+                tf.zeros([1, ImageClassifier.IMAGE_SIZE, ImageClassifier.IMAGE_SIZE, 3]),
+            );
+        });
     }
 
     static preprocessImage(imageData: ImageData) {

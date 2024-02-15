@@ -282,6 +282,9 @@ export const extensionMessageHandler = async (
             const result = await imageclassifier.analyzeImage(src);
             return result;
         }
+        case MESSAGE_TYPES.UPDATE_MODEL: {
+            await ImageClassifier.updateModel(data.url);
+        }
         default: {
             throw new Error(`No message handler for type: ${type}`);
         }

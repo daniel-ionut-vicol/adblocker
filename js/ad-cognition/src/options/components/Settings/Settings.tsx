@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { observer } from 'mobx-react';
 
 import { translator } from 'Common/translators/translator';
@@ -12,6 +12,8 @@ import { OPTION_SETTINGS, SETTINGS_NAMES } from 'Common/constants/settings-const
 import { useNotifyStaticFiltersLimitError } from '../../hooks/useNotifyStaticFiltersLimitError';
 import { rootStore } from '../../stores';
 import { SwitcherOption } from '../SwitcherOption';
+import { Option } from '../Option/Option';
+import { Modal } from '../../../common/components/Modal/Modal';
 import { NavOption, NavOptionProps } from '../NavOption';
 import { StaticRulelistsLimitation } from '../StaticRulelistsLimitation';
 
@@ -67,6 +69,7 @@ export const Settings = observer(() => {
         disableFilter,
         setSetting,
         settings,
+        updateModel,
     } = settingsStore;
 
     const OPTIONS = {
@@ -106,14 +109,6 @@ export const Settings = observer(() => {
 
     const aiSettings: AISetting[] = [
         {
-            id: FILTER_RULESET[RulesetType.RULESET_225].id,
-            iconId: IconId.AD_BLOCKING,
-            title: translator.getMessage('debug_mode'),
-            description: translator.getMessage('debug_mode_desc'),
-            groupId: FiltersGroupId.AI,
-            settingName: SETTINGS_NAMES.DEBUG_ENABLED,
-        },
-        {
             id: FILTER_RULESET[RulesetType.RULESET_226].id,
             iconId: IconId.AD_BLOCKING,
             title: translator.getMessage('options_block_with_cnn_option'),
@@ -128,6 +123,14 @@ export const Settings = observer(() => {
             description: translator.getMessage('options_block_with_clip_option_desc'),
             groupId: FiltersGroupId.AI,
             settingName: SETTINGS_NAMES.CLIP_PROTECTION_ENABLED,
+        },
+        {
+            id: FILTER_RULESET[RulesetType.RULESET_225].id,
+            iconId: IconId.AD_BLOCKING,
+            title: translator.getMessage('debug_mode'),
+            description: translator.getMessage('debug_mode_desc'),
+            groupId: FiltersGroupId.AI,
+            settingName: SETTINGS_NAMES.DEBUG_ENABLED,
         },
     ];
 
@@ -171,24 +174,26 @@ export const Settings = observer(() => {
             : '';
     };
 
+    const [isOpen, setIsOpen] = useState(false);
+    const [updateUrl, setUpdateUrl] = useState("");
+    const handleUpdateCNN = () => {
+        setIsOpen(true);
+    }
+
+    const handleCloseModal = () => {
+        setIsOpen(false);
+    }
+    const handleUpdateModel = () => {
+        updateModel(updateUrl);
+        setIsOpen(false);
+    }
+
     return (
         <>
             <Section
                 title={translator.getMessage('options_settings_title')}
             >
                 <StaticRulelistsLimitation />
-                {aiSettings.map((setting) => (
-                    <SwitcherOption
-                        key={setting.id}
-                        iconId={setting.iconId}
-                        id={setting.id!.toString()}
-                        className={styles.optionLabel}
-                        message={setting.title}
-                        messageDesc={setting.description ? setting.description : ''}
-                        checked={(settings as Record<string, unknown>)[setting.settingName] as boolean}
-                        onChange={() => { onAiSettingChange(setting); }}
-                    />
-                ))}
                 {mainFilters.map((filter) => (
                     <SwitcherOption
                         key={filter.id}
@@ -203,7 +208,35 @@ export const Settings = observer(() => {
                     />
                 ))}
                 {navOptions.map(NavOption)}
+                <h3>AI Settings</h3>
+                {aiSettings.map((setting) => (
+                    <SwitcherOption
+                        key={setting.id}
+                        iconId={setting.iconId}
+                        id={setting.id!.toString()}
+                        className={styles.optionLabel}
+                        message={setting.title}
+                        messageDesc={setting.description ? setting.description : ''}
+                        checked={(settings as Record<string, unknown>)[setting.settingName] as boolean}
+                        onChange={() => { onAiSettingChange(setting); }}
+                    />
+                ))}
+                <Option
+                        key={1231232}
+                        iconId={IconId.CUSTOM_FILTERS}
+                        id="helloworld"
+                        className={styles.optionLabel}
+                        message="Update CNN model"
+                        messageDesc="Fetch a new model, update the CNN modal manually from a link."
+                        onClick={handleUpdateCNN}
+                    />
+
             </Section>
+            <Modal isOpen={isOpen} handleClose={handleCloseModal} >
+                <h3>Paste the URL to the model </h3>
+                <input placeholder='URL' value={updateUrl} onChange={e => setUpdateUrl(e.target.value)} />
+                <button onClick={handleUpdateModel} >Update model</button>
+            </Modal>
         </>
     );
 });
