@@ -140,7 +140,9 @@ export const extensionMessageHandler = async (
         }
         case MESSAGE_TYPES.GET_PROTECTION_DATA: {
             const protectionData: SettingsType = settings.getSettings();
-            return { protectionData };
+            const isCnnAvailable = ImageClassifier.isAvailable();
+            const isClipAvailable = imageclassifier.isAvailable();
+            return { protectionData, isCnnAvailable, isClipAvailable };
         }
         case MESSAGE_TYPES.TOGGLE_CNN: {
             const { value } = data;

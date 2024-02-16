@@ -38,10 +38,10 @@ if (window.top === window && (document.documentElement instanceof HTMLElement)) 
 
         const imgArray = Array.from(imgTags);
 
-        chrome.runtime.sendMessage({ type: MESSAGE_TYPES.GET_PROTECTION_DATA }).then(({ protectionData }) => {
+        chrome.runtime.sendMessage({ type: MESSAGE_TYPES.GET_PROTECTION_DATA }).then(({ protectionData, isCnnAvailable, isClipAvailable }) => {
             const debug_enabled = protectionData[SETTINGS_NAMES.DEBUG_ENABLED];
-            const cnn_enabled = protectionData[SETTINGS_NAMES.CNN_PROTECTION_ENABLED];
-            const clip_enabled = protectionData[SETTINGS_NAMES.CLIP_PROTECTION_ENABLED];
+            const cnn_enabled = protectionData[SETTINGS_NAMES.CNN_PROTECTION_ENABLED] && isCnnAvailable;
+            const clip_enabled = protectionData[SETTINGS_NAMES.CLIP_PROTECTION_ENABLED] && isClipAvailable;
 
             chrome.runtime.sendMessage({ type: MESSAGE_TYPES.GET_USER_RULES }).then(userRules => {
                 const currentRule = getRuleFromUrl(location.href);

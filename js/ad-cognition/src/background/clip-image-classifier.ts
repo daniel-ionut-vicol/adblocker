@@ -26,6 +26,27 @@ class ClipImageClassifier {
         }
     }
 
+    static async isServerAccessible(url: string) {
+        try {
+            const response = await fetch(url, { method: 'HEAD' });
+            return response.ok;
+        } catch (error) {
+            return false;
+        }
+    }
+
+    public isAvailable() {
+        ClipImageClassifier.isServerAccessible('http://192.168.69.207:5000').then((result: any) => {
+            if (result) {
+               log.debug('Server is accessible.');
+               return true;
+            } else {
+               log.debug('Server is not accessible.');
+               return false;
+            }
+        });
+    }
+
     public async analyzeImage(src: string): Promise<number | null> {
         const imageFile = await this.imageSrcToFile(src);
 

@@ -21,6 +21,10 @@ export class ImageClassifier {
         this.loadModel();
     }
 
+    public static isAvailable() {
+        return ImageClassifier.model != undefined;
+    }
+
     static async updateModel(pathToModel: string) {
         try {
             if (ImageClassifier.model) {
