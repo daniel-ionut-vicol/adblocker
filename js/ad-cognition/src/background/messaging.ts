@@ -17,7 +17,7 @@ import FiltersUtils from 'Common/utils/filters';
 // eslint-disable-next-line import/order
 import { SettingsType } from 'Common/constants/settings-constants';
 import { ImageClassifier } from './imageclassifier';
-import { imageclassifier } from './clip-image-classifier';
+import { ClipImageClassifier } from './clip-image-classifier';
 // ----------------
 import { settings } from './settings';
 import { notifier } from './notifier';
@@ -141,7 +141,7 @@ export const extensionMessageHandler = async (
         case MESSAGE_TYPES.GET_PROTECTION_DATA: {
             const protectionData: SettingsType = settings.getSettings();
             const isCnnAvailable = ImageClassifier.isAvailable();
-            const isClipAvailable = imageclassifier.isAvailable();
+            const isClipAvailable = ClipImageClassifier.isAvailable();
             return { protectionData, isCnnAvailable, isClipAvailable };
         }
         case MESSAGE_TYPES.TOGGLE_CNN: {
@@ -281,7 +281,7 @@ export const extensionMessageHandler = async (
         case MESSAGE_TYPES.SEND_IMAGES_CLIP: {
             const { src } = data;
 
-            const result = await imageclassifier.analyzeImage(src);
+            const result = await ClipImageClassifier.analyzeImage(src);
             return result;
         }
         case MESSAGE_TYPES.UPDATE_MODEL: {

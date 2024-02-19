@@ -1,10 +1,10 @@
 /* eslint-disable class-methods-use-this */
 import { log } from 'Common/logger';
 
-class ClipImageClassifier {
+export class ClipImageClassifier {
     IMAGE_SIZE = 224;
 
-    async imageSrcToFile(
+    static async imageSrcToFile(
         src: string,
         fileName = 'image',
     ): Promise<File | null> {
@@ -28,27 +28,19 @@ class ClipImageClassifier {
 
     static async isServerAccessible(url: string) {
         try {
-            const response = await fetch(url, { method: 'HEAD' });
-            return response.ok;
+            await fetch(url, { method: 'HEAD' });
+            return true;
         } catch (error) {
             return false;
         }
     }
 
-    public isAvailable() {
-        ClipImageClassifier.isServerAccessible('http://192.168.69.207:5000').then((result: any) => {
-            if (result) {
-               log.debug('Server is accessible.');
-               return true;
-            } else {
-               log.debug('Server is not accessible.');
-               return false;
-            }
-        });
+    public static isAvailable() {
+        return ClipImageClassifier.isServerAccessible('http://192.168.69.207:5000')
     }
 
-    public async analyzeImage(src: string): Promise<number | null> {
-        const imageFile = await this.imageSrcToFile(src);
+    public static async analyzeImage(src: string): Promise<number | null> {
+        const imageFile = await ClipImageClassifier.imageSrcToFile(src);
 
         if (!imageFile) {
             return null;
@@ -71,5 +63,3 @@ class ClipImageClassifier {
         return prediction;
     }
 }
-
-export const imageclassifier = new ClipImageClassifier();
