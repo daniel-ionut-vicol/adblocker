@@ -25,3 +25,5 @@
 /js/chrome-extension/dist/src
 /pyton/processedDataSetAds
 /pyton/flask_backend/flaskapp
+pyton/flask_backend/clip_backend.log
+pyton/flask_backend/fileserver.log

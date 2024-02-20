@@ -72,7 +72,7 @@ public class Env {
 	}
 
 	private static String GRID_ENV = "GRID_ADDRESS";
-	private static String GRID_DEF = "http://192.168.69.230:4444";
+	private static String GRID_DEF = "http://192.168.69.207:4444";
 
 	public static String getSeleniumGridAddress() {
 		String gridAddress = System.getenv(GRID_ENV);
