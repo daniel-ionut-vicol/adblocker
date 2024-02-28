@@ -1,6 +1,8 @@
 import React, { useContext, useState } from 'react';
 import { observer } from 'mobx-react';
 
+import cn from 'classnames';
+import { theme } from 'Common/styles';
 import { translator } from 'Common/translators/translator';
 import { FilterInfo, FiltersGroupId } from 'Common/constants/common';
 import { Section } from 'Common/components/Section';
@@ -58,7 +60,7 @@ export const FILTERS_TRANSLATIONS = {
 };
 
 export const Settings = observer(() => {
-    const { settingsStore } = useContext(rootStore);
+    const { settingsStore, uiStore } = useContext(rootStore);
 
     const checkAndNotifyStaticFiltersError = useNotifyStaticFiltersLimitError();
 
@@ -149,7 +151,12 @@ export const Settings = observer(() => {
 
     const onAiSettingChange = async (setting: AISetting) => {
         log.debug('TRYING TO CHANGE THE SETTING', setting);
-        setSetting(setting.settingName, !settings[setting.settingName as keyof OPTION_SETTINGS]);
+        uiStore.setLoader(true);
+        const response: any = await setSetting(setting.settingName, !settings[setting.settingName as keyof OPTION_SETTINGS]);
+        uiStore.setLoader(false);
+        if (response && response.type === 'error') {
+           uiStore.addNotification(response.message, IconId.RED_WARNING);
+        }
     };
 
     const mainFilters = filters
@@ -175,17 +182,47 @@ export const Settings = observer(() => {
     };
 
     const [isOpen, setIsOpen] = useState(false);
+    const [isValidForm, setIsValidForm] = useState(false);
     const [updateUrl, setUpdateUrl] = useState("");
+
+    function validateUrl(string: string) {
+        try {
+            new URL(string);
+            return true;
+        } catch (err) {
+            return false;
+        }
+    }
+
     const handleUpdateCNN = () => {
         setIsOpen(true);
     }
 
     const handleCloseModal = () => {
         setIsOpen(false);
+        setIsValidForm(false);
+        setUpdateUrl("");
     }
-    const handleUpdateModel = () => {
-        updateModel(updateUrl);
+
+    const handleUpdateModel = async () => {
         setIsOpen(false);
+        uiStore.setLoader(true);
+        const response: any = await updateModel(updateUrl);
+        uiStore.setLoader(false);
+
+        setUpdateUrl("");
+        setIsValidForm(false);
+        log.debug("Response here", response)
+        if (response.type === 'error') {
+            uiStore.addNotification(response.message, IconId.RED_WARNING)    
+        } else {
+            uiStore.addNotification(response.message)    
+        }
+    }
+
+    const handleUrlChange = (value: string) => {
+        setUpdateUrl(value);
+        setIsValidForm(validateUrl(value));
     }
 
     return (
@@ -222,20 +259,47 @@ export const Settings = observer(() => {
                     />
                 ))}
                 <Option
-                        key={1231232}
-                        iconId={IconId.CUSTOM_FILTERS}
-                        id="helloworld"
-                        className={styles.optionLabel}
-                        message="Update CNN model"
-                        messageDesc="Fetch a new model, update the CNN modal manually from a link."
-                        onClick={handleUpdateCNN}
-                    />
-
+                    key={1231232}
+                    iconId={IconId.CUSTOM_FILTERS}
+                    id="helloworld"
+                    className={styles.optionLabel}
+                    message="Update CNN model"
+                    messageDesc="Fetch a new model, update the CNN modal manually from a link."
+                    onClick={handleUpdateCNN}
+                />
             </Section>
             <Modal isOpen={isOpen} handleClose={handleCloseModal} >
-                <h3>Paste the URL to the model </h3>
-                <input placeholder='URL' value={updateUrl} onChange={e => setUpdateUrl(e.target.value)} />
-                <button onClick={handleUpdateModel} >Update model</button>
+                <div className={theme.modal.container}>
+                    <div className={theme.modal.header}>
+                        <h1 className={theme.modal.title}>Update CNN Model</h1>
+                    </div>
+                    <div className={theme.modal.itemWrapper}>
+                        <input
+                            className={theme.modal.modalInput}
+                            type="text"
+                            value={updateUrl}
+                            onChange={e => handleUrlChange(e.target.value)}
+                            placeholder='http://example.com/model.json'
+                        />
+                    </div>
+                </div>
+                <div className={theme.modal.description}>
+                    Input the link to the model.json file.
+                </div>
+                <div className={theme.modal.footer}>
+                    <button
+                        className={cn(
+                            theme.button.middle,
+                            theme.button.green,
+                            theme.modal.leftBtn,
+                        )}
+                        type="submit"
+                        disabled={!isValidForm}
+                        onClick={handleUpdateModel}
+                    >
+                        Update
+                    </button>
+                </div>
             </Modal>
         </>
     );

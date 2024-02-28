@@ -11,6 +11,7 @@ import { useEventListener } from 'Common/hooks/useEventListener';
 import { rootStore } from '../../stores';
 import { Header } from '../Header';
 // import { Footer } from '../Footer';
+import { Loader as InitialLoader } from '../../../common/components/Loader';
 import { LoaderOverlay } from '../LoaderOverlay';
 // import { LimitsExceed } from '../LimitsExceed';
 import { EnabledProtectionScreen } from '../EnabledProtectionScreen';
@@ -83,6 +84,7 @@ export const PopupApp = observer(() => {
                     <div className={styles.popup} key={CONTENT_KEYS.LOADER}>
                         {popupDataReady}
                         <Icons />
+                        <InitialLoader />
                     </div>
                 );
             }

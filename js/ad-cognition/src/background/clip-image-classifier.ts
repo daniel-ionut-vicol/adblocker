@@ -35,8 +35,9 @@ export class ClipImageClassifier {
         }
     }
 
-    public static isAvailable() {
-        return ClipImageClassifier.isServerAccessible('http://192.168.69.207:5000')
+    public static async isAvailable() {
+        const response = await ClipImageClassifier.isServerAccessible('http://192.168.69.207:5000')
+        return response;
     }
 
     public static async analyzeImage(src: string): Promise<number | null> {

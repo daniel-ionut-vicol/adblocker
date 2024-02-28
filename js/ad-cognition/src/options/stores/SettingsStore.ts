@@ -204,24 +204,26 @@ export class SettingsStore {
     @action
     setSetting = async (settingName: SETTINGS_NAMES, value: any) => {
         try {
-            await sender.setSetting({ [settingName]: value });
+            const response: any = await sender.setSetting({ [settingName]: value });
+            if (response.type === 'success')
+                runInAction(() => {
+                    this.settings[settingName as keyof OPTION_SETTINGS] = value;
+                });
+            return response;
         } catch (e) {
             log.error(e);
             return;
         }
-
-        runInAction(() => {
-            this.settings[settingName as keyof OPTION_SETTINGS] = value;
-        });
     };
 
     @action
-    updateModel = async (url: any) => {
+    updateModel = async (url: string) => {
         try {
-            await sender.updateModel(url);
+            const response = await sender.updateModel(url);
+            return response;
         } catch (e) {
             log.error(e);
-            return;
+            return e;
         }
     };
 

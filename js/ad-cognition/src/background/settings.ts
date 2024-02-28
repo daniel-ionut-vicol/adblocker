@@ -14,6 +14,8 @@ import { CUSTOM_FILTERS_RULES_STORAGE_KEY, FILTERS_INFO_STORAGE_KEY } from 'Comm
 import { storage } from './storage';
 import { notifier } from './notifier';
 import Obsolete from './obsoleted';
+import { ImageClassifier } from './imageclassifier';
+import { ClipImageClassifier } from './clip-image-classifier';
 
 // TODO: Move the migration to a separate module. This is not currently needed
 // since the current application is a prototype and there are several modules,
@@ -33,6 +35,19 @@ class Settings {
         // The settings in the storage may be of an older version,
         // so the type is 'unknown'
         const storedSettings = await storage.get<unknown>(this.SETTINGS_STORAGE_KEY);
+
+        ImageClassifier.isAvailable().then(response => {
+            if (response) {
+                ImageClassifier.loadModel();
+                settings.setCnn(true);
+            }
+        });
+
+        ClipImageClassifier.isAvailable().then(response => {
+            if (response) {
+                settings.setClip(true);
+            }
+        });
 
         if (!storedSettings) {
             log.debug('Settings not found, using default');

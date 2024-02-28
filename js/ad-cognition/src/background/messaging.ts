@@ -15,7 +15,7 @@ import { tabUtils } from 'Common/tab-utils';
 import FiltersUtils from 'Common/utils/filters';
 // AI functionality
 // eslint-disable-next-line import/order
-import { SettingsType } from 'Common/constants/settings-constants';
+import { SETTINGS_NAMES, SettingsType } from 'Common/constants/settings-constants';
 import { ImageClassifier } from './imageclassifier';
 import { ClipImageClassifier } from './clip-image-classifier';
 // ----------------
@@ -71,9 +71,26 @@ export const extensionMessageHandler = async (
         }
         case MESSAGE_TYPES.SET_SETTING: {
             const { update } = data;
+            if (update[SETTINGS_NAMES.CNN_PROTECTION_ENABLED] === true) {
+                const isCnnAvailable = await ImageClassifier.isAvailable();
+                if (isCnnAvailable) {
+                    await settings.setSetting(update);
+                    return {type: 'success'}
+                } else {
+                    return {type: 'error', message: 'The CNN model is unavailable at the moment'}
+                }
+            }  
+            if (update[SETTINGS_NAMES.CLIP_PROTECTION_ENABLED] === true) {
+                const isClipAvailable = await ClipImageClassifier.isAvailable();
+                if (isClipAvailable) {
+                    await settings.setSetting(update);
+                    return {type: 'success'}
+                } else {
+                    return {type: 'error', message: 'The Clip server is unavailable at the moment'}
+                }
+            }  
             await settings.setSetting(update);
-            log.debug('UPDATED SETTINGS ON BACKGROUND', settings.getSettings());
-            break;
+            return { type: 'success' }
         }
         case MESSAGE_TYPES.REPORT_SITE: {
             const { url } = await tabUtils.getActiveTab();
@@ -140,8 +157,8 @@ export const extensionMessageHandler = async (
         }
         case MESSAGE_TYPES.GET_PROTECTION_DATA: {
             const protectionData: SettingsType = settings.getSettings();
-            const isCnnAvailable = ImageClassifier.isAvailable();
-            const isClipAvailable = ClipImageClassifier.isAvailable();
+            const isCnnAvailable = await ImageClassifier.isAvailable();
+            const isClipAvailable = await ClipImageClassifier.isAvailable();
             return { protectionData, isCnnAvailable, isClipAvailable };
         }
         case MESSAGE_TYPES.TOGGLE_CNN: {
@@ -285,7 +302,8 @@ export const extensionMessageHandler = async (
             return result;
         }
         case MESSAGE_TYPES.UPDATE_MODEL: {
-            await ImageClassifier.updateModel(data.url);
+            const response = await ImageClassifier.updateModel(data.url);
+            return response;
         }
         default: {
             throw new Error(`No message handler for type: ${type}`);

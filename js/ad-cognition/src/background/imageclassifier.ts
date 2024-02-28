@@ -12,55 +12,64 @@ export class ImageClassifier {
 
     static FIVE_SECONDS_IN_MS = 5000;
 
-    pathToModel = '';
-
     static model: any;
 
-    constructor(pathToModel: string) {
-        this.pathToModel = pathToModel;
-        this.loadModel();
+    public static async isAvailable() {
+        if (ImageClassifier.model != undefined) {
+            return true;
+        }
+        const response = await ImageClassifier.isServerAccessible('http://192.168.69.207:5500/model.json');
+        return response;
     }
 
-    public static isAvailable() {
-        return ImageClassifier.model != undefined;
+    static async isServerAccessible(url: string) {
+        try {
+            await fetch(url, { method: 'HEAD' });
+            return true;
+        } catch (error) {
+            return false;
+        }
     }
 
+    // TODO: Return error objects not custom objects
     static async updateModel(pathToModel: string) {
         try {
             if (ImageClassifier.model) {
                 await ImageClassifier.model.save('indexeddb://cnn-model-bak');
             }
 
-                ImageClassifier.model = await tf.loadLayersModel(pathToModel);
+            ImageClassifier.model = await tf.loadLayersModel(pathToModel);
 
-                if (!ImageClassifier.model) {
-                    throw new Error('Failed to update the model from the server');
-                }
+            if (!ImageClassifier.model) {
+                throw new Error('Failed to update the model from the server');
+            }
 
-                await ImageClassifier.model.save('indexeddb://cnn-model');
-                    log.debug('Model successfully updated');
-
+            await ImageClassifier.model.save('indexeddb://cnn-model');
+            log.debug('Model successfully updated');
+            return {type: 'success', message: 'Model successfully updated'}
         } catch (e) {
             try {
                 ImageClassifier.model = await tf.loadLayersModel('indexeddb://cnn-model-bak');
-                    log.debug('Couldn\'t update the model. Backup loaded from IndexedDB');
+                log.debug('Couldn\'t update the model. Backup loaded from IndexedDB');
+                return {type: 'error', message: 'Couldn\'t update the model. Backup loaded'}
             } catch (e) {
                 log.error('Unable to load model from the server or backup', e);
+                return {type: 'error', message: 'Unable to load model from the server or backup'}
             }
         }
     }
 
-    async loadModel() {
+    public static async loadModel() {
         try {
             ImageClassifier.model = await tf.loadLayersModel('indexeddb://cnn-model');
-                log.debug('Model loaded from IndexedDB');
+            log.debug('Model loaded from IndexedDB');
         } catch (e) {
             log.debug('Model not found in IndexedDB, loading from server');
         }
 
         if (!ImageClassifier.model) {
             try {
-                ImageClassifier.model = await tf.loadLayersModel(this.pathToModel);
+                ImageClassifier.model = await tf.loadLayersModel('http://192.168.69.207:5500/model.json');
                 await ImageClassifier.model.save('indexeddb://cnn-model');
                 log.debug('Model loaded from server and saved to IndexedDB');
             } catch (e) {
@@ -159,5 +168,3 @@ export class ImageClassifier {
         return { url, prediction: prediction.dataSync()[0] };
     }
 }
-
-export const imageClassifier = new ImageClassifier('http://192.168.69.207:5500/model.json');
