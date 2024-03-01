@@ -33,40 +33,48 @@ export class ImageCollector {
         if (typeof prediction === 'number') {
             return `CNN: ${Math.floor(Math.abs(prediction - 1) * 100)}% AD\n`;
         } else {
-            return `CLIP: ${(prediction[0]*100).toFixed(1)}% AD, ${(prediction[1]*100).toFixed(1)}% NON AD\n`;
+            return `CLIP: ${(prediction[0] * 100).toFixed(1)}% AD, ${(prediction[1] * 100).toFixed(1)}% NON AD\n`;
         }
     }
 
     public send() {
+        // Function to handle each image
+        const handleImage = (image: HTMLImageElement) => {
+            const source = image.getAttribute('src') || image.getAttribute('data-src');
+            if (source && image.complete) {
+                this.analyzeImage(source);
+            } else {
+                image.addEventListener('load', () => {
+                    if (source) this.analyzeImage(source);
+                });
+            }
+        };
 
-      const loadNextImage = (index: number) => {
-        if (index >= this.images.length) {
-          // All images have been loaded
-          return;
+        // Create a new IntersectionObserver
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                // If the element is in the viewport
+                if (entry.isIntersecting) {
+                    handleImage(entry.target as HTMLImageElement);
+                    observer.unobserve(entry.target);
+                }
+            });
+        });
+
+        // Observe all images on the page
+        const images = Array.from(document.getElementsByTagName('img'));
+        images.forEach(image => observer.observe(image));
+
+        // Handle images inside iframes
+        const iframes = document.getElementsByTagName('iframe');
+        for (let i = 0; i < iframes.length; i++) {
+            try {
+                const iframeImages = iframes[i]?.contentDocument?.getElementsByTagName('img');
+                Array.from(iframeImages!).forEach(image => observer.observe(image));
+            } catch (error) {
+                console.log('Could not access iframe content:', error);
+            }
         }
-
-        const image = this.images[index];
-        if (image !== null) {
-          const source = image.getAttribute('src') || image.getAttribute('data-src');
-
-          // Check if the image has the 'loading' attribute set to 'lazy'
-          const isLazyLoading = image.getAttribute('loading') === 'lazy';
-
-        if (source && (image.complete || isLazyLoading)) {
-          this.analyzeImage(source);
-          loadNextImage(index + 1); // Load the next image
-        } else {
-          image.addEventListener('load', () => {
-            if (source) this.analyzeImage(source);
-            loadNextImage(index + 1); // Load the next image
-          });
-        }
-        } else {
-          loadNextImage(index + 1); // Load the next image
-        }
-      };
-
-      loadNextImage(0); // Start loading the first image
     }
 
     isAd(prediction: Prediction) {
@@ -80,14 +88,14 @@ export class ImageCollector {
     }
 
     public removeImage(prediction: Prediction, url: string) {
-      const imgNode = this.getImageBySrc(url);
-      if (imgNode && this.isAd(prediction)) {
-        const parentElement = imgNode.parentElement;
+        const imgNode = this.getImageBySrc(url);
+        if (imgNode && this.isAd(prediction)) {
+            const parentElement = imgNode.parentElement;
 
-        if (parentElement && parentElement.children.length === 1) {
-          parentElement.remove(); // Remove the parent element
+            if (parentElement && parentElement.children.length === 1) {
+                parentElement.remove(); // Remove the parent element
+            }
         }
-      }
     }
 
     static getImagesElements() {
@@ -107,14 +115,14 @@ export class ImageCollector {
             return;
         }
 
-        const overlayCreated = document.querySelector('.debugOverlay'+url.replace(/[^a-zA-Z0-9_-]/g, ''));
-        const containerCreated = document.querySelector('.debugContainer'+url.replace(/[^a-zA-Z0-9_-]/g, ''));
-        const adTextCreated: HTMLDivElement | null = document.querySelector('.adText'+url.replace(/[^a-zA-Z0-9_-]/g, ''));
+        const overlayCreated = document.querySelector('.debugOverlay' + url.replace(/[^a-zA-Z0-9_-]/g, ''));
+        const containerCreated = document.querySelector('.debugContainer' + url.replace(/[^a-zA-Z0-9_-]/g, ''));
+        const adTextCreated: HTMLDivElement | null = document.querySelector('.adText' + url.replace(/[^a-zA-Z0-9_-]/g, ''));
 
         // Create a div element to wrap the img and overlay
         const container = document.createElement('div');
         if (!containerCreated) {
-            container.className = 'debugContainer'+url.replace(/[^a-zA-Z0-9_-]/g, '');
+            container.className = 'debugContainer' + url.replace(/[^a-zA-Z0-9_-]/g, '');
             Object.assign(container.style, {
                 position: 'relative',
                 display: 'inline-block',
@@ -124,7 +132,7 @@ export class ImageCollector {
         // Create an overlay div for the white square background
         const overlay = document.createElement('div');
         if (!overlayCreated) {
-            overlay.className = 'debugOverlay'+url.replace(/[^a-zA-Z0-9_-]/g, '');
+            overlay.className = 'debugOverlay' + url.replace(/[^a-zA-Z0-9_-]/g, '');
             Object.assign(overlay.style, {
                 position: 'absolute',
                 top: '0',
@@ -138,7 +146,7 @@ export class ImageCollector {
 
         const adText = document.createElement('div');
         if (!adTextCreated) {
-            adText.className = 'adText'+url.replace(/[^a-zA-Z0-9_-]/g, '');
+            adText.className = 'adText' + url.replace(/[^a-zA-Z0-9_-]/g, '');
             Object.assign(adText.style, {
                 position: 'absolute',
                 fontSize: '16px',
