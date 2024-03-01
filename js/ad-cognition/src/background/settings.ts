@@ -36,9 +36,9 @@ class Settings {
         // so the type is 'unknown'
         const storedSettings = await storage.get<unknown>(this.SETTINGS_STORAGE_KEY);
 
-        ImageClassifier.isAvailable().then(response => {
+        ImageClassifier.isAvailable().then(async response => {
             if (response) {
-                ImageClassifier.loadModel();
+                await ImageClassifier.loadModel();
                 settings.setCnn(true);
             }
         });

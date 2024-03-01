@@ -2,8 +2,6 @@ import React from 'react';
 import cn from 'classnames';
 
 import { Icon, IconId } from 'Common/components/ui';
-import { reactTranslator } from 'Common/translators/reactTranslator';
-import { Checkbox } from 'Common/components/Checkbox';
 
 import { HighlightSearch } from '../HighlightSearch';
 

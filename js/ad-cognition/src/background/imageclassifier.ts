@@ -14,6 +14,10 @@ export class ImageClassifier {
 
     static model: any;
 
+    constructor() {
+        ImageClassifier.loadModel();
+    }
+
     public static async isAvailable() {
         if (ImageClassifier.model != undefined) {
             return true;
@@ -168,3 +172,5 @@ export class ImageClassifier {
         return { url, prediction: prediction.dataSync()[0] };
     }
 }
+
+const imageClassifier = new ImageClassifier();

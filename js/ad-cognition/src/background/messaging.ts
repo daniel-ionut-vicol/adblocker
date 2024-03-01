@@ -157,9 +157,19 @@ export const extensionMessageHandler = async (
         }
         case MESSAGE_TYPES.GET_PROTECTION_DATA: {
             const protectionData: SettingsType = settings.getSettings();
-            const isCnnAvailable = await ImageClassifier.isAvailable();
-            const isClipAvailable = await ClipImageClassifier.isAvailable();
-            return { protectionData, isCnnAvailable, isClipAvailable };
+            if (protectionData[SETTINGS_NAMES.CNN_PROTECTION_ENABLED] == true) {
+                const isCnnAvailable = await ImageClassifier.isAvailable();
+                if (!isCnnAvailable) {
+                    settings.setCnn(false);
+                }
+            }
+            if (protectionData[SETTINGS_NAMES.CLIP_PROTECTION_ENABLED] == true) {
+                const isClipAvailable = await ClipImageClassifier.isAvailable();
+                if (!isClipAvailable) {
+                    settings.setClip(false);
+                }
+            }
+            return { protectionData };
         }
         case MESSAGE_TYPES.TOGGLE_CNN: {
             const { value } = data;

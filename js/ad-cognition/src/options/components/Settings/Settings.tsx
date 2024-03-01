@@ -150,7 +150,6 @@ export const Settings = observer(() => {
     };
 
     const onAiSettingChange = async (setting: AISetting) => {
-        log.debug('TRYING TO CHANGE THE SETTING', setting);
         uiStore.setLoader(true);
         const response: any = await setSetting(setting.settingName, !settings[setting.settingName as keyof OPTION_SETTINGS]);
         uiStore.setLoader(false);
@@ -266,6 +265,7 @@ export const Settings = observer(() => {
                     message="Update CNN model"
                     messageDesc="Fetch a new model, update the CNN modal manually from a link."
                     onClick={handleUpdateCNN}
+                    onChange={() => {}}
                 />
             </Section>
             <Modal isOpen={isOpen} handleClose={handleCloseModal} >
