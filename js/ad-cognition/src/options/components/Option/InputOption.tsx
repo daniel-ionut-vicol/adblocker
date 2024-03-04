@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import cn from 'classnames';
 
 import { Icon, IconId } from 'Common/components/ui';
@@ -6,6 +6,7 @@ import { Icon, IconId } from 'Common/components/ui';
 import { HighlightSearch } from '../HighlightSearch';
 
 import styles from './Option.module.pcss';
+import { theme } from 'Common/styles';
 
 interface ChangeHandler {
     (e: React.ChangeEvent<HTMLInputElement>): void;
@@ -23,9 +24,10 @@ interface IProps {
     containerClass?: string,
     integrated?: boolean,
     title?: string,
+    value?: string
 }
 
-export const Option = ({
+export const InputOption = ({
     id,
     iconId,
     messageDesc,
@@ -37,7 +39,18 @@ export const Option = ({
     containerClass = '',
     integrated = false,
     title = '',
+    value = ''
 }: IProps) => {
+    const [isValidForm, setIsValidForm] = useState(false);
+    const handleValueChange = (v: string) => {
+        value = v;
+        if (value.length > 0) {
+            setIsValidForm(true);
+        } else {
+            setIsValidForm(false);
+        }
+    }
+
     const content = () => {
         return (
             <>
@@ -56,6 +69,25 @@ export const Option = ({
                         </div>
                     )}
                 </div>
+                <input
+                    className={theme.modal.modalInput}
+                    type="text"
+                    value={value}
+                    onChange={e => handleValueChange(e.target.value)}
+                    placeholder='Confidence %'
+                />
+                <button
+                    className={cn(
+                        theme.button.middle,
+                        theme.button.green,
+                        theme.modal.leftBtn,
+                    )}
+                    type="submit"
+                    disabled={!isValidForm}
+                    onClick={onClick}
+                >
+                    Update
+                </button>
             </>
         );
     };
@@ -68,13 +100,7 @@ export const Option = ({
             key={id}
             title={title}
         >
-                <button
-                    className={styles.button}
-                    type="button"
-                    onClick={onClick}
-                >
-                    {content()}
-                </button>
+            {content()}
         </label>
     );
 };

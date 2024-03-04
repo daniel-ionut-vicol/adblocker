@@ -1,7 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { observer } from 'mobx-react';
 
-import cn from 'classnames';
 import { theme } from 'Common/styles';
 import { translator } from 'Common/translators/translator';
 import { FilterInfo, FiltersGroupId } from 'Common/constants/common';
@@ -15,11 +14,11 @@ import { useNotifyStaticFiltersLimitError } from '../../hooks/useNotifyStaticFil
 import { rootStore } from '../../stores';
 import { SwitcherOption } from '../SwitcherOption';
 import { Option } from '../Option/Option';
-import { Modal } from '../../../common/components/Modal/Modal';
 import { NavOption, NavOptionProps } from '../NavOption';
 import { StaticRulelistsLimitation } from '../StaticRulelistsLimitation';
 
 import styles from './Settings.module.pcss';
+import ModelComp from '../ModalComp/ModelComp';
 
 // constant declared outside the component to prevent unnecessary work on re-renders
 export const FILTERS_TRANSLATIONS = {
@@ -154,7 +153,7 @@ export const Settings = observer(() => {
         const response: any = await setSetting(setting.settingName, !settings[setting.settingName as keyof OPTION_SETTINGS]);
         uiStore.setLoader(false);
         if (response && response.type === 'error') {
-           uiStore.addNotification(response.message, IconId.RED_WARNING);
+            uiStore.addNotification(response.message, IconId.RED_WARNING);
         }
     };
 
@@ -213,9 +212,9 @@ export const Settings = observer(() => {
         setIsValidForm(false);
         log.debug("Response here", response)
         if (response.type === 'error') {
-            uiStore.addNotification(response.message, IconId.RED_WARNING)    
+            uiStore.addNotification(response.message, IconId.RED_WARNING)
         } else {
-            uiStore.addNotification(response.message)    
+            uiStore.addNotification(response.message)
         }
     }
 
@@ -265,42 +264,26 @@ export const Settings = observer(() => {
                     message="Update CNN model"
                     messageDesc="Fetch a new model, update the CNN modal manually from a link."
                     onClick={handleUpdateCNN}
-                    onChange={() => {}}
+                    onChange={() => { }}
                 />
+                <NavOption iconId={IconId.CUSTOM_FILTERS} to="/aisettings" id="1231888" message="Other settings" messageDesc='Server links, prediction tresholds' />
             </Section>
-            <Modal isOpen={isOpen} handleClose={handleCloseModal} >
-                <div className={theme.modal.container}>
-                    <div className={theme.modal.header}>
-                        <h1 className={theme.modal.title}>Update CNN Model</h1>
-                    </div>
-                    <div className={theme.modal.itemWrapper}>
-                        <input
-                            className={theme.modal.modalInput}
-                            type="text"
-                            value={updateUrl}
-                            onChange={e => handleUrlChange(e.target.value)}
-                            placeholder='http://example.com/model.json'
-                        />
-                    </div>
-                </div>
-                <div className={theme.modal.description}>
-                    Input the link to the model.json file.
-                </div>
-                <div className={theme.modal.footer}>
-                    <button
-                        className={cn(
-                            theme.button.middle,
-                            theme.button.green,
-                            theme.modal.leftBtn,
-                        )}
-                        type="submit"
-                        disabled={!isValidForm}
-                        onClick={handleUpdateModel}
-                    >
-                        Update
-                    </button>
-                </div>
-            </Modal>
+            <ModelComp
+                title='Update Cnn Model'
+                submitMessage='Update'
+                description='Input the link to the model.json file.'
+                isOpen={isOpen}
+                isValid={isValidForm}
+                onSubmit={handleUpdateModel}
+                onClose={handleCloseModal}>
+                <input
+                    className={theme.modal.modalInput}
+                    type="text"
+                    value={updateUrl}
+                    onChange={e => handleUrlChange(e.target.value)}
+                    placeholder='http://example.com/model.json'
+                />
+            </ModelComp>
         </>
     );
 });

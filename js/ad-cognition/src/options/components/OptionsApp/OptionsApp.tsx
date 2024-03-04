@@ -20,6 +20,7 @@ import { useEventListener } from 'Common/hooks/useEventListener';
 import { useNotifyDynamicRulesLimitsError } from '../../hooks/useNotifyDynamicRulesLimitError';
 
 import styles from './options-app.module.pcss';
+import { AISettings } from '../AISettings/AISettings';
 
 export const OptionsApp = observer(() => {
     const store = useContext(rootStore);
@@ -64,6 +65,7 @@ export const OptionsApp = observer(() => {
                             <Route path="/userrules" component={UserRules} />
                             <Route path="/customfilters" component={CustomFilters} />
                             <Route path="/languages" component={Languages} />
+                            <Route path="/aisettings" component={AISettings} />
                             <Route />
                         </Switch>
                         <Notifications />

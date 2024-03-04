@@ -6,7 +6,7 @@ import { Icon, IconId } from 'Common/components/ui';
 import style from './Category.module.pcss';
 
 interface CategoryProps {
-    children: ReactElement,
+    children: ReactElement[] | ReactElement,
     navLink: string;
     headerName: string;
     headerDesc?: string;

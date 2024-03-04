@@ -1,0 +1,42 @@
+.optionItem {
+    display: flex;
+    padding: 13px;
+    width: calc(100% + 26px);
+    transform: translateX(-13px);
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 8px;
+    transition: 0.3s ease background-color;
+    user-select: none;
+
+    &.disabled {
+        cursor: default;
+
+        &:hover {
+            background-color: transparent;
+        }
+    }
+}
+
+.icon {
+    margin-right: 16px;
+}
+
+.button {
+    text-align: left;
+    display: flex;
+    align-items: center;
+    padding: 0;
+}
+
+.optionLabel {
+    font-size: 1rem;
+    color: var(--white);
+    flex-grow: 1;
+    transition: 0.1s ease color;
+}
+
+.optionLabelDesc {
+    font-size: 0.87rem;
+    color: var(--gray700);
+}
