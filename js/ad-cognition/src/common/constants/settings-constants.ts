@@ -7,6 +7,10 @@ export enum SETTINGS_NAMES {
     PROTECTION_ENABLED = 'protection.enabled',
     CNN_PROTECTION_ENABLED = 'protection.cnn.enabled',
     CLIP_PROTECTION_ENABLED = 'protection.clip.enabled',
+    CNN_PROTECTION_TRESHOLD = 'protection.cnn.treshold',
+    CLIP_PROTECTION_TRESHOLD = 'protection.clip.treshold',
+    CNN_PROTECTION_SERVER = 'protection.cnn.server',
+    CLIP_PROTECTION_SERVER = 'protection.clip.server',
     DEBUG_ENABLED = 'debug.enabled',
 
     POPUP_V3_WIZARD_ENABLED = 'popup.v3.wizard.enabled',
@@ -24,6 +28,10 @@ export const DEFAULT_SETTINGS = {
     [SETTINGS_NAMES.CNN_PROTECTION_ENABLED]: false,
     [SETTINGS_NAMES.CLIP_PROTECTION_ENABLED]: false,
     [SETTINGS_NAMES.DEBUG_ENABLED]: false,
+    [SETTINGS_NAMES.CNN_PROTECTION_TRESHOLD]: 0.2,
+    [SETTINGS_NAMES.CLIP_PROTECTION_TRESHOLD]: 0.2,
+    [SETTINGS_NAMES.CNN_PROTECTION_SERVER]: 'http://192.168.69.207:5500/v8/model.json',
+    [SETTINGS_NAMES.CLIP_PROTECTION_SERVER]: 'http://192.168.69.207:5000',
     [SETTINGS_NAMES.PROTECTION_PAUSE_EXPIRES]: 0,
 
     [SETTINGS_NAMES.POPUP_V3_WIZARD_ENABLED]: true,

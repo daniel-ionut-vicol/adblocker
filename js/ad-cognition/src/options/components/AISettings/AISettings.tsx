@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Category } from '../Category';
 import { Option } from '../Option/Option';
 import { IconId } from 'Common/constants/icons';
@@ -6,28 +6,38 @@ import styles from '../Settings/Settings.module.pcss';
 
 import ModalComp from '../ModalComp/ModelComp';
 import { theme } from 'Common/styles';
+import { rootStore } from 'Options/stores';
+import { OPTION_SETTINGS, SETTINGS_NAMES } from 'Common/constants/settings-constants';
+
+type SettingType = "tCNN" | "tCLIP" | "sCNN" | "sCLIP";
+
+type AI_SETTINGS = {
+    tCNN: number,
+    tCLIP: number,
+    sCNN: string,
+    sCLIP: string
+}
 
 export const AISettings = () => {
+    const { settingsStore, uiStore } = useContext(rootStore);
+
     const [modalOpen, setModalOpen] = useState(
         {
-            tresholdCNN: false,
-            tresholdCLIP: false,
-            serverCNN: false,
-            serverCLIP: false,
+            tCNN: false,
+            tCLIP: false,
+            sCNN: false,
+            sCLIP: false,
         }
     );
 
-    const [aiSettings, setAiSettings] = useState(
+    const [aiSettings, setAiSettings] = useState<AI_SETTINGS>(
         {
-            tresholdCNN: "",
-            tresholdCLIP: "",
-            serverCNN: "",
-            serverCLIP: "",
+            tCNN: settingsStore.settings[SETTINGS_NAMES.CNN_PROTECTION_TRESHOLD as keyof OPTION_SETTINGS],
+            tCLIP: settingsStore.settings[SETTINGS_NAMES.CLIP_PROTECTION_TRESHOLD as keyof OPTION_SETTINGS],
+            sCNN: settingsStore.settings[SETTINGS_NAMES.CNN_PROTECTION_SERVER as keyof OPTION_SETTINGS],
+            sCLIP: settingsStore.settings[SETTINGS_NAMES.CLIP_PROTECTION_SERVER as keyof OPTION_SETTINGS]
         }
     )
-
-    type SettingType = "tCNN" | "tCLIP" | "sCNN" | "sCLIP";
-
     const handleSettingChange = (type: SettingType) => {
         switch (type) {
             case "tCNN":
@@ -41,9 +51,6 @@ export const AISettings = () => {
                 break;
             case "sCLIP":
 
-                break;
-
-            default:
                 break;
         }
     };
@@ -59,96 +66,96 @@ export const AISettings = () => {
                 iconId={IconId.CUSTOM_FILTERS}
                 id="13"
                 className={styles.optionLabel}
-                message="CNN Treshold"
+                message="CNN treshold"
                 messageDesc="Confidence of the CNN"
-                onClick={() => setModalOpen(prevState => ({ ...prevState, tresholdCNN: true }))}
-                onChange={() => { }} />
+                onClick={() => setModalOpen(prevState => ({ ...prevState, tCNN: true }))}
+            />
             <Option
                 key={14}
                 iconId={IconId.CUSTOM_FILTERS}
                 id="14"
                 className={styles.optionLabel}
-                message="CLIP Treshold"
+                message="CLIP treshold"
                 messageDesc="Confidence of the CLIP"
-                onClick={() => setModalOpen(prevState => ({ ...prevState, tresholdCLIP: true }))}
-                onChange={() => { }} />
+                onClick={() => setModalOpen(prevState => ({ ...prevState, tCLIP: true }))}
+            />
             <Option
                 key={15}
                 iconId={IconId.CUSTOM_FILTERS}
                 id="15"
                 className={styles.optionLabel}
-                message="CNN Server"
+                message="CNN server"
                 messageDesc="The URL for the CNN server"
-                onClick={() => setModalOpen(prevState => ({ ...prevState, serverCNN: true }))}
-                onChange={() => { }} />
+                onClick={() => setModalOpen(prevState => ({ ...prevState, sCNN: true }))}
+            />
             <Option
                 key={16}
                 iconId={IconId.CUSTOM_FILTERS}
                 id="16"
                 className={styles.optionLabel}
-                message="CLIP Server"
+                message="CLIP server"
                 messageDesc="The URL for the CLIP server"
-                onClick={() => setModalOpen(prevState => ({ ...prevState, serverCLIP: true }))}
-                onChange={() => { }} />
+                onClick={() => setModalOpen(prevState => ({ ...prevState, sCLIP: true }))}
+            />
 
             <ModalComp
-                onClose={() => setModalOpen(prevState => ({ ...prevState, tresholdCNN: false }))}
+                onClose={() => setModalOpen(prevState => ({ ...prevState, tCNN: false }))}
                 submitMessage='Submit'
                 isValid={true}
                 onSubmit={() => handleSettingChange("tCNN")}
-                title='CNN Treshold'
-                isOpen={modalOpen.tresholdCNN}>
+                title='CNN treshold'
+                isOpen={modalOpen.tCNN}>
                 <input
                     className={theme.modal.modalInput}
                     type="text"
-                    value={aiSettings.tresholdCNN}
-                    onChange={e => setAiSettings(prevState => ({ ...prevState, tresholdCNN: e.target.value }))}
-                    placeholder='http://example.com/model.json'
+                    value={aiSettings.tCNN}
+                    onChange={e => setAiSettings(prevState => ({ ...prevState, tCNN: e.target.value }))}
+                    placeholder='Confidence percentage'
                 />
             </ModalComp>
             <ModalComp
-                onClose={() => setModalOpen(prevState => ({ ...prevState, tresholdCLIP: false }))}
+                onClose={() => setModalOpen(prevState => ({ ...prevState, tCLIP: false }))}
                 submitMessage='Submit'
                 isValid={true}
                 onSubmit={() => handleSettingChange("tCLIP")}
-                title='CLIP Treshold'
-                isOpen={modalOpen.tresholdCLIP}>
+                title='CLIP treshold'
+                isOpen={modalOpen.tCLIP}>
                 <input
                     className={theme.modal.modalInput}
                     type="text"
-                    value={aiSettings.tresholdCLIP}
-                    onChange={e => setAiSettings(prevState => ({ ...prevState, tresholdCLIP: e.target.value }))}
-                    placeholder='http://example.com/model.json'
+                    value={aiSettings.tCLIP}
+                    onChange={e => setAiSettings(prevState => ({ ...prevState, tCLIP: e.target.value }))}
+                    placeholder='Confidence percentage'
                 />
             </ModalComp>
             <ModalComp
-                onClose={() => setModalOpen(prevState => ({ ...prevState, serverCNN: false }))}
+                onClose={() => setModalOpen(prevState => ({ ...prevState, sCNN: false }))}
                 submitMessage='Submit'
                 isValid={true}
                 onSubmit={() => handleSettingChange("sCNN")}
-                title='CNN Server'
-                isOpen={modalOpen.serverCNN}>
+                title='CNN server'
+                isOpen={modalOpen.sCNN}>
                 <input
                     className={theme.modal.modalInput}
                     type="text"
-                    value={aiSettings.serverCNN}
-                    onChange={e => setAiSettings(prevState => ({ ...prevState, serverCNN: e.target.value }))}
-                    placeholder='http://example.com/model.json'
+                    value={aiSettings.sCNN}
+                    onChange={e => setAiSettings(prevState => ({ ...prevState, sCNN: e.target.value }))}
+                    placeholder='Link to the model.json'
                 />
             </ModalComp>
             <ModalComp
-                onClose={() => setModalOpen(prevState => ({ ...prevState, serverCLIP: false }))}
+                onClose={() => setModalOpen(prevState => ({ ...prevState, sCLIP: false }))}
                 submitMessage='Submit'
                 isValid={true}
                 onSubmit={() => handleSettingChange("sCLIP")}
-                title='CLIP Server'
-                isOpen={modalOpen.serverCLIP}>
+                title='CLIP server'
+                isOpen={modalOpen.sCLIP}>
                 <input
                     className={theme.modal.modalInput}
                     type="text"
-                    value={aiSettings.serverCLIP}
-                    onChange={e => setAiSettings(prevState => ({ ...prevState, serverCLIP: e.target.value }))}
-                    placeholder='http://example.com/model.json'
+                    value={aiSettings.sCLIP}
+                    onChange={e => setAiSettings(prevState => ({ ...prevState, sCLIP: e.target.value }))}
+                    placeholder='Link to the CLIP server'
                 />
             </ModalComp>
 
