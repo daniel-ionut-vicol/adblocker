@@ -1,19 +1,19 @@
 import os
 import sys
 import pickle
-sys.path.append("..")
-sys.path.append(os.getcwd())
-
+import json
 import datetime
 import tensorflow as tf
-from sklearn.model_selection import train_test_split
 import pandas as pd
+from sklearn.model_selection import train_test_split
 # -----------
+sys.path.append("..")
+sys.path.append(os.getcwd())
 from models.resnet50 import resNet50
 from helpers.eval import eval
 from helpers.utils import collect_image_paths
-from generators.resnet50_generator import custom_generator
-from helpers.callbacks import checkpoint_callback, early_stopping, tensorboard_callback
+from generators.ultimate_generator import Generator 
+from helpers.callbacks import checkpoint_callback, csv_logger_callback, early_stopping, tensorboard_callback
 import config
 
 # GPU setup configuration 
@@ -38,10 +38,10 @@ labels = ad_labels + nonad_labels
 train_paths, test_paths, train_labels, test_labels = train_test_split(file_paths, labels, test_size=0.2, random_state=42)
 train_paths, val_paths, train_labels, val_labels = train_test_split(train_paths, train_labels, test_size=0.25, random_state=42)  # 0.25 x 0.8 = 0.2
 
-train_generator = custom_generator(train_paths, train_labels, config.BATCH_SIZE, (config.IMAGE_SIZE, config.IMAGE_SIZE))
-val_generator = custom_generator(val_paths, val_labels, config.BATCH_SIZE, (config.IMAGE_SIZE, config.IMAGE_SIZE))
+train_generator = Generator(train_paths, train_labels, config.BATCH_SIZE)
+val_generator = Generator(val_paths, val_labels, config.BATCH_SIZE)
 # Assuming you have test_paths and test_labels
-test_generator = custom_generator(test_paths, test_labels, config.BATCH_SIZE, (config.IMAGE_SIZE, config.IMAGE_SIZE))
+test_generator = Generator(test_paths, test_labels, config.BATCH_SIZE)
 
 train_steps = len(train_paths) // config.BATCH_SIZE
 val_steps = len(val_paths) // config.BATCH_SIZE
@@ -59,8 +59,21 @@ with open(output_file, 'wb') as file:
     # Write the test_paths and test_labels to the file
     pickle.dump((test_paths, test_labels), file)
 
-# Print a confirmation message
-print(f'Test paths and labels saved to {output_file}')
+# Save the configuration data and dataset sizes to config.json
+config_data = {
+    'GPUS_NO': strategy.num_replicas_in_sync,
+    'IMAGE_SIZE': config.IMAGE_SIZE,
+    'BATCH_SIZE': config.BATCH_SIZE,
+    'EPOCHS': config.EPOCHS,
+    'PATIENCE': config.PATIENCE,
+    'AD_IMAGE_LIMIT': config.AD_IMAGE_LIMIT,
+    'NONAD_IMAGE_LIMIT': config.NONAD_IMAGE_LIMIT,
+    'Train Images': len(train_paths),
+    'Validation Images': len(val_paths),
+    'Test Images': len(test_paths),
+}
+with open(f'{os.environ["DATA"]}/cnn_training/models/{current_model_folder_name}/config.json', 'w') as f:
+    json.dump(config_data, f)
 
 # Fit the model
 history = model.fit(
@@ -73,6 +86,7 @@ history = model.fit(
     callbacks=[
         tensorboard_callback(current_model_folder_name),
         checkpoint_callback(current_model_folder_name),
+        csv_logger_callback(current_model_folder_name),
         early_stopping,
     ],
 )

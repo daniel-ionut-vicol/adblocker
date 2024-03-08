@@ -27,3 +27,5 @@
 /pyton/flask_backend/flaskapp
 pyton/flask_backend/clip_backend.log
 pyton/flask_backend/fileserver.log
+pyton/flask_backend/model_server
+*.log

@@ -6,7 +6,9 @@ import numpy as np
 
 # Custom generator
 def custom_generator(file_paths, labels, batch_size, target_size):
+    batch_size = int(batch_size)
     num_samples = len(file_paths)
+    target_size = (int(target_size[0]), int(target_size[1]))
     while True:
         for offset in range(0, num_samples, batch_size):
             batch_paths = file_paths[offset:offset + batch_size]

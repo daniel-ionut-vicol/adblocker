@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Control Panel MLServer</title>
+    <link href="styles.css" rel="stylesheet">
+</head>
+
+<body class="dark-theme">
+    <header>
+        <h1>MLServer Control Panel</h1>
+    </header>
+    <main>
+        <section>
+            <h2>Process Management</h2>
+            <button id="list_processes">List Processes</button>
+            <div id="processes"></div>
+        </section>
+        <section>
+            <h2>Useful links</h2>
+            <ul>
+                <li>
+                    <a href="http://192.168.69.207:8080" target="_blank">Models directory listing</a>
+                </li>
+                <li>
+                    <a href="http://192.168.69.207:5500" target="_blank">TFJS File Server</a>
+                </li>
+                <li>
+                    <a href="http://192.168.69.207:6006" target="_blank">Tensorboard</a>
+                </li>
+            </ul>
+        </section>
+        <section>
+            <h2>Training</h2>
+            <button id="start_training">Start Training</button>
+            <h3>Update Training Hyperparameters</h2>
+            <div id="params"></div>
+        </section>
+        <section>
+            <button id="get_logs">Get Logs</button>
+            <details>
+                <summary>Last Training Logs</summary>
+                <div id="logs"></div>
+            </details>
+        </section>
+        <section>
+            <h2>Testing</h2>
+            <div id="models"></div>
+        </section>
+        <section>
+            <button id="get_evaluation_logs">Get Logs</button>
+            <details>
+                <summary>Last Evaluation Logs</summary>
+                <div id="evaluation_logs"></div>
+            </details>
+        </section>
+    </main>
+    <script src="index.js"></script>
+</body>
+
+</html>

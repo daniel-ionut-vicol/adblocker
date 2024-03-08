@@ -1,0 +1,10 @@
+{
+    "IMAGE_SIZE": "224",
+    "AD_IMAGE_LIMIT": "all",
+    "NONAD_IMAGE_LIMIT": "all",
+    "BATCH_SIZE": "16",
+    "EPOCHS": "20",
+    "PATIENCE": "20",
+    "DATASET_PATH": "/mnt/data/mlserver/newdataset",
+    "VERBOSE_LEVEL": "1"
+}

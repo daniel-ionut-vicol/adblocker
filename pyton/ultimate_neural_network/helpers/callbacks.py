@@ -3,7 +3,7 @@ sys.path.append("..")
 
 import os
 import tensorflow as tf
-from tensorflow.keras.callbacks import ModelCheckpoint
+from tensorflow.keras.callbacks import ModelCheckpoint, CSVLogger
 import config
 
 # CALLBACKS -----------------------------------
@@ -35,3 +35,8 @@ early_stopping = tf.keras.callbacks.EarlyStopping(
 def tensorboard_callback(current_model_folder_name):
     return tf.keras.callbacks.TensorBoard(log_dir=f"{os.environ['DATA']}/cnn_training/models/{current_model_folder_name}/logs"
 )
+
+# Create a CSVLogger callback
+def csv_logger_callback(current_model_folder_name):
+    csv_logger = CSVLogger(f"{os.environ['DATA']}/cnn_training/models/{current_model_folder_name}/history.csv", append=True)
+    return csv_logger

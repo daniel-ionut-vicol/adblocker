@@ -5,7 +5,7 @@ app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
 
 # Replace 'your_folder_path' with the actual path to the folder you want to serve
-folder_path = 'v8'
+folder_path = 'model_server'
 
 @app.route('/<path:filename>')
 def serve_file(filename):

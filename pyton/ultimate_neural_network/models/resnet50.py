@@ -1,9 +1,14 @@
+import os
+import sys
 from tensorflow.keras.applications.resnet50 import ResNet50
 from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Dense, GlobalAveragePooling2D
 from tensorflow.keras.optimizers import Adam
+from tensorflow.keras.metrics import Precision, Recall
 
-from helpers.custom_metrics import precision, recall, f1_score
+sys.path.append("..")
+sys.path.append(os.getcwd())
+from helpers.custom_metrics import F1Score 
 
 def resNet50(strategy):
     with strategy.scope():
@@ -16,6 +21,6 @@ def resNet50(strategy):
         predictions = Dense(1, activation='sigmoid')(x)
         model = Model(inputs=base_model.input, outputs=predictions)
 
-        model.compile(optimizer=Adam(learning_rate=0.001), loss='binary_crossentropy', metrics=['accuracy', precision, recall, f1_score])
+        model.compile(optimizer=Adam(learning_rate=0.001), loss='binary_crossentropy', metrics=['accuracy', Precision(), Recall(), F1Score()])
 
         return model

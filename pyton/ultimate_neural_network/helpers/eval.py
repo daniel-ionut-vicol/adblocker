@@ -41,7 +41,7 @@ def eval(model, test_generator, test_steps, history, start_datetime, finish_date
     loss, accuracy, precision, recall, f1_score = model.evaluate(test_generator, steps=test_steps)
 
     # Define a file path where you want to save the metrics
-    output_file = os.path.join(os.environ["DATA"], 'cnn_training', 'models', current_model_folder_name, 'training_results.txt')
+    output_file = os.path.join(os.environ["DATA"], 'cnn_training', 'models', current_model_folder_name, 'evaluation_results.txt')
 
     # Open the file in write mode
     with open(output_file, 'w') as file:
@@ -73,15 +73,26 @@ def eval(model, test_generator, test_steps, history, start_datetime, finish_date
     os.makedirs(os.path.join(os.environ["DATA"], 'cnn_training', 'models', current_model_folder_name, 'metrics'), exist_ok=True)
 
     try:
+        print("Saving metrics...")
         # Save metrics for loss and accuracy
-        saveMetric(range(1, config.EPOCHS + 1), history.history['loss'], history.history['val_loss'], 'Loss', current_model_folder_name)
-        saveMetric(range(1, config.EPOCHS + 1), history.history['accuracy'], history.history['val_accuracy'], 'Accuracy', current_model_folder_name)
+        num_epochs = len(history.history['loss'])
+
+        saveMetric(range(1, num_epochs + 1), history.history['loss'], history.history['val_loss'], 'Loss', current_model_folder_name)
+        saveMetric(range(1, num_epochs + 1), history.history['accuracy'], history.history['val_accuracy'], 'Accuracy', current_model_folder_name)
         # Save metrics for precision, recall, and f1_score
-        saveMetric(range(1, config.EPOCHS + 1), precision, recall, 'Precision', current_model_folder_name)
-        saveMetric(range(1, config.EPOCHS + 1), f1_score, f1_score, 'F1 Score', current_model_folder_name)
+        saveMetric(range(1, num_epochs + 1), history.history['precision'], history.history['val_precision'], 'Precision', current_model_folder_name)
+        saveMetric(range(1, num_epochs + 1), history.history['recall'], history.history['val_recall'], 'Recall', current_model_folder_name)
+        saveMetric(range(1, num_epochs + 1), history.history['f1_score'], history.history['val_f1_score'], 'F1 Score', current_model_folder_name)
         
-        saveModel(model, current_model_folder_name)
     except Exception as e:
+        print("Could not save the metrics")
         print(e)
 
+    try:
+        saveModel(model, current_model_folder_name)
+        print("Model saved at: ", os.path.join(current_model_folder_name, "saved_model"))
+    except Exception as e:
+        print("Could not save the model")
+        print(e)
+        
     print("Evaluation completed...")

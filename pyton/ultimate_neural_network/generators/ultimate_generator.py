@@ -1,9 +1,9 @@
 import sys
-sys.path.append("..")
-
 import numpy as np
 import cv2
 import tensorflow as tf
+
+sys.path.append("..")
 import config
 
 class Generator(tf.keras.utils.Sequence):
@@ -25,9 +25,9 @@ class Generator(tf.keras.utils.Sequence):
             image_min_side         : After resizing the minimum side of an image is equal to image_min_side.
             is_training            : Indicates whether the generator is for training data.
         """
-        self.batch_size = BATCH_SIZE
+        self.batch_size = int(BATCH_SIZE)
         self.shuffle_images = shuffle_images
-        self.image_min_side = image_min_side
+        self.image_min_side = int(image_min_side)
         self.is_training = is_training
 
         # Load image paths and labels
@@ -59,9 +59,21 @@ class Generator(tf.keras.utils.Sequence):
             # Randomly shuffle dataset
             seed = 4321
             np.random.seed(seed)
-            np.random.shuffle(self.image_paths)
-            np.random.seed(seed)
-            np.random.shuffle(self.image_labels)
+
+            # Convert list to a list (it's already a list)
+            image_labels_list = list(self.image_labels)
+
+            # Combine image paths and labels into one list of tuples
+            image_list = list(zip(self.image_paths, image_labels_list))
+
+            # Shuffle the list
+            np.random.shuffle(image_list)
+
+            # Unzip the list back into image paths and labels
+            self.image_paths, self.image_labels = zip(*image_list)
+
+            # Convert list back to EagerTensor
+            self.image_labels = tf.convert_to_tensor(self.image_labels)
 
         # Divide image_paths and image_labels into groups of BATCH_SIZE
         self.image_groups = [
