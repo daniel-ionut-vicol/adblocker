@@ -9,7 +9,7 @@ from sklearn.model_selection import train_test_split
 # -----------
 sys.path.append("..")
 sys.path.append(os.getcwd())
-from models.resnet50 import resNet50
+from models.get_model import get_model
 from helpers.eval import eval
 from helpers.utils import collect_image_paths
 from generators.ultimate_generator import Generator 
@@ -26,7 +26,7 @@ for gpu in gpus:
 strategy = tf.distribute.MirroredStrategy()
 print(f"Number of GPUs: {strategy.num_replicas_in_sync}")
 
-model = resNet50(strategy)
+model = get_model(strategy)
 
 # Collect image paths and labels
 ad_paths, ad_labels = collect_image_paths(os.path.join(config.DATASET_PATH, 'ad'), 0, config.AD_IMAGE_LIMIT)
@@ -35,13 +35,17 @@ nonad_paths, nonad_labels = collect_image_paths(os.path.join(config.DATASET_PATH
 file_paths = ad_paths + nonad_paths
 labels = ad_labels + nonad_labels
 
-train_paths, test_paths, train_labels, test_labels = train_test_split(file_paths, labels, test_size=0.2, random_state=42)
-train_paths, val_paths, train_labels, val_labels = train_test_split(train_paths, train_labels, test_size=0.25, random_state=42)  # 0.25 x 0.8 = 0.2
+# Calculate the test ratio in terms of the train + val set
+test_ratio = config.TEST_RATIO / (config.TRAIN_RATIO + config.VAL_RATIO)
+# First split to separate out the test set
+train_val_paths, test_paths, train_val_labels, test_labels = train_test_split(file_paths, labels, test_size=config.TEST_RATIO, random_state=42)
+# Second split to separate out the train and val sets
+train_paths, val_paths, train_labels, val_labels = train_test_split(train_val_paths, train_val_labels, test_size=test_ratio, random_state=42)
 
 train_generator = Generator(train_paths, train_labels, config.BATCH_SIZE)
-val_generator = Generator(val_paths, val_labels, config.BATCH_SIZE)
+val_generator = Generator(val_paths, val_labels, config.BATCH_SIZE, is_training=False)
 # Assuming you have test_paths and test_labels
-test_generator = Generator(test_paths, test_labels, config.BATCH_SIZE)
+test_generator = Generator(test_paths, test_labels, config.BATCH_SIZE, is_training=False)
 
 train_steps = len(train_paths) // config.BATCH_SIZE
 val_steps = len(val_paths) // config.BATCH_SIZE
@@ -62,6 +66,7 @@ with open(output_file, 'wb') as file:
 # Save the configuration data and dataset sizes to config.json
 config_data = {
     'GPUS_NO': strategy.num_replicas_in_sync,
+    'MODEL': config.MODEL,
     'IMAGE_SIZE': config.IMAGE_SIZE,
     'BATCH_SIZE': config.BATCH_SIZE,
     'EPOCHS': config.EPOCHS,
@@ -71,6 +76,18 @@ config_data = {
     'Train Images': len(train_paths),
     'Validation Images': len(val_paths),
     'Test Images': len(test_paths),
+    "TRAIN_RATIO": config.TRAIN_RATIO,
+    "VAL_RATIO": config.VAL_RATIO,
+    "TEST_RATIO": config.TEST_RATIO,
+    "USE_AUGMENTATION": config.USE_AUGMENTATION,
+    "ROTATION_RANGE": config.ROTATION_RANGE,
+    "WIDTH_SHIFT_RANGE": config.WIDTH_SHIFT_RANGE,
+    "HEIGHT_SHIFT_RANGE": config.HEIGHT_SHIFT_RANGE,
+    "BRIGHTNESS_RANGE": config.BRIGHTNESS_RANGE,
+    "HORIZONTAL_FLIP": config.HORIZONTAL_FLIP,
+    "FILL_MODE": config.FILL_MODE,
+    "RESCALE_NUMERATOR": config.RESCALE_NUMERATOR,
+    "RESCALE_DENOMINATOR": config.RESCALE_DENOMINATOR
 }
 with open(f'{os.environ["DATA"]}/cnn_training/models/{current_model_folder_name}/config.json', 'w') as f:
     json.dump(config_data, f)

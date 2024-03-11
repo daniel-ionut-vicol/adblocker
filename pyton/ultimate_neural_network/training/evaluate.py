@@ -54,7 +54,7 @@ if __name__ == "__main__":
     with open(os.path.join(model_dir, 'config.json'), 'r') as f:
         config = json.load(f)
 
-    test_generator = Generator(test_paths, test_labels, config["BATCH_SIZE"], image_min_side=config["IMAGE_SIZE"])
+    test_generator = Generator(test_paths, test_labels, config["BATCH_SIZE"], image_min_side=config["IMAGE_SIZE"], is_training=False)
     test_steps = len(test_paths) // int(config["BATCH_SIZE"])
 
     os.chdir(model_dir)  # Change the current working directory to the model folder

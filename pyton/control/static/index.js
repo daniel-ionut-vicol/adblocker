@@ -2,6 +2,31 @@ const mlserver_url = "http://192.168.69.207:8081"
 listProcesses()
 getLogs()
 getEvaluationLogs()
+getModels()
+
+document.getElementById("get_logs").addEventListener("click", getLogs);
+document.getElementById("get_evaluation_logs").addEventListener("click", getEvaluationLogs);
+document.getElementById("list_processes").addEventListener("click", listProcesses)
+document.getElementById("get_models").addEventListener("click", getModels);
+document.getElementById("start_training").addEventListener("click", () => {
+    // Send a POST request to the server to start the training
+    fetch(mlserver_url + '/start_training', {
+        method: 'POST',
+    })
+        .then(response => response.json())
+        .then(data => {
+            alert(data.message)
+            console.log(data.message);
+        })
+        .catch((error) => {
+            alert('Error:', error)
+            console.error('Error:', error);
+        }).finally(() => {
+            listProcesses()
+            getLogs()
+        })
+})
+
 // Fetch the file contents from the server
 fetch(mlserver_url + '/hyperparameters')
     .then(response => {
@@ -15,13 +40,32 @@ fetch(mlserver_url + '/hyperparameters')
         // Create a form with an input field for each parameter in the configuration
         let form = '<form id="configForm">';
         for (const parameter in config) {
-            form += `
-                <label for="${parameter}">${parameter}:</label>
-                <input type="text" id="${parameter}" name="${parameter}" value="${config[parameter]}">
-                <br>
-                `;
+            if (parameter === 'MODEL') {
+                // Create a select dropdown for the model
+                form += `
+            <label for="${parameter}">${parameter}:</label>
+            <select id="${parameter}" name="${parameter}">
+                <option value="RESNET50" ${config.MODEL === 'RESNET50' ? 'selected' : ''}>RESNET50</option>
+                <option value="VGG16" ${config.MODEL === 'VGG16' ? 'selected' : ''}>VGG16</option>
+                <option value="VGG19" ${config.MODEL === 'VGG19' ? 'selected' : ''}>VGG19</option>
+                <option value="INCEPTION_V3" ${config.MODEL === 'INCEPTION_V3' ? 'selected' : ''}>INCEPTION_V3</option>
+                <option value="XCEPTION" ${config.MODEL === 'XCEPTION' ? 'selected' : ''}>XCEPTION</option>
+                <option value="EFFICIENTNET_B0" ${config.MODEL === 'EFFICIENTNET_B0' ? 'selected' : ''}>EFFICIENTNET_B0</option>
+                <option value="MOBILENET" ${config.MODEL === 'MOBILENET' ? 'selected' : ''}>MOBILENET</option>
+                <option value="DENSENET121" ${config.MODEL === 'DENSENET121' ? 'selected' : ''}>DENSENET121</option>
+            </select>
+            <br>
+            `;
+            } else {
+                form += `
+            <label for="${parameter}">${parameter}:</label>
+            <input type="text" id="${parameter}" name="${parameter}" value="${config[parameter]}">
+            <br>
+            `;
+            }
         }
         form += '<input type="submit" value="Update"></form>';
+
 
         // Add the form to the page
         document.getElementById('params').innerHTML = form;
@@ -70,31 +114,6 @@ fetch(mlserver_url + '/hyperparameters')
         console.log('There was a problem with the fetch operation: ' + e.message);
     });
 
-document.getElementById("get_logs").addEventListener("click", getLogs);
-
-document.getElementById("get_evaluation_logs").addEventListener("click", getEvaluationLogs);
-
-document.getElementById("start_training").addEventListener("click", () => {
-    // Send a POST request to the server to start the training
-    fetch(mlserver_url + '/start_training', {
-        method: 'POST',
-    })
-        .then(response => response.json())
-        .then(data => {
-            alert(data.message)
-            console.log(data.message);
-        })
-        .catch((error) => {
-            alert('Error:', error)
-            console.error('Error:', error);
-        }).finally(() => {
-            listProcesses()
-            getLogs()
-        })
-})
-
-document.getElementById("list_processes").addEventListener("click", listProcesses)
-
 function getEvaluationLogs() {
     // Send a GET request to the server to get the logs
     fetch(mlserver_url + '/get_evaluation_logs', {
@@ -114,6 +133,7 @@ function getEvaluationLogs() {
             console.error('Error:', error);
         });
 }
+
 function getLogs() {
     // Send a GET request to the server to get the logs
     fetch(mlserver_url + '/get_logs', {
@@ -163,12 +183,15 @@ function handleClick(li) {
         .catch((error) => console.error('Error:', error));
 }
 
-fetch('/get_models')
-    .then(response => response.json())
-    .then(models => {
-        const modelsContainer = document.getElementById('models');
-        createSubItems(models, modelsContainer);
-    });
+function getModels() {
+    fetch('/get_models')
+        .then(response => response.json())
+        .then(models => {
+            const modelsContainer = document.getElementById('models');
+            modelsContainer.innerHTML = '';  // Clear the existing contents
+            createSubItems(models, modelsContainer);
+        });
+}
 
 function createSubItems(node, parentElement, path = '') {
     for (const item in node) {

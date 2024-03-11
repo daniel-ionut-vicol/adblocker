@@ -2,6 +2,7 @@ import sys
 import numpy as np
 import cv2
 import tensorflow as tf
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
 sys.path.append("..")
 import config
@@ -33,6 +34,18 @@ class Generator(tf.keras.utils.Sequence):
         # Load image paths and labels
         self.image_paths = image_paths
         self.image_labels = image_labels
+
+        # Initialize ImageDataGenerator
+        if self.is_training and config.USE_AUGMENTATION:
+            self.datagen = ImageDataGenerator(
+                rotation_range=config.ROTATION_RANGE,
+                width_shift_range=config.WIDTH_SHIFT_RANGE,
+                height_shift_range=config.HEIGHT_SHIFT_RANGE,
+                brightness_range=config.BRIGHTNESS_RANGE,
+                horizontal_flip=config.HORIZONTAL_FLIP,
+                fill_mode=config.FILL_MODE,
+                rescale=config.RESCALE
+            )
 
         self.create_image_groups()
 
@@ -117,13 +130,13 @@ class Generator(tf.keras.utils.Sequence):
                 
             img = self.resize_image(img, self.image_min_side)
     
-            # Normalize the image
-            img = img / 255.0  # Assuming pixel values are in the range [0, 255]
+            if (config.USE_AUGMENTATION and self.is_training):
+                # Apply the transformations from the ImageDataGenerator
+                img = self.datagen.random_transform(img)
     
             images.append(img)
             
         return images
-
 
     def construct_image_batch(self, image_group):
         # get the max image shape

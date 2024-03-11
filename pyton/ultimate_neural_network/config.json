@@ -1,4 +1,5 @@
 {
+    "MODEL": "MOBILENET",
     "IMAGE_SIZE": "224",
     "AD_IMAGE_LIMIT": "all",
     "NONAD_IMAGE_LIMIT": "all",
@@ -6,5 +7,17 @@
     "EPOCHS": "20",
     "PATIENCE": "20",
     "DATASET_PATH": "/mnt/data/mlserver/newdataset",
-    "VERBOSE_LEVEL": "1"
+    "VERBOSE_LEVEL": "1",
+    "TRAIN_RATIO": "0.6",
+    "VAL_RATIO": "0.2",
+    "TEST_RATIO": "0.2",
+    "USE_AUGMENTATION": "true",
+    "ROTATION_RANGE": "20",
+    "WIDTH_SHIFT_RANGE": "0.2",
+    "HEIGHT_SHIFT_RANGE": "0.2",
+    "BRIGHTNESS_RANGE": "0.8,1.2",
+    "HORIZONTAL_FLIP": "true",
+    "FILL_MODE": "nearest",
+    "RESCALE_NUMERATOR": "1",
+    "RESCALE_DENOMINATOR": "255"
 }
