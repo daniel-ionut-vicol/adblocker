@@ -53,7 +53,7 @@ test_steps = len(test_paths) // config.BATCH_SIZE
 
 start_datetime = datetime.datetime.now()
 
-current_model_folder_name = f'model_{start_datetime.strftime("%Y-%m-%d_%H-%M-%S")}'
+current_model_folder_name = f'{config.MODEL}_{start_datetime.strftime("%Y-%m-%d_%H-%M-%S")}'
 # Create a new directory for models
 os.makedirs(f"{os.environ['DATA']}/cnn_training/models/{current_model_folder_name}", exist_ok=True)
 # Define a file path where you want to save the test_paths and test_labels
