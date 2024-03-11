@@ -318,24 +318,24 @@ function listProcesses() {
     })
         .then(response => response.json())
         .then(data => {
-            // Create a table with a row for each process
-            let table = '<table><tr><th>Name</th><th>PID</th><th>Start Time</th><th>Running Time</th><th>Command</th><th>Action</th></tr>';
+            // Create a list with an item for each process
+            let list = '<ul class="process-list">';
             for (const process of data) {
-                table += `
-                    <tr>
-                        <td>${process.name}</td>
-                        <td>${process.pid}</td>
-                        <td>${new Date(process.start_time * 1000).toLocaleString()}</td>
-                        <td>${Math.floor(process.running_time / 3600)}h ${Math.floor(process.running_time / 60) % 60}m ${Math.floor(process.running_time % 60)}s</td>
-                        <td>${process.cmdline}</td>
-                        <td><button onclick="stopProcess('${process.pid}')">Stop</button></td>
-                    </tr>
+                list += `
+                    <li>
+                        <h3>${process.name}</h3>
+                        <p><strong>PID:</strong> ${process.pid}</p>
+                        <p><strong>Start Time:</strong> ${new Date(process.start_time * 1000).toLocaleString()}</p>
+                        <p><strong>Running Time:</strong> ${Math.floor(process.running_time / 3600)}h ${Math.floor(process.running_time / 60) % 60}m ${Math.floor(process.running_time % 60)}s</p>
+                        <p><strong>Command:</strong> ${process.cmdline}</p>
+                        <button onclick="stopProcess('${process.pid}')">Stop</button>
+                    </li>
                 `;
             }
-            table += '</table>';
+            list += '</ul>';
 
-            // Add the table to the page
-            document.getElementById('processes').innerHTML = table;
+            // Add the list to the page
+            document.getElementById('processes').innerHTML = list;
         })
         .catch((error) => {
             console.error('Error:', error);
