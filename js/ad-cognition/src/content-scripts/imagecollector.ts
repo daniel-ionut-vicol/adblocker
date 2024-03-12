@@ -9,7 +9,9 @@ export class ImageCollector {
 
     protected images: HTMLImageElement[] = [];
 
-    protected MIN_CONFIDENCE: number;
+    protected CLIP_MIN_CONFIDENCE: number;
+
+    protected CNN_MIN_CONFIDENCE: number;
 
     public DEBUG_MODE: boolean;
 
@@ -17,7 +19,7 @@ export class ImageCollector {
 
     public CLIP_ENABLED: boolean;
 
-    constructor(debug_mode: boolean, cnn_enabled: boolean, clip_enabled: boolean, imgArray: HTMLImageElement[]) {
+    constructor(debug_mode: boolean, cnn_enabled: boolean, clip_enabled: boolean, imgArray: HTMLImageElement[], clip_min_confidence: number, cnn_min_confidence: number) {
         this.IMAGE_SIZE = 100;
         this.MIN_IMG_SIZE = 100;
         this.TEXT_DIV_CLASSNAME = '';
@@ -25,7 +27,8 @@ export class ImageCollector {
         this.DEBUG_MODE = debug_mode;
         this.CNN_ENABLED = cnn_enabled;
         this.CLIP_ENABLED = clip_enabled;
-        this.MIN_CONFIDENCE = 0.2;
+        this.CLIP_MIN_CONFIDENCE= clip_min_confidence;
+        this.CNN_MIN_CONFIDENCE= cnn_min_confidence;
         this.images = imgArray;
     }
 
@@ -81,9 +84,9 @@ export class ImageCollector {
         if (!prediction) return;
 
         if (typeof prediction === 'number') {
-            return prediction < 0.5;
+            return prediction < this.CNN_MIN_CONFIDENCE;
         } else {
-            return (prediction[0] > this.MIN_CONFIDENCE) && (prediction[0] > prediction[1]);
+            return (prediction[0] > this.CLIP_MIN_CONFIDENCE) && (prediction[0] > prediction[1]);
         }
     }
 

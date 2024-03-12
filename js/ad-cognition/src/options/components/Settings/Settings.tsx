@@ -105,7 +105,7 @@ export const Settings = observer(() => {
     ];
 
     type AISetting = Partial<FilterInfo> & {
-        settingName: SETTINGS_NAMES;
+        settingName: keyof OPTION_SETTINGS;
     };
 
     const aiSettings: AISetting[] = [

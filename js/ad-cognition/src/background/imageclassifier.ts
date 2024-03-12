@@ -2,6 +2,8 @@ import * as tf from '@tensorflow/tfjs';
 
 import { log } from 'Common/logger';
 import { MESSAGE_TYPES } from 'Common/constants/common';
+import { settings } from './settings';
+import { SETTINGS_NAMES } from 'Common/constants/settings-constants';
 
 export class ImageClassifier {
     // Size of the image expected by the model.
@@ -13,7 +15,7 @@ export class ImageClassifier {
     static FIVE_SECONDS_IN_MS = 5000;
 
     static model: any;
-
+    
     constructor() {
         ImageClassifier.loadModel();
     }
@@ -22,7 +24,7 @@ export class ImageClassifier {
         if (ImageClassifier.model != undefined) {
             return true;
         }
-        const response = await ImageClassifier.isServerAccessible('http://192.168.69.207:5500/model.json');
+        const response = await ImageClassifier.isServerAccessible(settings.getSetting(SETTINGS_NAMES.CNN_PROTECTION_SERVER));
         return response;
     }
 
@@ -73,7 +75,7 @@ export class ImageClassifier {
 
         if (!ImageClassifier.model) {
             try {
-                ImageClassifier.model = await tf.loadLayersModel('http://192.168.69.207:5500/model.json');
+                ImageClassifier.model = await tf.loadLayersModel(settings.getSetting(SETTINGS_NAMES.CNN_PROTECTION_SERVER) as string);
                 await ImageClassifier.model.save('indexeddb://cnn-model');
                 log.debug('Model loaded from server and saved to IndexedDB');
             } catch (e) {

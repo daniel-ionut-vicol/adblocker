@@ -1,5 +1,7 @@
 /* eslint-disable class-methods-use-this */
 import { log } from 'Common/logger';
+import { settings } from './settings';
+import { SETTINGS_NAMES } from 'Common/constants/settings-constants';
 
 export class ClipImageClassifier {
     IMAGE_SIZE = 224;
@@ -36,7 +38,7 @@ export class ClipImageClassifier {
     }
 
     public static async isAvailable() {
-        const response = await ClipImageClassifier.isServerAccessible('http://192.168.69.207:5000')
+        const response = await ClipImageClassifier.isServerAccessible(settings.getSetting(SETTINGS_NAMES.CLIP_PROTECTION_SERVER))
         return response;
     }
 
@@ -53,7 +55,7 @@ export class ClipImageClassifier {
         const options = { method: 'POST', body: formData };
 
         const response = await fetch(
-            'http://192.168.69.207:5000/predict',
+            settings.getSetting(SETTINGS_NAMES.CLIP_PROTECTION_SERVER) as string,
             options,
         );
         if (!response.ok) {

@@ -43,13 +43,15 @@ if (window.top === window && (document.documentElement instanceof HTMLElement)) 
             const debug_enabled = protectionData[SETTINGS_NAMES.DEBUG_ENABLED];
             const cnn_enabled = protectionData[SETTINGS_NAMES.CNN_PROTECTION_ENABLED];
             const clip_enabled = protectionData[SETTINGS_NAMES.CLIP_PROTECTION_ENABLED];
+            const cnn_min_confidence = protectionData[SETTINGS_NAMES.CNN_PROTECTION_TRESHOLD];
+            const clip_min_confidence = protectionData[SETTINGS_NAMES.CLIP_PROTECTION_TRESHOLD];
 
             chrome.runtime.sendMessage({ type: MESSAGE_TYPES.GET_USER_RULES }).then(userRules => {
                 const currentRule = getRuleFromUrl(location.href);
 
                 if ((cnn_enabled || clip_enabled) && !isRulePresent(userRules, currentRule!)) {
                     try {
-                        const imageCollector = new ImageCollector(debug_enabled, cnn_enabled, clip_enabled, imgArray);
+                        const imageCollector = new ImageCollector(debug_enabled, cnn_enabled, clip_enabled, imgArray, clip_min_confidence, cnn_min_confidence);
                         imageCollector.init();
                         // eslint-disable-next-line no-empty
                     } catch (e) {

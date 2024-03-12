@@ -202,12 +202,12 @@ export class SettingsStore {
     };
 
     @action
-    setSetting = async (settingName: SETTINGS_NAMES, value: any) => {
+    setSetting = async (settingName: keyof OPTION_SETTINGS, value: any) => {
         try {
             const response: any = await sender.setSetting({ [settingName]: value });
             if (response.type === 'success')
                 runInAction(() => {
-                    this.settings[settingName as keyof OPTION_SETTINGS] = value;
+                    this.settings[settingName] = value as never ; 
                 });
             return response;
         } catch (e) {

@@ -7,7 +7,7 @@ import styles from '../Settings/Settings.module.pcss';
 import ModalComp from '../ModalComp/ModelComp';
 import { theme } from 'Common/styles';
 import { rootStore } from 'Options/stores';
-import { OPTION_SETTINGS, SETTINGS_NAMES } from 'Common/constants/settings-constants';
+import { SETTINGS_NAMES } from 'Common/constants/settings-constants';
 
 type SettingType = "tCNN" | "tCLIP" | "sCNN" | "sCLIP";
 
@@ -20,7 +20,6 @@ type AI_SETTINGS = {
 
 export const AISettings = () => {
     const { settingsStore, uiStore } = useContext(rootStore);
-
     const [modalOpen, setModalOpen] = useState(
         {
             tCNN: false,
@@ -32,28 +31,40 @@ export const AISettings = () => {
 
     const [aiSettings, setAiSettings] = useState<AI_SETTINGS>(
         {
-            tCNN: settingsStore.settings[SETTINGS_NAMES.CNN_PROTECTION_TRESHOLD as keyof OPTION_SETTINGS],
-            tCLIP: settingsStore.settings[SETTINGS_NAMES.CLIP_PROTECTION_TRESHOLD as keyof OPTION_SETTINGS],
-            sCNN: settingsStore.settings[SETTINGS_NAMES.CNN_PROTECTION_SERVER as keyof OPTION_SETTINGS],
-            sCLIP: settingsStore.settings[SETTINGS_NAMES.CLIP_PROTECTION_SERVER as keyof OPTION_SETTINGS]
+            tCNN: settingsStore.settings[SETTINGS_NAMES.CNN_PROTECTION_TRESHOLD],
+            tCLIP: settingsStore.settings[SETTINGS_NAMES.CLIP_PROTECTION_TRESHOLD],
+            sCNN: settingsStore.settings[SETTINGS_NAMES.CNN_PROTECTION_SERVER],
+            sCLIP: settingsStore.settings[SETTINGS_NAMES.CLIP_PROTECTION_SERVER]
         }
     )
-    const handleSettingChange = (type: SettingType) => {
+
+    const handleSettingSave = (type: SettingType, value: number | string) => {
         switch (type) {
             case "tCNN":
-
+                settingsStore.setSetting(SETTINGS_NAMES.CNN_PROTECTION_TRESHOLD, value)
                 break;
             case "tCLIP":
-
+                settingsStore.setSetting(SETTINGS_NAMES.CLIP_PROTECTION_TRESHOLD, value)
                 break;
             case "sCNN":
-
+                settingsStore.setSetting(SETTINGS_NAMES.CNN_PROTECTION_SERVER, value)
                 break;
             case "sCLIP":
-
+                settingsStore.setSetting(SETTINGS_NAMES.CLIP_PROTECTION_SERVER, value)
                 break;
         }
+        uiStore.addNotification("Setting saved!")
+        setModalOpen({ tCLIP: false, sCLIP: false, sCNN: false, tCNN: false })
     };
+
+    function validateUrl(string: string) {
+        try {
+            new URL(string);
+            return true;
+        } catch (err) {
+            return false;
+        }
+    }
 
     return (
         <Category
@@ -101,38 +112,46 @@ export const AISettings = () => {
             <ModalComp
                 onClose={() => setModalOpen(prevState => ({ ...prevState, tCNN: false }))}
                 submitMessage='Submit'
-                isValid={true}
-                onSubmit={() => handleSettingChange("tCNN")}
+                isValid={!!aiSettings.tCNN}
+                onSubmit={() => handleSettingSave("tCNN", aiSettings.tCNN)}
                 title='CNN treshold'
                 isOpen={modalOpen.tCNN}>
                 <input
                     className={theme.modal.modalInput}
-                    type="text"
-                    value={aiSettings.tCNN}
-                    onChange={e => setAiSettings(prevState => ({ ...prevState, tCNN: e.target.value }))}
+                    type="number"
+                    step="0.01"
+                    value={aiSettings.tCNN.toString()}
+                    onChange={e => {
+                        const value = parseFloat(e.target.value);
+                        setAiSettings(prevState => ({ ...prevState, tCNN: isNaN(value) ? 0 : value }));
+                    }}
                     placeholder='Confidence percentage'
                 />
             </ModalComp>
             <ModalComp
                 onClose={() => setModalOpen(prevState => ({ ...prevState, tCLIP: false }))}
                 submitMessage='Submit'
-                isValid={true}
-                onSubmit={() => handleSettingChange("tCLIP")}
+                isValid={!!aiSettings.tCLIP}
+                onSubmit={() => handleSettingSave("tCLIP", aiSettings.tCLIP)}
                 title='CLIP treshold'
                 isOpen={modalOpen.tCLIP}>
                 <input
                     className={theme.modal.modalInput}
-                    type="text"
-                    value={aiSettings.tCLIP}
-                    onChange={e => setAiSettings(prevState => ({ ...prevState, tCLIP: e.target.value }))}
+                    type="number"
+                    step="0.01"
+                    value={aiSettings.tCLIP.toString()}
+                    onChange={e => {
+                        const value = parseFloat(e.target.value);
+                        setAiSettings(prevState => ({ ...prevState, tCLIP: isNaN(value) ? 0 : value }));
+                    }}
                     placeholder='Confidence percentage'
                 />
             </ModalComp>
             <ModalComp
                 onClose={() => setModalOpen(prevState => ({ ...prevState, sCNN: false }))}
                 submitMessage='Submit'
-                isValid={true}
-                onSubmit={() => handleSettingChange("sCNN")}
+                isValid={validateUrl(aiSettings.sCNN)}
+                onSubmit={() => handleSettingSave("sCNN", aiSettings.sCNN)}
                 title='CNN server'
                 isOpen={modalOpen.sCNN}>
                 <input
@@ -146,8 +165,8 @@ export const AISettings = () => {
             <ModalComp
                 onClose={() => setModalOpen(prevState => ({ ...prevState, sCLIP: false }))}
                 submitMessage='Submit'
-                isValid={true}
-                onSubmit={() => handleSettingChange("sCLIP")}
+                isValid={validateUrl(aiSettings.sCLIP)}
+                onSubmit={() => handleSettingSave("sCLIP", aiSettings.sCLIP)}
                 title='CLIP server'
                 isOpen={modalOpen.sCLIP}>
                 <input
