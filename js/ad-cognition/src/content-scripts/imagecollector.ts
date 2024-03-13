@@ -19,11 +19,10 @@ export class ImageCollector {
 
     public CLIP_ENABLED: boolean;
 
-    constructor(debug_mode: boolean, cnn_enabled: boolean, clip_enabled: boolean, imgArray: HTMLImageElement[], clip_min_confidence: number, cnn_min_confidence: number) {
+    constructor(debug_mode: boolean, cnn_enabled: boolean, clip_enabled: boolean, imgArray: HTMLImageElement[], clip_min_confidence: number, cnn_min_confidence: number, minImgSize: number) {
         this.IMAGE_SIZE = 100;
-        this.MIN_IMG_SIZE = 100;
+        this.MIN_IMG_SIZE = minImgSize;
         this.TEXT_DIV_CLASSNAME = '';
-
         this.DEBUG_MODE = debug_mode;
         this.CNN_ENABLED = cnn_enabled;
         this.CLIP_ENABLED = clip_enabled;

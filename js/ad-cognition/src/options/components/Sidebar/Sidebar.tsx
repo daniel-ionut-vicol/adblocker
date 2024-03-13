@@ -41,7 +41,6 @@ export const Sidebar = () => {
             <div className={className}>
                 <Icon id={IconId.LOGO} className="sidebar__logo" />
                 <Nav closeSidebar={closeSidebar} />
-                <Notice />
             </div>
         </>
     );

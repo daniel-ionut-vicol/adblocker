@@ -55,7 +55,7 @@ export class ClipImageClassifier {
         const options = { method: 'POST', body: formData };
 
         const response = await fetch(
-            settings.getSetting(SETTINGS_NAMES.CLIP_PROTECTION_SERVER) as string,
+            settings.getSetting(SETTINGS_NAMES.CLIP_PROTECTION_SERVER) + "/predict",
             options,
         );
         if (!response.ok) {

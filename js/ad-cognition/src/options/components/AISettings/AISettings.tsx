@@ -9,13 +9,14 @@ import { theme } from 'Common/styles';
 import { rootStore } from 'Options/stores';
 import { SETTINGS_NAMES } from 'Common/constants/settings-constants';
 
-type SettingType = "tCNN" | "tCLIP" | "sCNN" | "sCLIP";
+type SettingType = "tCNN" | "tCLIP" | "sCNN" | "sCLIP" | "minImgWidth";
 
 type AI_SETTINGS = {
     tCNN: number,
     tCLIP: number,
     sCNN: string,
-    sCLIP: string
+    sCLIP: string,
+    minImgWidth: number
 }
 
 export const AISettings = () => {
@@ -26,6 +27,7 @@ export const AISettings = () => {
             tCLIP: false,
             sCNN: false,
             sCLIP: false,
+            minImgWidth: false
         }
     );
 
@@ -34,7 +36,8 @@ export const AISettings = () => {
             tCNN: settingsStore.settings[SETTINGS_NAMES.CNN_PROTECTION_TRESHOLD],
             tCLIP: settingsStore.settings[SETTINGS_NAMES.CLIP_PROTECTION_TRESHOLD],
             sCNN: settingsStore.settings[SETTINGS_NAMES.CNN_PROTECTION_SERVER],
-            sCLIP: settingsStore.settings[SETTINGS_NAMES.CLIP_PROTECTION_SERVER]
+            sCLIP: settingsStore.settings[SETTINGS_NAMES.CLIP_PROTECTION_SERVER],
+            minImgWidth: settingsStore.settings[SETTINGS_NAMES.MIN_IMG_WIDTH]
         }
     )
 
@@ -52,9 +55,12 @@ export const AISettings = () => {
             case "sCLIP":
                 settingsStore.setSetting(SETTINGS_NAMES.CLIP_PROTECTION_SERVER, value)
                 break;
+            case "minImgWidth":
+                settingsStore.setSetting(SETTINGS_NAMES.MIN_IMG_WIDTH, value)
+                break;
         }
         uiStore.addNotification("Setting saved!")
-        setModalOpen({ tCLIP: false, sCLIP: false, sCNN: false, tCNN: false })
+        setModalOpen({ tCLIP: false, sCLIP: false, sCNN: false, tCNN: false, minImgWidth: false })
     };
 
     function validateUrl(string: string) {
@@ -107,6 +113,15 @@ export const AISettings = () => {
                 message="CLIP server"
                 messageDesc="The URL for the CLIP server"
                 onClick={() => setModalOpen(prevState => ({ ...prevState, sCLIP: true }))}
+            />
+            <Option
+                key={17}
+                iconId={IconId.CUSTOM_FILTERS}
+                id="17"
+                className={styles.optionLabel}
+                message="Minimum image width"
+                messageDesc="The size of the image that will be scanned by AI blockers"
+                onClick={() => setModalOpen(prevState => ({ ...prevState, minImgWidth: true }))}
             />
 
             <ModalComp
@@ -177,7 +192,24 @@ export const AISettings = () => {
                     placeholder='Link to the CLIP server'
                 />
             </ModalComp>
-
+            <ModalComp
+                onClose={() => setModalOpen(prevState => ({ ...prevState, minImgWidth: false }))}
+                submitMessage='Submit'
+                isValid={!!aiSettings.minImgWidth}
+                onSubmit={() => handleSettingSave("minImgWidth", aiSettings.minImgWidth)}
+                title='Minim image width'
+                isOpen={modalOpen.minImgWidth}>
+                <input
+                    className={theme.modal.modalInput}
+                    type="number"
+                    value={aiSettings.minImgWidth.toString()}
+                    onChange={e => {
+                        const value = parseFloat(e.target.value);
+                        setAiSettings(prevState => ({ ...prevState, minImgWidth: isNaN(value) ? 0 : value }));
+                    }}
+                    placeholder='Confidence percentage'
+                />
+            </ModalComp>
         </Category>
     );
 };

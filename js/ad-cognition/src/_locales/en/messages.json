@@ -81,7 +81,7 @@
         "message": "Block ads using CNN"
     },
     "options_block_with_cnn_option_desc": {
-        "message": "Use a ResNet50 based model to detect ads"
+        "message": "Use a CNN model to detect ads"
     },
     "options_block_with_clip_option_desc": {
         "message": "Use a CLIP Prediction model to detect ads"
