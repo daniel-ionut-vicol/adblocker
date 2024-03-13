@@ -76,7 +76,7 @@ export const AISettings = () => {
         <Category
             navLink="/"
             headerName="AI Settings"
-            headerDesc="Edit the prediction tresholds and the servers links"
+            headerDesc="Edit the prediction tresholds, servers links and other"
         >
             <Option
                 key={13}
