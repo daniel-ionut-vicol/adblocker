@@ -45,3 +45,7 @@ details details {
 button {
     margin: 0 10px; /* Add horizontal margins */
 }
+
+a:visited {
+    color: white;
+}

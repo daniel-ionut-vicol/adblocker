@@ -112,7 +112,7 @@ finish_datetime = datetime.datetime.now()
 
 with open(output_file, 'wb') as file:
     # Write the data to the file
-    pickle.dump((test_steps, start_datetime, finish_datetime), file)
+    pickle.dump((test_paths, test_labels), file)
 
 # Convert the history.history dict to a pandas DataFrame
 hist_df = pd.DataFrame(history.history)
@@ -122,4 +122,4 @@ hist_csv_file = f'{os.environ["DATA"]}/cnn_training/models/{current_model_folder
 with open(hist_csv_file, mode='w') as f:
     hist_df.to_csv(f)
 
-eval(model, test_generator, test_steps, history, start_datetime, finish_datetime)
+eval(model, test_generator, test_steps, history,start_datetime, finish_datetime, current_model_folder_name)

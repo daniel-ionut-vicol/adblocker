@@ -4,12 +4,14 @@ getLogs()
 getEvaluationLogs()
 getModels()
 
-document.getElementById("get_logs").addEventListener("click", getLogs);
-document.getElementById("get_evaluation_logs").addEventListener("click", getEvaluationLogs);
-document.getElementById("list_processes").addEventListener("click", listProcesses)
+document.getElementById("get_logs").addEventListener("click", () => setInterval(getLogs, 5000));
+document.getElementById("get_evaluation_logs").addEventListener("click", () => setInterval(getEvaluationLogs, 5000));
+document.getElementById("list_processes").addEventListener("click", () => setInterval(listProcesses, 5000));
 document.getElementById("get_models").addEventListener("click", getModels);
 document.getElementById("start_training").addEventListener("click", () => {
     // Send a POST request to the server to start the training
+    const res = confirm("Start Training ?");
+    if (!res) return;
     fetch(mlserver_url + '/start_training', {
         method: 'POST',
     })
@@ -344,6 +346,8 @@ function listProcesses() {
 
 // Function to stop a specific process
 function stopProcess(process_id) {
+    const res = confirm("Stop process ?");
+    if (!res) return;
     fetch(mlserver_url + '/stop_process/' + process_id, {
         method: 'POST',
     })

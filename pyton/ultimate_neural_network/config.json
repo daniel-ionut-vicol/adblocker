@@ -1,5 +1,5 @@
 {
-    "MODEL": "MOBILENET",
+    "MODEL": "VGG16",
     "IMAGE_SIZE": "224",
     "AD_IMAGE_LIMIT": "all",
     "NONAD_IMAGE_LIMIT": "all",

@@ -33,10 +33,8 @@ def saveModel(model, current_model_folder_name, name='model'):
     tf.keras.models.save_model(model, tf_save_path, save_format='tf')
     tf.keras.models.save_model(model, h5_save_path, save_format='h5')
 
-def eval(model, test_generator, test_steps, history, start_datetime, finish_datetime):
+def eval(model, test_generator, test_steps, history,start_datetime, finish_datetime, current_model_folder_name):
     print("Starting evaluation...")
-    current_model_folder_name = f'model_{start_datetime.strftime("%Y-%m-%d_%H-%M-%S")}'
-
     # Evaluate the model on the test data
     loss, accuracy, precision, recall, f1_score = model.evaluate(test_generator, steps=test_steps)
 
@@ -62,6 +60,8 @@ def eval(model, test_generator, test_steps, history, start_datetime, finish_date
         file.write(f'Recall: {recall}\n')
         file.write(f'F1-score: {f1_score}\n')
         file.write('-----------------------\n\n')
+        file.write(f'Start Time: {start_datetime}')
+        file.write(f'Finish Time: {finish_datetime}')
         file.write(f'Training took: {finish_datetime-start_datetime}')
 
     # Close the file
